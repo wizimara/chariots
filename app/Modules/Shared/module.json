@@ -1,0 +1,6 @@
+{
+    "name": "Shared",
+    "slug": "shared",
+    "version": "1.0",
+    "description": "this module shares resources like views for all modules and some classes"
+}

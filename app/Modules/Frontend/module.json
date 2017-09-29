@@ -1,0 +1,6 @@
+{
+    "name": "Frontend",
+    "slug": "frontend",
+    "version": "1.0",
+    "description": "this module handles front end look of car rental website"
+}
