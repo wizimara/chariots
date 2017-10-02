@@ -9,7 +9,7 @@ It is a car rental app for african market..blah
 - git pull this repository
 - run composer install
 - run php artisan migrate
-- run php artisan migrate:seed
+- run php artisan db:seed
 
 
 
