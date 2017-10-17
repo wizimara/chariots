@@ -6,7 +6,7 @@ It is a car rental app for african market..blah
 
 ## contributing
 
-- git pull this repository
+- git clone this repository
 - run composer install
 - run php artisan migrate
 - run php artisan db:seed
