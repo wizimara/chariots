@@ -10,7 +10,7 @@
 | to using a Closure or controller method. Build something great!
 |
 */
-
+Route::get('/', 'PublicController@showHomepage')->name('home');
 Route::group(['prefix' => 'frontend'], function () {
     Route::get('/', function () {
         dd('This is the Frontend module index page. Build something great!');
