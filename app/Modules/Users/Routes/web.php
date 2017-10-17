@@ -11,8 +11,8 @@
 |
 */
 
-Route::group(['prefix' => 'users'], function () {
-    Route::get('/', function () {
-        dd('This is the Users module index page. Build something great!');
-    });
+Route::group(['prefix' => 'admin/users','middleware'=>['auth','web']], function () {
+    Route::get('/',['as'=>'users.list','uses'=>'UserController@listUsers']);
+	Route::get('/roles',['as'=>'roles.list','uses'=>'UserController@listRoles']);
+	Route::get('/permissions',['as'=>'permissions.list','uses'=>'UserController@listPermissions']);
 });
