@@ -131,8 +131,33 @@ return [
             'text' => 'Change Password',
             'url'  => 'admin/settings',
             'icon' => 'lock',
-        ],        
+        ], 
+		'VEHICLES',
+		
+		[
+            'text' => 'Categories',
+            'url'  => 'admin/vehicles/categories',
+            'icon' => 'list',
+        ], 
+		
+		[
+            'text' => 'Makes',
+            'url'  => 'admin/vehicles/makes',
+            'icon' => 'car',
+        ],             
        
+	   [
+            'text' => 'Models',
+            'url'  => 'admin/vehicles/models',
+            'icon' => 'car',
+        ],     
+	   
+	    [
+            'text' => 'Vehicles',
+            'url'  => 'admin/vehicles/vehicles',
+            'icon' => 'car',
+        ],     
+	   
     ],
 
     /*
