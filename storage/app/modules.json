@@ -1,0 +1,42 @@
+{
+    "Frontend": {
+        "basename": "Frontend",
+        "name": "Frontend",
+        "slug": "frontend",
+        "version": "1.0",
+        "description": "this module handles front end look of car rental website",
+        "id": 3423674012,
+        "enabled": true,
+        "order": 9001
+    },
+    "Shared": {
+        "basename": "Shared",
+        "name": "Shared",
+        "slug": "shared",
+        "version": "1.0",
+        "description": "this module shares resources like views for all modules and some classes",
+        "id": 328004795,
+        "enabled": true,
+        "order": 9001
+    },
+    "Users": {
+        "basename": "Users",
+        "name": "Users",
+        "slug": "users",
+        "version": "1.0",
+        "description": "this is users module",
+        "id": 344172009,
+        "enabled": true,
+        "order": 9001
+    },
+    "Vehicles": {
+        "basename": "Vehicles",
+        "name": "Vehicles",
+        "slug": "vehicles",
+        "version": "1.0",
+        "description": "This is the description for the Vehicles module.",
+        "id": 533621242,
+        "enabled": true,
+        "order": 9001
+    }
+}
