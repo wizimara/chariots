@@ -1,5 +1,5 @@
 @extends('shared::layouts.app')
-
+@section('title','Locations')
 @section('content')
 
           
@@ -16,12 +16,12 @@
 
 						<div class="page-header">
 							<h1>
-								Vehicle Models
+								Vehicle Locations
 								<small>
 									<i class="ace-icon fa fa-angle-double-right"></i>
-									Create a new Models
+									Create a new Location
 								</small> | 
-							<a href="{{ url('/admin/vehicles/models') }}" class="btn btn-primary btn-xs ">Back</a>
+							<a href="{{ url('/admin/vehicles/locations') }}" class="btn btn-primary btn-xs ">Back</a>
 
 							</h1>
 						</div><!-- /.page-header -->
@@ -47,40 +47,19 @@
 								<!-- PAGE CONTENT BEGINS -->
 								
             <div class="tile-body">
-                   {{ Form::open(array('route' => 'models.store')) }} 
+                   {{ Form::open(array('route' => 'locations.store')) }} 
                     <div class="row">
 
-                      <div class="form-group col-sm-6 {{ $errors->has('model_name') ? ' has-error' : '' }} ">
-                        {{ Form::label('model_name', trans('Name')) }}
-                         {{ Form::text('model_name',null, array('class' => 'form-control')) }}
+                      <div class="form-group col-sm-12 {{ $errors->has('location_name') ? ' has-error' : '' }} ">
+                        {{ Form::label('location_name', trans('Name')) }}
+                         {{ Form::text('location_name',null, array('class' => 'form-control')) }}
                          
-                                @if ($errors->has('model_name'))
+                                @if ($errors->has('location_name'))
                                     <span class="help-block">
-                                        <strong>{{ $errors->first('model_name') }}</strong>
+                                        <strong>{{ $errors->first('location_name') }}</strong>
                                     </span>
                                 @endif
                       </div>
-                      
-                      
-                   <div class="form-group col-sm-6 {{ $errors->has('make_id') ? ' has-error' : '' }} ">
-                   
-                    {{ Form::label('make_id', trans('Select  Car Make')) }}
-                    
-                        <select class="chosen-select form-control " id="form-field-select-3" data-placeholder="Click to Select Car Make."  name="make_id">
-     <option value="">  </option>
-     @foreach($makes as $user)
-    
-     <option value="{{ $user->id }}"  >{{ $user->make_name  }}</option>
-     @endforeach
-</select>
-
- @if ($errors->has('make_id'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('make_id') }}</strong>
-                                    </span>
-                                @endif
-
-            </div>   
  </div>
  
  

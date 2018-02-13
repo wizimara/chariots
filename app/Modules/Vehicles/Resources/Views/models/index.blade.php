@@ -76,7 +76,7 @@
 														</th>
                                                        
 														<th>Name</th>
-														
+														<th>Make</th>
 														
 
 														<th>
@@ -110,7 +110,7 @@
 
 
 														<td>{{ $record->model_name}}</td>
-														
+														<td>{{ $record->make_name}}</td>
                                                         <td>{{ Carbon\Carbon::parse($record->created_at)->format('d-m-Y ') }}</td>
 
 														<td>{{ Carbon\Carbon::parse($record->updated_at)->format('d-m-Y ') }}</td>

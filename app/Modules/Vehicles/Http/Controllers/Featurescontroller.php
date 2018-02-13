@@ -1,17 +1,21 @@
 <?php
 
 namespace App\Modules\Vehicles\Http\Controllers;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
+
+
 use App\Http\Requests;
-use App\Modules\Vehicles\models\Carimage;
+
+use App\Modules\Vehicles\models\Feature;
 
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Redirect;
 use App\Http\Controllers\Controller;
 
-class CarimageController extends Controller
+class Featurescontroller extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -20,7 +24,8 @@ class CarimageController extends Controller
      */
     public function index()
     {
-        //
+        $items = Feature::orderBy('feature_name', 'asc')->get();
+		 return View::make('vehicles::features.index', compact('items'));
     }
 
     /**
@@ -30,7 +35,7 @@ class CarimageController extends Controller
      */
     public function create()
     {
-        //
+         return View::make('vehicles::features.create' );
     }
 
     /**
@@ -43,53 +48,24 @@ class CarimageController extends Controller
     {
         $input = Input::all();
 
-        $validation = Validator::make($input, Carimage::$rules,Carimage::$messages);
+        $validation = Validator::make($input, Feature::$rules,Feature::$messages);
 		
 		
 
         if ($validation->passes())
         {
-		
-			
-	
-		 $image = $request->file('url');
-            $filename = $input['vehicle_name'].time() . '.' . $image->getClientOriginalExtension();
-			
-			if (!file_exists(public_path('vehicles'))) {
-  mkdir(public_path('vehicles'), 0777, true);
-}
 			
 			
-            $path = public_path('vehicles/' . $filename);
-		
-			
-            \Image::make($image->getRealPath())->resize(1200, 1200,function ($constraint) {
-
-		    $constraint->aspectRatio();
-
-		})->save($path);
-         /*   $user->image = $filename;
-            $user->save()*/	
-			
-			$images ='vehicles/'.$filename;
-			
-	
-			
-			
-            Carimage::create(array(
-			'vehicle_id' => $input['vehicle_id'],
-			'title' => $input['title'],
-			'url' => $images,
-			
-			));
-  \Session::flash('flash_message','Image added  .');
-            return Redirect::route('vehicles.edit', $input['vehicle_id']);
+           Feature::create($input);
+			//\LogActivity::addToLog('Role '.$input['display'].' Added');
+  \Session::flash('flash_message','Feature added  .');
+            return Redirect::route('features.index');
         }
 
-        return Redirect::route('vehicles.edit', $input['vehicle_id'])
+        return Redirect::route('features.create')
             ->withInput()
             ->withErrors($validation)
-            ->with('message', 'There were validation errors.'); 
+            ->with('message', 'There were validation errors.');
     }
 
     /**
@@ -111,7 +87,14 @@ class CarimageController extends Controller
      */
     public function edit($id)
     {
-        //
+        $item = Feature::find($id);
+
+        if (is_null($item))
+        {
+			
+            return Redirect::route('features.index');
+        }
+        return View::make('vehicles::features/.edit', compact('item'));
     }
 
     /**
@@ -123,20 +106,26 @@ class CarimageController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $input = Input::all();
+	
+	  
+     
+        $validation = Validator::make($input, Feature::$rules,Feature::$messages);
+	
+		
+        if ($validation->passes())
+        {
+            $user = Feature::find($id);
+            $user->update($input);
+			//\LogActivity::addToLog('Role '.$input['display'].' Updated');
+			\Session::flash('flash_message','Successfully Updated.');
+            return Redirect::route('features.edit', $id);
+        }
+return Redirect::route('features.edit', $id)
+            ->withInput()
+            ->withErrors($validation)
+            ->with('message', 'There were validation errors.');	
     }
-	
-	public function published($id)
-	{
-	$user = Carimage::find($id);
-	\DB::table('carimages')->where('vehicle_id', $user->vehicle_id)->update(array('featured'=>0));
-		
-	\DB::table('carimages')->where('id', $id)->update(array('featured'=>1)); 	
-	
-	\Session::flash('flash_message','Image Successfully Featured.');
-            return Redirect::route('vehicles.edit', $user->vehicle_id);
-		
-	}
 
     /**
      * Remove the specified resource from storage.
@@ -146,12 +135,11 @@ class CarimageController extends Controller
      */
     public function destroy($id)
     {
-	$user = Carimage::find($id);	
-		
-      Carimage::find($id)->delete();
+         $item= Feature::find($id); 
+        Feature::find($id)->delete();
 		//\LogActivity::addToLog('Role '.$role->display.' Deleted');
 	 \Session::flash('flash_message','Successfully Deleted.');
-        return Redirect::route('vehicles.edit', $user->vehicle_id)
-		 ->with('message', 'Image Deleted.');
+        return Redirect::route('features.index')
+		 ->with('message', 'Make Deleted.');
     }
 }

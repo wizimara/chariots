@@ -19,6 +19,8 @@ Route::group(['prefix' => 'admin/vehicles'], function () {
 	Route::resource('/models', 'ModelController');
 	Route::resource('/vehicles', 'VehiclesController');
 	Route::resource('/carimages', 'CarimageController');
+	Route::resource('/features', 'FeaturesController');
+	Route::resource('/locations', 'LocationController');
 	Route::get('/carimages/{id}/published', 'CarimageController@published');
 	
 });

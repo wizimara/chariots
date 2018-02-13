@@ -51,7 +51,7 @@
 
 <div class="row">
 
-                      <div class="form-group col-sm-12 {{ $errors->has('model_name') ? ' has-error' : '' }} ">
+                      <div class="form-group col-sm-6 {{ $errors->has('model_name') ? ' has-error' : '' }} ">
                         {{ Form::label('model_name', trans('Name')) }}
                          {{ Form::text('model_name',null, array('class' => 'form-control')) }}
                          
@@ -61,6 +61,28 @@
                                     </span>
                                 @endif
                       </div>
+                      
+                      
+                      <div class="form-group col-sm-4 {{ $errors->has('make_id') ? ' has-error' : '' }} ">
+                   
+                    {{ Form::label('make_id', trans('Select  Car Make')) }}
+                    
+                        <select class="chosen-select form-control " id="form-field-select-3" data-placeholder="Click to Select Car make."  name="make_id">
+     <option value="">  </option>
+     @foreach($makes as $user)
+    
+     <option value="{{ $user->id }}"  <?php if ($user->id == $item->make_id) echo ' selected="selected"'; ?>>{{ $user->make_name  }}</option>
+     @endforeach
+</select>
+
+ @if ($errors->has('make_id'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('make_id') }}</strong>
+                                    </span>
+                                @endif
+
+            </div>
+                      
  </div>
                   
 

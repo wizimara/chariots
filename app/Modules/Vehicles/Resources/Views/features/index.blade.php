@@ -1,7 +1,7 @@
 
 
 @extends('shared::layouts.app')
-@section('title','Vehicles')
+@section('title','Makes')
 
 @section('content')
 
@@ -16,12 +16,12 @@
 
 						<div class="page-header">
 							<h1>
-								Vehicles
+								Features
 								<small>
 									<i class="ace-icon fa fa-angle-double-right"></i>
-									All Vehicles
+									All Features
 								</small> |
-							<a href="{{ url('/admin/vehicles/vehicles/create') }}" class="btn btn-primary btn-xs ">Add new Vehicle</a>
+							<a href="{{ url('/admin/vehicles/features/create') }}" class="btn btn-primary btn-xs ">Add new Feature</a>
 
 							</h1>
 						</div><!-- /.page-header -->
@@ -40,7 +40,7 @@
 											<div class="pull-right tableTools-container"></div>
 										</div>
 										<div class="table-header">
-											Vehicles
+											Features
 										</div>
 
 										<!-- div.table-responsive -->
@@ -74,15 +74,10 @@
 																<span class="lbl"></span>
 															</label>
 														</th>
-                                                       <th style="width:8%"></th>
+                                                       
 														<th>Name</th>
-														<th>Model</th>
-														<th>Make</th>
-                                                        <th>Category</th>
-                                                        <th>Year</th>
-                                                        <th>Plate</th>
-<th>Color</th>
-<th>Seater</th>
+														
+														
 
 														<th>
 															<i class="ace-icon fa fa-clock-o bigger-110 hidden-480"></i>
@@ -109,35 +104,12 @@
 																<input type="checkbox" class="ace" />
 																<span class="lbl"></span>
 															</label>
-                                                             </td>
- <?php  $image = App\Modules\Vehicles\models\Carimage::
-        where('vehicle_id', $record->id)->
-		where('featured', 1)->get()->first(); 
-		
-		$image2 = App\Modules\Vehicles\models\Carimage::
-        where('vehicle_id', $record->id)->get()->first();
-		
-		?>
-        														
-     @if(!empty($image))
+														</td>
 
-<td><img src="{{asset('/')}}/{{$image->url }}" class="img" ></td>
-@elseif(!empty($image2))
-<td><img src="{{asset('/')}}/{{$image2->url }}" class="img" ></td>
 
-@else
-<td><img src="{{asset('/')}}/car.jpg" class="img" ></td>
-@endif
 
-<td>{{ $record->vehicle_name}}</td>
-<td>{{ $record->model_name}}</td>
-<td>{{ $record->make_name}}</td>
-<td>{{ $record->cat_name}}</td>
-<td>{{ $record->year_model}}</td>
-<td>{{ $record->no_plate}}</td>
-<td>{{ $record->color}}</td>
-<td>{{ $record->passengers}}</td>
-														
+
+														<td>{{ $record->feature_name}}</td>
 														
                                                         <td>{{ Carbon\Carbon::parse($record->created_at)->format('d-m-Y ') }}</td>
 
@@ -149,17 +121,11 @@
 															<div class="hidden-sm hidden-xs action-buttons">
 															
                                                                 
-                                                              {{ link_to_route('vehicles.edit', trans('Edit'), array($record->id), array('class' => 'btn btn-info btn-xs')) }}  
+                                                              {{ link_to_route('features.edit', trans('Edit'), array($record->id), array('class' => 'btn btn-info btn-xs')) }}  
                                                                 
-                                                       
-                                                                
-              @if ($record->name=="client" or $record->name=="Admin" or $record->name=="user" )
-              
-              @elseif($record->name=="Admin")
-              
-              @else                                                  
+                                                           
        {{Form::open(array( 
-    'route' => array( 'vehicles.destroy', $record->id ), 
+    'route' => array( 'features.destroy', $record->id ), 
     'method' => 'delete', 
     'style' => 'display:inline',
     'onsubmit' => "return confirm('Are you sure you want to delete this row? ')",
@@ -171,7 +137,7 @@
 
 {{Form::close()}}     
                                                                                                                                  
-                                 @endif                               
+                                                             
 
 																
 															</div>
@@ -206,14 +172,7 @@
 					</div><!-- /.page-content -->
 				</div>
 
-<script>
-$(document).ready(function(){
-    $('#dynamic-table').DataTable();
-});
-</script>
-<style>
- .img{ width:100%; height:auto; box-shadow:0px 0px 3px #ccc}
- 
- </style>
+
+
 
 @stop

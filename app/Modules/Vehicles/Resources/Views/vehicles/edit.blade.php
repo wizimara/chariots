@@ -72,7 +72,7 @@
      <option value="">  </option>
      @foreach($models as $user)
     
-     <option value="{{ $user->id }}"  <?php if ($user->id == $item->model_id) echo ' selected="selected"'; ?>>{{ $user->model_name  }}</option>
+     <option value="{{ $user->id }}"  <?php if ($user->id == $item->model_id) echo ' selected="selected"'; ?>>{{ $user->make_name.' ' .$user->model_name  }}</option>
      @endforeach
 </select>
 
@@ -85,25 +85,7 @@
             </div>
             
             
-            <div class="form-group col-sm-4 {{ $errors->has('make_id') ? ' has-error' : '' }} ">
-                   
-                    {{ Form::label('make_id', trans('Select  Vehicle make')) }}
-                    
-                        <select class="chosen-select form-control " id="form-field-select-3" data-placeholder="Click to Select Vehicle make."  name="make_id">
-     <option value="">  </option>
-     @foreach($makes as $user)
-    
-     <option value="{{ $user->id }}" <?php if ($user->id == $item->make_id) echo ' selected="selected"'; ?> >{{ $user->make_name  }}</option>
-     @endforeach
-</select>
-
- @if ($errors->has('make_id'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('make_id') }}</strong>
-                                    </span>
-                                @endif
-
-            </div>
+            
             
             <div class="form-group col-sm-4 {{ $errors->has('category_id') ? ' has-error' : '' }} ">
                    
@@ -171,15 +153,17 @@
                       
                   <div class="form-group col-sm-2 {{ $errors->has('tracker') ? ' has-error' : '' }} ">
                    
-                    {{ Form::label('tracker', trans('Select  Tracker Status')) }}
+                    {{ Form::label('tracker', trans(' Tracker')) }}
                     
-                        <select class="chosen-select form-control " id="form-field-select-3" data-placeholder="Click to Select Vehicle make."  name="tracker">
-     <option value="0">No  </option>
-    
-    
-     <option value="1"  >Yes</option>
-  
-</select>
+                        <br>
+                      <label class="radio-inline">
+    {!! Form ::radio('tracker','0',($item->tracker == '0' ? true : false)) !!}
+    No
+</label>
+<label class="radio-inline">
+    {!! Form ::radio('tracker','1',($item->tracker == '1' ? true : false)) !!}
+    Yes
+</label>  
 
  @if ($errors->has('tracker'))
                                     <span class="help-block">
@@ -190,6 +174,135 @@
             </div>       
                       
  </div>
+ 
+ <div class="row">
+
+                      <div class="form-group col-sm-2 {{ $errors->has('transimition') ? ' has-error' : '' }} ">
+                   
+                    {{ Form::label('transimition', trans('Transmission')) }}
+                    
+                        <br>
+                      <label class="radio-inline">
+    {!! Form ::radio('transimition','Auto',($item->transimition == 'Auto' ? true : false)) !!}
+    Auto
+</label>
+<label class="radio-inline">
+    {!! Form ::radio('transimition','Manual',($item->transimition == 'Manual' ? true : false)) !!}
+    Manual
+</label>  
+
+ @if ($errors->has('transimition'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('transimition') }}</strong>
+                                    </span>
+                                @endif
+
+            </div>
+            
+            
+       <div class="form-group col-sm-3 {{ $errors->has('insurance_type') ? ' has-error' : '' }} ">
+                 
+                    {{ Form::label('insurance_type', trans('Insurance')) }}
+                    
+                        <br>
+                      <label class="radio-inline">
+    {!! Form ::radio('insurance_type','Comprehensive',($item->insurance_type == 'Comprehensive' ? true : false)) !!}
+    Comprehensive
+</label>
+<label class="radio-inline">
+    {!! Form ::radio('insurance_type','Third party',($item->insurance_type == 'Third party' ? true : false)) !!}
+    Third party
+</label>  
+
+
+ @if ($errors->has('insurance_type'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('insurance_type') }}</strong>
+                                    </span>
+                                @endif
+
+            </div> 
+            
+            <div class="form-group col-sm-3 {{ $errors->has('insurance_expiry') ? ' has-error' : '' }} ">
+                        {{ Form::label('insurance_expiry', trans('Insurance Expiry Date')) }}
+                         {{ Form::text('insurance_expiry',null, array('class' => 'form-control')) }}
+                         
+                                @if ($errors->has('insurance_expiry'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('insurance_expiry') }}</strong>
+                                    </span>
+                                @endif
+                      </div>
+                <div class="form-group col-sm-4 {{ $errors->has('location') ? ' has-error' : '' }} ">
+                   
+                    {{ Form::label('location', trans('Select  Vehicle Location')) }}
+                    
+                        <select class="chosen-select form-control " id="form-field-select-3" data-placeholder="Click to Select Vehicle category."  name="location">
+     <option value="">  </option>
+     @foreach($locations as $record)
+    
+     <option value="{{ $record->id }}" <?php if ($record->id == $item->location) echo ' selected="selected"'; ?> >{{ $record->location_name  }}</option>
+     @endforeach
+</select>
+
+ @if ($errors->has('location'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('location') }}</strong>
+                                    </span>
+                                @endif
+
+            </div>
+            
+            
+ </div>
+ 
+ <div class="row">
+                    
+                     
+            
+            
+            
+            
+            <div class="form-group col-sm-12 {{ $errors->has('category_id') ? ' has-error' : '' }} ">
+                   
+                    {{ Form::label('category_id', trans('Vehicle Features')) }}
+                    
+                     <select multiple class="chosen-select form-control " name="features[]">
+                     @php
+                     	$current_vehicle_features = $item->features()->pluck('feature_id')->all();
+                        
+                     @endphp
+                     @foreach($features as $user)
+    
+     <option value="{{ $user->id }}"  @if(in_array($user->id, $current_vehicle_features)) selected @endif>{{ $user->feature_name  }}</option>
+     @endforeach
+                 </select> 
+          
+ @if ($errors->has('category_id'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('category_id') }}</strong>
+                                    </span>
+                                @endif
+
+            </div>
+            </div>
+ 
+ 
+ <div class="row">
+
+                      <div class="form-group col-sm-12 {{ $errors->has('vehicle_desc') ? ' has-error' : '' }} ">
+                        {{ Form::label('vehicle_desc', trans('Description')) }}
+                         {{ Form::textarea('vehicle_desc',null, array('class' => 'form-control')) }}
+                         
+                                @if ($errors->has('vehicle_desc'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('vehicle_desc') }}</strong>
+                                    </span>
+                                @endif
+                      </div>
+ </div>
+ 
+ 
 <div class="form-group ">
 
 <div class=" col-sm-12">
@@ -249,7 +362,7 @@
   
   @foreach ($images as $record)
     <div class=" col-sm-3 col " style="height:260px">
-    <img src="{{asset('/')}}/storage/app/{{$record->url }}" class="img" >
+    <img src="{{asset('/')}}/{{$record->url }}" class="img" >
     {{ $record->title }}
     
     

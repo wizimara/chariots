@@ -7,12 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 class Vehicle extends Model
 {
      protected $guarded = array('id');
-  protected $fillable = array('vehicle_name','model_id','make_id','category_id','year_model','no_plate','color','passengers','tracker','status');
+  protected $fillable = array('vehicle_name','model_id','category_id','year_model','no_plate','color','passengers','tracker','status','transimition','insurance_type','insurance_expiry','vehicle_desc','user_id','location');
   
    public static $rules = array(
     'vehicle_name' => 'required',
 	'model_id' => 'required',
-	'make_id' => 'required',
 	'category_id' => 'required',
 	'year_model' => 'required',
 	'no_plate' => 'required',
@@ -30,5 +29,10 @@ class Vehicle extends Model
    'color.required' => 'Color required',
    'passengers.required' => 'Number of passengers required',
 
-   ); 
+   );
+   
+   public function features()
+    {
+        return $this->belongsToMany('App\Modules\Vehicles\models\Feature','feature_vehicle');
+    } 
 }

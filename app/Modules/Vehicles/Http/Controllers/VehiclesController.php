@@ -7,7 +7,9 @@ use Illuminate\Support\Facades\View;
 
 
 use App\Http\Requests;
+use App\Modules\Vehicles\models\Location;
 use App\Modules\Vehicles\models\Make;
+use App\Modules\Vehicles\models\Feature;
 use App\Modules\Vehicles\models\Modelcars;
 use App\Modules\Vehicles\models\Category;
 use App\Modules\Vehicles\models\Vehicle;
@@ -42,9 +44,14 @@ class VehiclesController extends Controller
     public function create()
     {
 	$makes =Make::get();
-	$models =Modelcars::get();	
+	$models =Modelcars::join('makes','make_id','=','makes.id')
+	->select('models.*','make_name')->orderBy('make_name','asc')
+	->get();	
+	$features =Feature::get();
+		$locations =Location::orderBy('location_name','asc')->get();
 	$categories =Category::get();
-       return View::make('vehicles::vehicles.create',compact('makes','models','categories') );
+	
+       return View::make('vehicles::vehicles.create',compact('makes','models','categories','features','locations') );
     }
 
     /**
@@ -65,6 +72,14 @@ class VehiclesController extends Controller
         if ($validation->passes())
         {
 			
+ $features = $request->input('features');	
+		$vehicle = Vehicle::find($id);
+
+
+foreach($features as $feature_id)
+{
+	$vehicle->features()->attach($feature_id);	
+}	
 			
            Vehicle::create($input);
 			//\LogActivity::addToLog('Role '.$input['display'].' Added');
@@ -97,19 +112,25 @@ class VehiclesController extends Controller
      */
     public function edit($id)
     {
+		
+		
+		$features =Feature::get();
+		$locations =Location::orderBy('location_name','asc')->get();
 		$images=Carimage::where('vehicle_id',$id)->orderBy('featured','desc')->
 		orderBy('id','desc')
 		->get();
         $item = Vehicle::find($id);
-$makes =Make::get();
-	$models =Modelcars::get();	
+
+	$models =Modelcars::join('makes','make_id','=','makes.id')
+	->select('models.*','make_name')->orderBy('make_name','asc')
+	->get();	
 	$categories =Category::get();
         if (is_null($item))
         {
 			
             return Redirect::route('vehicles.index');
         }
-        return View::make('vehicles::vehicles/edit', compact('item','makes','models','categories','images'));
+        return View::make('vehicles::vehicles/edit', compact('item','features','models','categories','images','locations'));
     }
 
     /**
@@ -121,7 +142,31 @@ $makes =Make::get();
      */
     public function update(Request $request, $id)
     {
-       $input = Input::all();
+       
+	   
+	  $features = $request->input('features');
+//$features = implode(',', $features);
+
+$vehicle = Vehicle::find($id);
+$vehicle->features()->detach();
+
+//$vehicle = Vehicle::find($id);
+//$vehicle1->features()->detach($id);
+
+foreach($features as $feature_id)
+{
+	$vehicle->features()->attach($feature_id);	
+}
+
+
+
+//$input = $request->except('features');
+//Assign the "mutated" news value to $input
+//$input['features'] = $features; 
+
+
+	   
+	 $input = Input::all();
 	
 	  
      

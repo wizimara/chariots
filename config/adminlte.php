@@ -150,8 +150,19 @@ return [
             'text' => 'Models',
             'url'  => 'admin/vehicles/models',
             'icon' => 'car',
+        ],  
+		
+		 [
+            'text' => 'Features',
+            'url'  => 'admin/vehicles/features',
+            'icon' => 'list',
         ],     
-	   
+		   
+	   [
+            'text' => 'Locations',
+            'url'  => 'admin/vehicles/locations',
+            'icon' => 'marker',
+        ],     
 	    [
             'text' => 'Vehicles',
             'url'  => 'admin/vehicles/vehicles',

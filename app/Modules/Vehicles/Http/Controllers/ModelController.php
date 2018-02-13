@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\View;
 use App\Http\Requests;
 
 use App\Modules\Vehicles\models\Modelcars;
+use App\Modules\Vehicles\models\Make;
 
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Validator;
@@ -24,7 +25,9 @@ class ModelController extends Controller
      */
     public function index()
     {
-         $items = Modelcars::orderBy('model_name', 'asc')->get();
+         $items = Modelcars::join('makes','make_id','=','makes.id')
+		 ->select('models.*','make_name')
+		 ->orderBy('model_name', 'asc')->get();
 		 return View::make('vehicles::models.index', compact('items'));
     }
 
@@ -35,7 +38,9 @@ class ModelController extends Controller
      */
     public function create()
     {
-         return View::make('vehicles::models.create' );
+		
+		$makes=Make::orderBy('make_name','asc')->get();
+         return View::make('vehicles::models.create', compact('makes') );
     }
 
     /**
@@ -88,13 +93,13 @@ class ModelController extends Controller
     public function edit($id)
     {
         $item = Modelcars::find($id);
-
+$makes=Make::orderBy('make_name','asc')->get();
         if (is_null($item))
         {
 			
             return Redirect::route('models.index');
         }
-        return View::make('vehicles::models/.edit', compact('item'));
+        return View::make('vehicles::models/.edit', compact('item','makes'));
     }
 
     /**
