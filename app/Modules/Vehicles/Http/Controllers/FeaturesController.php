@@ -8,14 +8,14 @@ use Illuminate\Support\Facades\View;
 
 use App\Http\Requests;
 
-use App\Modules\Vehicles\models\Feature;
+use App\Modules\Vehicles\Models\Feature;
 
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Redirect;
 use App\Http\Controllers\Controller;
 
-class Featurescontroller extends Controller
+class FeaturesController extends Controller
 {
     /**
      * Display a listing of the resource.

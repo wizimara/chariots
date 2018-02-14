@@ -7,13 +7,13 @@ use Illuminate\Support\Facades\View;
 
 
 use App\Http\Requests;
-use App\Modules\Vehicles\models\Location;
-use App\Modules\Vehicles\models\Make;
-use App\Modules\Vehicles\models\Feature;
-use App\Modules\Vehicles\models\Modelcars;
-use App\Modules\Vehicles\models\Category;
-use App\Modules\Vehicles\models\Vehicle;
-use App\Modules\Vehicles\models\Carimage;
+use App\Modules\Vehicles\Models\Location;
+use App\Modules\Vehicles\Models\Make;
+use App\Modules\Vehicles\Models\Feature;
+use App\Modules\Vehicles\Models\Modelcars;
+use App\Modules\Vehicles\Models\Category;
+use App\Modules\Vehicles\Models\Vehicle;
+use App\Modules\Vehicles\Models\Carimage;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Redirect;

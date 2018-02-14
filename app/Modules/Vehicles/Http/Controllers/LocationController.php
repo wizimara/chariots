@@ -7,13 +7,13 @@ use Illuminate\Support\Facades\View;
 
 use App\Http\Requests;
 
-use App\Modules\Vehicles\models\Location;
+use App\Modules\Vehicles\Models\Location;
 
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Redirect;
 use App\Http\Controllers\Controller;
-class Locationcontroller extends Controller
+class LocationController extends Controller
 {
     /**
      * Display a listing of the resource.
