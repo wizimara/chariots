@@ -4,7 +4,7 @@ namespace App\Modules\Vehicles\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
 use App\Http\Requests;
-use App\Modules\Vehicles\models\Category;
+use App\Modules\Vehicles\Models\Category;
 
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Validator;

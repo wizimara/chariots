@@ -7,8 +7,8 @@ use Illuminate\Support\Facades\View;
 
 use App\Http\Requests;
 
-use App\Modules\Vehicles\models\Modelcars;
-use App\Modules\Vehicles\models\Make;
+use App\Modules\Vehicles\Models\Modelcars;
+use App\Modules\Vehicles\Models\Make;
 
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Validator;
