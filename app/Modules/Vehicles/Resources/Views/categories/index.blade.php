@@ -9,12 +9,11 @@
 
 
 <div class="main-content-inner">
-					
+
 
 					<div class="page-content">
-					
 
-						<div class="page-header">
+						<section class="content-header">
 							<h1>
 								Categories
 								<small>
@@ -24,7 +23,9 @@
 							<a href="{{ url('/admin/vehicles/categories/create') }}" class="btn btn-primary btn-xs ">Add new Category</a>
 
 							</h1>
-						</div><!-- /.page-header -->
+						<br>
+								</section>
+
 
 						<div class="row">
 							<div class="col-xs-12">
@@ -34,14 +35,7 @@
 
 								<div class="row">
 									<div class="col-xs-12">
-									
 
-										<div class="clearfix">
-											<div class="pull-right tableTools-container"></div>
-										</div>
-										<div class="table-header">
-											Categories
-										</div>
 
 										<!-- div.table-responsive -->
 
@@ -49,22 +43,30 @@
 										<div>
 
 
- 
+
        @if(Session::has('flash_message'))
     <div class="alert alert-success"><i class="fa fa-check" aria-hidden="true"></i><em> {!! session('flash_message') !!}</em></div>
-@endif      
-         
+@endif
+<!-- box table -->
+<div class="box">
+					<div class="box-header">
+						<h3 class="box-title">Categories</h3>
+					</div>
 
-											
-                                    @if ($cats->count())        
-                                            
-                                            
-                                            
-                                            
-                            
-                                           
-                                           
-                                           
+					<!-- /.box-header -->
+
+					<div class="box-body">
+
+
+                                    @if ($cats->count())
+
+
+
+
+
+
+
+
                                             <table id="dynamic-table" class="table table-striped table-bordered table-hover">
 												<thead>
 													<tr>
@@ -74,16 +76,16 @@
 																<span class="lbl"></span>
 															</label>
 														</th>
-                                                       
+
 														<th>Name</th>
-														
-														
+
+
 
 														<th>
 															<i class="ace-icon fa fa-clock-o bigger-110 hidden-480"></i>
 														Created
 														</th>
-														
+
                                                         <th>
 															<i class="ace-icon fa fa-clock-o bigger-110 hidden-480"></i>
 															Update
@@ -94,10 +96,10 @@
 												</thead>
 
 												<tbody>
-                                                
-                                                
-                                         @foreach ($cats as $record)        
-                                                
+
+
+                                         @foreach ($cats as $record)
+
 													<tr>
 														<td class="center">
 															<label class="pos-rel">
@@ -110,29 +112,29 @@
 
 
 														<td>{{ $record->cat_name}}</td>
-														
+
                                                         <td>{{ Carbon\Carbon::parse($record->created_at)->format('d-m-Y ') }}</td>
 
 														<td>{{ Carbon\Carbon::parse($record->updated_at)->format('d-m-Y ') }}</td>
 
-														
+
 
 														<td>
 															<div class="hidden-sm hidden-xs action-buttons">
-															
-                                                                
-                                                              {{ link_to_route('categories.edit', trans('Edit'), array($record->id), array('class' => 'btn btn-info btn-xs')) }}  
-                                                                
-                                                       
-                                                                
+
+
+                                                              {{ link_to_route('categories.edit', trans('Edit'), array($record->id), array('class' => 'btn btn-info btn-xs')) }}
+
+
+
               @if ($record->name=="client" or $record->name=="Admin" or $record->name=="user" )
-              
+
               @elseif($record->name=="Admin")
-              
-              @else                                                  
-       {{Form::open(array( 
-    'route' => array( 'categories.destroy', $record->id ), 
-    'method' => 'delete', 
+
+              @else
+       {{Form::open(array(
+    'route' => array( 'categories.destroy', $record->id ),
+    'method' => 'delete',
     'style' => 'display:inline',
     'onsubmit' => "return confirm('Are you sure you want to delete this row? ')",
 ))}}
@@ -141,36 +143,40 @@
 												<i class="ace-icon fa fa-trash-o bigger-130"></i>
 											</button>
 
-{{Form::close()}}     
-                                                                                                                                 
-                                 @endif                               
+{{Form::close()}}
 
-																
+                                 @endif
+
+
 															</div>
 
-															
+
 														</td>
 													</tr>
-                                                    
-                                                    @endforeach 
-                                             
-													
+
+                                                    @endforeach
+
+
 												</tbody>
 											</table>
-                                            
-                                            
+
+
                                             @else
     @lang('no data')
 @endif
-  
-                                            
-                                            
-                                            
+
+</div>
+
+<!-- /.box-body -->
+</div>
+<!-- table box--> <!-- /.box -->
+
+
 										</div>
 									</div>
 								</div>
 
-								
+
 
 								<!-- PAGE CONTENT ENDS -->
 							</div><!-- /.col -->
@@ -182,3 +188,23 @@
 
 
 @stop
+
+@section('js')
+  @parent
+<script>
+$(function () {
+    $('#example1').DataTable()
+    $('#dynamic-table').DataTable({
+      'paging'      : true,
+      'lengthChange': false,
+      'searching'   : true,
+      'ordering'    : true,
+      'info'        : true,
+      'autoWidth'   : false
+    })
+  })
+</script>
+
+
+
+@endsection

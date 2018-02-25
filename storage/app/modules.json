@@ -9,6 +9,16 @@
         "enabled": true,
         "order": 9001
     },
+    "Renting": {
+        "basename": "Renting",
+        "name": "Renting",
+        "slug": "renting",
+        "version": "1.0",
+        "description": "This is the description for the Renting module",
+        "id": 324221967,
+        "enabled": true,
+        "order": 9001
+    },
     "Shared": {
         "basename": "Shared",
         "name": "Shared",

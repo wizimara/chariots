@@ -131,44 +131,61 @@ return [
             'text' => 'Change Password',
             'url'  => 'admin/settings',
             'icon' => 'lock',
-        ], 
+        ],
 		'VEHICLES',
-		
+
 		[
             'text' => 'Categories',
             'url'  => 'admin/vehicles/categories',
             'icon' => 'list',
-        ], 
-		
+        ],
+
 		[
             'text' => 'Makes',
             'url'  => 'admin/vehicles/makes',
             'icon' => 'car',
-        ],             
-       
+        ],
+
 	   [
             'text' => 'Models',
             'url'  => 'admin/vehicles/models',
             'icon' => 'car',
-        ],  
-		
+        ],
+
 		 [
             'text' => 'Features',
             'url'  => 'admin/vehicles/features',
             'icon' => 'list',
-        ],     
-		   
+        ],
+
 	   [
             'text' => 'Locations',
             'url'  => 'admin/vehicles/locations',
             'icon' => 'marker',
-        ],     
+        ],
 	    [
             'text' => 'Vehicles',
             'url'  => 'admin/vehicles/vehicles',
             'icon' => 'car',
-        ],     
-	   
+        ],
+        'Renting',
+        [
+              'text' => 'Booking',
+              'url'  => 'admin/renting/bookings',
+              'icon' => 'money',
+          ],
+          [
+                'text' => 'Confirmation Rentals',
+                'url'  => 'admin/renting/confirmedrentals',
+                'icon' => 'money',
+            ],
+            [
+                  'text' => 'Payments',
+                  'url'  => 'admin/renting/payments',
+                  'icon' => 'money',
+              ],
+
+
     ],
 
     /*
