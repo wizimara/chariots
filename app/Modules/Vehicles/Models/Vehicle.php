@@ -17,6 +17,10 @@ class Vehicle extends Model
 	'no_plate' => 'required',
 	'color' => 'required',
    'passengers' => 'required',
+   'user_id' => 'required',
+  
+
+
   );
 
   public static $messages = array(
@@ -28,6 +32,7 @@ class Vehicle extends Model
    'no_plate.required' => 'Number plate required',
    'color.required' => 'Color required',
    'passengers.required' => 'Number of passengers required',
+   'user_id.required'  => 'Car Owner Required',
 
    );
 

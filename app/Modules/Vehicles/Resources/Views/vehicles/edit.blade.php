@@ -52,7 +52,7 @@
 
 <div class="row">
 
-                      <div class="form-group col-sm-12 {{ $errors->has('vehicle_name') ? ' has-error' : '' }} ">
+                      <div class="form-group col-sm-6 {{ $errors->has('vehicle_name') ? ' has-error' : '' }} ">
                         {{ Form::label('vehicle_name', trans('Name')) }}
                          {{ Form::text('vehicle_name',null, array('class' => 'form-control')) }}
 
@@ -62,6 +62,28 @@
                                     </span>
                                 @endif
                       </div>
+
+
+                      <div class="form-group col-sm-6 {{ $errors->has('user_id') ? ' has-error' : '' }} ">
+
+                       {{ Form::label('user_id', trans('Select  Car Owner')) }}
+
+                           <select class="chosen-select form-control " id="form-field-select-3" data-placeholder="Click to Select Car Make."  name="user_id">
+                      <option value="">  </option>
+                      @foreach($users as $record)
+
+                      <option value="{{ $record->id }}" @if ($record->id == $item->user_id) selected="selected" @endif  >{{ $record->name  }}</option>
+                      @endforeach
+                      </select>
+
+                      @if ($errors->has('user_id'))
+                                       <span class="help-block">
+                                           <strong>{{ $errors->first('user_id') }}</strong>
+                                       </span>
+                                   @endif
+
+                      </div>
+
  </div>
   <div class="row">
 

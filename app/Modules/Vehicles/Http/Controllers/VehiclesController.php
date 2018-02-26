@@ -14,6 +14,7 @@ use App\Modules\Vehicles\Models\Modelcars;
 use App\Modules\Vehicles\Models\Category;
 use App\Modules\Vehicles\Models\Vehicle;
 use App\Modules\Vehicles\Models\Carimage;
+use App\User;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Redirect;
@@ -50,8 +51,8 @@ class VehiclesController extends Controller
 	$features =Feature::get();
 		$locations =Location::orderBy('location_name','asc')->get();
 	$categories =Category::get();
-
-       return View::make('vehicles::vehicles.create',compact('makes','models','categories','features','locations') );
+  $users =User::orderBy('name')->get();
+       return View::make('vehicles::vehicles.create',compact('makes','models','categories','features','locations','users') );
     }
 
     /**
@@ -72,14 +73,14 @@ class VehiclesController extends Controller
         if ($validation->passes())
         {
 
- $features = $request->input('features');
-		$vehicle = Vehicle::create($input);
+ //$features = $request->input('features');
+	//	$vehicle = Vehicle::create($input);
 
 
-foreach($features as $feature_id)
-{
-	$vehicle->features()->attach($feature_id);
-}
+//foreach($features as $feature_id)
+//{
+	//$vehicle->features()->attach($feature_id);
+//}
 
            Vehicle::create($input);
 			//\LogActivity::addToLog('Role '.$input['display'].' Added');
@@ -125,12 +126,14 @@ foreach($features as $feature_id)
 	->select('models.*','make_name')->orderBy('make_name','asc')
 	->get();
 	$categories =Category::get();
+
+  $users =User::orderBy('name')->get();
         if (is_null($item))
         {
 
             return Redirect::route('vehicles.index');
         }
-        return View::make('vehicles::vehicles/edit', compact('item','features','models','categories','images','locations'));
+        return View::make('vehicles::vehicles/edit', compact('item','features','models','categories','images','locations','users'));
     }
 
     /**

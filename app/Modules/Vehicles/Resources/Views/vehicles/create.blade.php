@@ -42,7 +42,7 @@
                    {{ Form::open(array('route' => 'vehicles.store')) }}
                     <div class="row">
 
-                      <div class="form-group col-sm-12 {{ $errors->has('vehicle_name') ? ' has-error' : '' }} ">
+                      <div class="form-group col-sm-6 {{ $errors->has('vehicle_name') ? ' has-error' : '' }} ">
                         {{ Form::label('vehicle_name', trans('Name')) }}
                          {{ Form::text('vehicle_name',null, array('class' => 'form-control')) }}
 
@@ -52,6 +52,28 @@
                                     </span>
                                 @endif
                       </div>
+
+
+											<div class="form-group col-sm-6 {{ $errors->has('user_id') ? ' has-error' : '' }} ">
+
+											 {{ Form::label('user_id', trans('Select  Car Owner')) }}
+
+													 <select class="chosen-select form-control " id="form-field-select-3" data-placeholder="Click to Select Car Make."  name="user_id">
+											<option value="">  </option>
+											@foreach($users as $record)
+
+											<option value="{{ $record->id }}"  >{{ $record->name  }}</option>
+											@endforeach
+											</select>
+
+											@if ($errors->has('user_id'))
+																			 <span class="help-block">
+																					 <strong>{{ $errors->first('user_id') }}</strong>
+																			 </span>
+																	 @endif
+
+											</div>
+
  </div>
 
  <div class="row">
@@ -252,9 +274,9 @@
 
 
 
-            <div class="form-group col-sm-12 {{ $errors->has('category_id') ? ' has-error' : '' }} ">
+            <div class="form-group col-sm-12 {{ $errors->has('features') ? ' has-error' : '' }} ">
 
-                    {{ Form::label('category_id', trans('Vehicle Features')) }}
+                    {{ Form::label('features', trans('Vehicle Features')) }}
 
                      <select multiple class="chosen-select form-control " name="features[]">
 
@@ -264,9 +286,9 @@
      @endforeach
                  </select>
 
- @if ($errors->has('category_id'))
+ @if ($errors->has('features'))
                                     <span class="help-block">
-                                        <strong>{{ $errors->first('category_id') }}</strong>
+                                        <strong>{{ $errors->first('features') }}</strong>
                                     </span>
                                 @endif
 
@@ -287,6 +309,7 @@
                                 @endif
                       </div>
  </div>
+
 
 
 
