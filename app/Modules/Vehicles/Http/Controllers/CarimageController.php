@@ -4,7 +4,7 @@ namespace App\Modules\Vehicles\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
 use App\Http\Requests;
-use App\Modules\Vehicles\models\Carimage;
+use App\Modules\Vehicles\Models\Carimage;
 
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Validator;
@@ -44,43 +44,43 @@ class CarimageController extends Controller
         $input = Input::all();
 
         $validation = Validator::make($input, Carimage::$rules,Carimage::$messages);
-		
-		
+
+
 
         if ($validation->passes())
         {
-		
-			
-	
+
+
+
 		 $image = $request->file('url');
             $filename = $input['vehicle_name'].time() . '.' . $image->getClientOriginalExtension();
-			
+
 			if (!file_exists(public_path('vehicles'))) {
   mkdir(public_path('vehicles'), 0777, true);
 }
-			
-			
+
+
             $path = public_path('vehicles/' . $filename);
-		
-			
+
+
             \Image::make($image->getRealPath())->resize(1200, 1200,function ($constraint) {
 
 		    $constraint->aspectRatio();
 
 		})->save($path);
          /*   $user->image = $filename;
-            $user->save()*/	
-			
+            $user->save()*/
+
 			$images ='vehicles/'.$filename;
-			
-	
-			
-			
+
+
+
+
             Carimage::create(array(
 			'vehicle_id' => $input['vehicle_id'],
 			'title' => $input['title'],
 			'url' => $images,
-			
+
 			));
   \Session::flash('flash_message','Image added  .');
             return Redirect::route('vehicles.edit', $input['vehicle_id']);
@@ -89,7 +89,7 @@ class CarimageController extends Controller
         return Redirect::route('vehicles.edit', $input['vehicle_id'])
             ->withInput()
             ->withErrors($validation)
-            ->with('message', 'There were validation errors.'); 
+            ->with('message', 'There were validation errors.');
     }
 
     /**
@@ -125,17 +125,17 @@ class CarimageController extends Controller
     {
         //
     }
-	
+
 	public function published($id)
 	{
 	$user = Carimage::find($id);
 	\DB::table('carimages')->where('vehicle_id', $user->vehicle_id)->update(array('featured'=>0));
-		
-	\DB::table('carimages')->where('id', $id)->update(array('featured'=>1)); 	
-	
+
+	\DB::table('carimages')->where('id', $id)->update(array('featured'=>1));
+
 	\Session::flash('flash_message','Image Successfully Featured.');
             return Redirect::route('vehicles.edit', $user->vehicle_id);
-		
+
 	}
 
     /**
@@ -146,8 +146,8 @@ class CarimageController extends Controller
      */
     public function destroy($id)
     {
-	$user = Carimage::find($id);	
-		
+	$user = Carimage::find($id);
+
       Carimage::find($id)->delete();
 		//\LogActivity::addToLog('Role '.$role->display.' Deleted');
 	 \Session::flash('flash_message','Successfully Deleted.');
