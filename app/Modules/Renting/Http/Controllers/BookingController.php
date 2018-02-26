@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\View;
 
 use App\Http\Requests;
 
-use App\Modules\renting\Models\Booking;
+use App\Modules\Renting\Models\Booking;
 use App\Modules\Vehicles\Models\Vehicle;
 use App\User;
 use Illuminate\Support\Facades\Input;

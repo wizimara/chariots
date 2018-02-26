@@ -8,7 +8,7 @@ class Vehicle extends Model
 {
      protected $guarded = array('id');
   protected $fillable = array('vehicle_name','model_id','category_id','year_model','no_plate','color','passengers','tracker','status','transimition','insurance_type','insurance_expiry','vehicle_desc','user_id','location');
-  
+
    public static $rules = array(
     'vehicle_name' => 'required',
 	'model_id' => 'required',
@@ -18,7 +18,7 @@ class Vehicle extends Model
 	'color' => 'required',
    'passengers' => 'required',
   );
-  
+
   public static $messages = array(
    'vehicle_name.required' => 'Name required',
    'model_id.required' => 'Vehicle model required',
@@ -30,9 +30,9 @@ class Vehicle extends Model
    'passengers.required' => 'Number of passengers required',
 
    );
-   
+
    public function features()
     {
-        return $this->belongsToMany('App\Modules\Vehicles\models\Feature','feature_vehicle');
-    } 
+        return $this->belongsToMany('App\Modules\Vehicles\Models\Feature','feature_vehicle');
+    }
 }

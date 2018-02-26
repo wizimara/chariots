@@ -108,11 +108,11 @@
 																<span class="lbl"></span>
 															</label>
                                                              </td>
- <?php  $image = App\Modules\Vehicles\models\Carimage::
+ <?php  $image = App\Modules\Vehicles\Models\Carimage::
         where('vehicle_id', $record->id)->
 		where('featured', 1)->get()->first();
 
-		$image2 = App\Modules\Vehicles\models\Carimage::
+		$image2 = App\Modules\Vehicles\Models\Carimage::
         where('vehicle_id', $record->id)->get()->first();
 
 		?>

@@ -46,11 +46,11 @@ class VehiclesController extends Controller
 	$makes =Make::get();
 	$models =Modelcars::join('makes','make_id','=','makes.id')
 	->select('models.*','make_name')->orderBy('make_name','asc')
-	->get();	
+	->get();
 	$features =Feature::get();
 		$locations =Location::orderBy('location_name','asc')->get();
 	$categories =Category::get();
-	
+
        return View::make('vehicles::vehicles.create',compact('makes','models','categories','features','locations') );
     }
 
@@ -62,25 +62,25 @@ class VehiclesController extends Controller
      */
     public function store(Request $request)
     {
-       
+
          $input = Input::all();
 
         $validation = Validator::make($input,Vehicle::$rules,Vehicle::$messages);
-		
-		
+
+
 
         if ($validation->passes())
         {
-			
- $features = $request->input('features');	
-		$vehicle = Vehicle::find($id);
+
+ $features = $request->input('features');
+		$vehicle = Vehicle::create($input);
 
 
 foreach($features as $feature_id)
 {
-	$vehicle->features()->attach($feature_id);	
-}	
-			
+	$vehicle->features()->attach($feature_id);
+}
+
            Vehicle::create($input);
 			//\LogActivity::addToLog('Role '.$input['display'].' Added');
   \Session::flash('flash_message','Vechile added  .');
@@ -112,8 +112,8 @@ foreach($features as $feature_id)
      */
     public function edit($id)
     {
-		
-		
+
+
 		$features =Feature::get();
 		$locations =Location::orderBy('location_name','asc')->get();
 		$images=Carimage::where('vehicle_id',$id)->orderBy('featured','desc')->
@@ -123,11 +123,11 @@ foreach($features as $feature_id)
 
 	$models =Modelcars::join('makes','make_id','=','makes.id')
 	->select('models.*','make_name')->orderBy('make_name','asc')
-	->get();	
+	->get();
 	$categories =Category::get();
         if (is_null($item))
         {
-			
+
             return Redirect::route('vehicles.index');
         }
         return View::make('vehicles::vehicles/edit', compact('item','features','models','categories','images','locations'));
@@ -142,8 +142,8 @@ foreach($features as $feature_id)
      */
     public function update(Request $request, $id)
     {
-       
-	   
+
+
 	  $features = $request->input('features');
 //$features = implode(',', $features);
 
@@ -155,24 +155,24 @@ $vehicle->features()->detach();
 
 foreach($features as $feature_id)
 {
-	$vehicle->features()->attach($feature_id);	
+	$vehicle->features()->attach($feature_id);
 }
 
 
 
 //$input = $request->except('features');
 //Assign the "mutated" news value to $input
-//$input['features'] = $features; 
+//$input['features'] = $features;
 
 
-	   
+
 	 $input = Input::all();
-	
-	  
-     
+
+
+
         $validation = Validator::make($input, Vehicle::$rules,Vehicle::$messages);
-	
-		
+
+
         if ($validation->passes())
         {
             $user = Vehicle::find($id);
@@ -184,7 +184,7 @@ foreach($features as $feature_id)
 return Redirect::route('vehicles.edit', $id)
             ->withInput()
             ->withErrors($validation)
-            ->with('message', 'There were validation errors.');	
+            ->with('message', 'There were validation errors.');
     }
 
     /**
@@ -195,7 +195,7 @@ return Redirect::route('vehicles.edit', $id)
      */
     public function destroy($id)
     {
-        $item= vehicle::find($id); 
+        $item= vehicle::find($id);
         Vehicle::find($id)->delete();
 		//\LogActivity::addToLog('Role '.$role->display.' Deleted');
 	 \Session::flash('flash_message','Successfully Deleted.');

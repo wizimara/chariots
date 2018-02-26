@@ -214,7 +214,7 @@
 
             <div class="form-group col-sm-3 {{ $errors->has('insurance_expiry') ? ' has-error' : '' }} ">
                         {{ Form::label('insurance_expiry', trans('Insurance Expiry Date')) }}
-                         {{ Form::text('insurance_expiry',null, array('class' => 'form-control')) }}
+                         {{ Form::text('insurance_expiry',null, array('class' => 'form-control datepicker')) }}
 
                                 @if ($errors->has('insurance_expiry'))
                                     <span class="help-block">
@@ -317,3 +317,17 @@
 
 
 @stop
+@section('js')
+	@parent
+	<script>
+	$(document).ready(function() {
+	  //Date picker
+	  $('.datepicker').datepicker({
+	    autoclose: true,
+			format: 'yyyy-mm-dd',
+	  });
+
+	});
+
+	</script>
+@endsection

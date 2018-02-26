@@ -2,15 +2,6 @@
 @section('title','Bookings')
 @section('content')
 
-
-  <script src="{{ asset('assets/admin/js/tinymce/tinymce.min.js') }}"></script>
-<!-- <script src="//cdn.tinymce.com/4/tinymce.min.js"></script>-->
-  <script>tinymce.init({ selector:'textarea' ,
-  plugins: "advlist"
-  });</script>
-
-
-
 <div class="page-content">
 						<!-- /.ace-settings-container -->
 
@@ -28,11 +19,7 @@
 
 						<div class="row">
 
-
-
                         <div class=" col-sm-12">
-
-
 
 
 @if ($errors->any())
@@ -225,7 +212,7 @@
 @section('js')
   @parent
 <script>
-$( document ).ready(function() {
+$(document).ready(function() {
   //Date picker
   $('.datepicker').datepicker({
     autoclose: true,
