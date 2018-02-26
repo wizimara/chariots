@@ -4,9 +4,9 @@ namespace App\Modules\Renting\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
-use App\Modules\renting\Models\Payment;
+use App\Modules\Renting\Models\Payment;
 
-use App\Modules\renting\Models\Confirmedrental;
+use App\Modules\Renting\Models\Confirmedrental;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Redirect;
