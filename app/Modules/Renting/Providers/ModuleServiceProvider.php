@@ -24,6 +24,12 @@ class ModuleServiceProvider extends ServiceProvider
                 'url'  => 'renting',
                 'icon' => 'money',
                 'submenu' => [
+                  [
+                      'text' => 'Pricings',
+                      'url'  => 'admin/renting/pricings',
+                      'icon' => 'money',
+                  ],
+                  
                           [
                               'text' => 'Booking',
                               'url'  => 'admin/renting/bookings',

@@ -33,8 +33,8 @@ class CategoryController extends Controller
     public function create()
     {
      return View::make('vehicles::categories.create' );
- 
-    
+
+
 	}
     /**
      * Store a newly created resource in storage.
@@ -47,13 +47,13 @@ class CategoryController extends Controller
          $input = Input::all();
 
         $validation = Validator::make($input, Category::$rules,Category::$messages);
-		
-		
+
+
 
         if ($validation->passes())
         {
-			
-			
+
+
            Category::create($input);
 			//\LogActivity::addToLog('Role '.$input['display'].' Added');
   \Session::flash('flash_message','Category added  .');
@@ -89,7 +89,7 @@ class CategoryController extends Controller
 
         if (is_null($cat))
         {
-			
+
             return Redirect::route('categories.index');
         }
         return View::make('vehicles::categories/.edit', compact('cat'));
@@ -105,12 +105,12 @@ class CategoryController extends Controller
     public function update(Request $request, $id)
     {
         $input = Input::all();
-	
-	  
-     
+
+
+
         $validation = Validator::make($input, Category::$rules,Category::$messages);
-	
-		
+
+
         if ($validation->passes())
         {
             $user = Category::find($id);
@@ -122,8 +122,8 @@ class CategoryController extends Controller
 return Redirect::route('categories.edit', $id)
             ->withInput()
             ->withErrors($validation)
-            ->with('message', 'There were validation errors.');	
-		
+            ->with('message', 'There were validation errors.');
+
     }
 
     /**
@@ -134,7 +134,7 @@ return Redirect::route('categories.edit', $id)
      */
     public function destroy($id)
     {
-        $cat= Category::find($id); 
+        $cat= Category::find($id);
         Category::find($id)->delete();
 		//\LogActivity::addToLog('Role '.$role->display.' Deleted');
 	 \Session::flash('flash_message','Successfully Deleted.');

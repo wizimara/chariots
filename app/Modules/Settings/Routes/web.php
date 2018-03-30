@@ -11,12 +11,10 @@
 |
 */
 
-Route::group(['prefix' => 'admin/renting'], function () {
+Route::group(['prefix' => 'admin/settings'], function () {
     Route::get('/', function () {
-        dd('This is the Renting module index page. Build something great!');
+        dd('This is the Settings module index page. Build something great!');
     });
-    Route::resource('/pricings', 'PricingController');
-  Route::resource('/bookings', 'BookingController');
-  Route::resource('/confirmedrentals', 'ConfirmedrentalController');
-  Route::resource('/payments', 'PaymentController');
+Route::resource('/settings', 'SettingController');
+
 });

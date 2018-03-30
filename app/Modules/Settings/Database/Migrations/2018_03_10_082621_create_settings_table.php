@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class Alteringpickuptime extends Migration
+class CreateSettingsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,13 @@ class Alteringpickuptime extends Migration
      */
     public function up()
     {
-      Schema::table('confirmedrentals', function($table) {
-        $table->drop('pick_up_time')->change();
-
-
-   });
+        Schema::create('settings', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('key_name');
+            $table->string('key_value');
+            $table->string('key_desc');
+            $table->timestamps();
+        });
     }
 
     /**
@@ -27,11 +29,6 @@ class Alteringpickuptime extends Migration
      */
     public function down()
     {
-      Schema::table('confirmedrentals', function (Blueprint $table) {
-
-$table->time('pick_up_time')->change();
-
-
-});
+        Schema::dropIfExists('settings');
     }
 }

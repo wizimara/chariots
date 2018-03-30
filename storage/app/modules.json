@@ -19,6 +19,16 @@
         "enabled": true,
         "order": 9001
     },
+    "Settings": {
+        "basename": "Settings",
+        "name": "Settings",
+        "slug": "settings",
+        "version": "1.0",
+        "description": "This is the description for the Settings module",
+        "id": 3846545605,
+        "enabled": true,
+        "order": 9001
+    },
     "Shared": {
         "basename": "Shared",
         "name": "Shared",
