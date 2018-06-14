@@ -112,6 +112,18 @@
 @endif
 </div>
 
+<div class="form-group col-sm-3 {{ $errors->has('selfdrive') ? ' has-error' : '' }} ">
+  {{ Form::label('selfdrive', trans('Self Drive Rate')) }}
+   {{ Form::text('selfdrive',null, array('class' => 'form-control')) }}
+
+          @if ($errors->has('selfdrive'))
+              <span class="help-block">
+                  <strong>{{ $errors->first('selfdrive') }}</strong>
+              </span>
+          @endif
+</div>
+
+
 <div class="form-group col-sm-3 {{ $errors->has('discount') ? ' has-error' : '' }} ">
 {{ Form::label('discount', trans('Discount')) }}
 {{ Form::text('discount',null, array('class' => 'form-control ')) }}

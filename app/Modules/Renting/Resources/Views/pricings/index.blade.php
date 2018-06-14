@@ -72,6 +72,7 @@
 				<th>Client</th>
 				<th>Daily Rate</th>
 				<th>Driver Daily Rate</th>
+				<th>SelfDriver Daily Rate</th>
 				<th>Discout</th>
 				<th>Delivery Cost</th>
 				<th>
@@ -106,6 +107,7 @@
 <td>{{$record->name }} </td>
 <td>{{number_format($record->dailyrate,0) }} </td>
 <td>{{number_format($record->dailydriverrate,0) }} </td>
+<td>{{number_format($record->selfdrive,0) }} </td>
 <td>{{number_format($record->discount,0)}} </td>
 <td>{{number_format($record->costofdelivery,0) }} </td>
 

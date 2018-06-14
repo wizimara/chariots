@@ -164,6 +164,11 @@ return Redirect::route('payments.edit', $id)
      */
     public function destroy($id)
     {
-        //
+      $item= Payment::find($id);
+      Payment::find($id)->delete();
+  //\LogActivity::addToLog('Role '.$role->display.' Deleted');
+ \Session::flash('flash_message','Successfully Deleted.');
+      return Redirect::route('payments.index')
+   ->with('message', 'Payment Detials Deleted.');
     }
 }

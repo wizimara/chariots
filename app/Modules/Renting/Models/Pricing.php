@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Pricing extends Model
 {
   protected $guarded = array('id');
-protected $fillable = array('vehicle_id','dailyrate','dateranges','dailydriverrate','discount',
+protected $fillable = array('vehicle_id','dailyrate','dateranges','selfdrive','dailydriverrate','discount',
 'costofdelivery');
 
 public static $rules = array(

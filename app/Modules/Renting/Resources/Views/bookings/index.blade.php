@@ -70,18 +70,16 @@
 				<th>Vehicle</th>
 				<th>Status</th>
 				<th>Client</th>
-				<th>Booking Date</th>
-				<th>Start Date</th>
-				<th>End Date</th>
+				<th>Booking</th>
+				<th>Start</th>
+				<th>End</th>
 				<th>Drive</th>
+				<th>Days</th>
+				<th> Amount</th>
+
 				<th>
 					<i class="ace-icon fa fa-clock-o bigger-110 hidden-480"></i>
 				Created
-				</th>
-
-																		<th>
-					<i class="ace-icon fa fa-clock-o bigger-110 hidden-480"></i>
-					Update
 				</th>
 
 				<th></th>
@@ -104,8 +102,11 @@
 <td>{{ $record->model_name .' '. $record->make_name.' '.$record->cat_name}}</td>
 <td>@if($record->booking_status=='cancelled')
 <span class="label label-danger ">  <i class="ace-icon fa fa-times bigger-130"></i>  Cancelled</span>
+
+@elseif(in_array($record->id, $confirmed))
+<span class="label label-success "><i class="ace-icon fa fa-check bigger-130"></i> confirmed</span>
 @else
-<span class="label label-success "><i class="ace-icon fa fa-check bigger-130"></i> Booked</span>
+<span class="label label-warning "><i class="ace-icon fa fa-check bigger-130"></i> Booked</span>
 @endif
 </td>
 
@@ -119,42 +120,75 @@ Driver
 Self Drive
 @endif </td>
 
+<?php
+
+$datetime1 = date_create($record->end_date_of_use);
+$datetime2 = date_create($record->starting_date_of_use);
+$interval = date_diff($datetime1, $datetime2);
+$days=0;
+if($interval->format('%a')==0)
+{
+$days=1;
+}else
+{
+$days =$interval->format('%a')+1;
+
+}
+
+?>
+<td>{{$days }} </td>
+<td>{{number_format($record->totalcost,0) }} </td>
+
 										 <td>{{ Carbon\Carbon::parse($record->created_at)->format('d-m-Y ') }}</td>
 
-<td>{{ Carbon\Carbon::parse($record->updated_at)->format('d-m-Y ') }}</td>
 
 
 
 <td>
-<div class="hidden-sm hidden-xs action-buttons">
 
 
-													 {{ link_to_route('bookings.edit', trans('Edit'), array($record->id), array('class' => 'btn btn-info btn-xs')) }}
+ @if(in_array($record->id, $confirmed))
+
+ @else
 
 
 
-@if ($record->name=="client" or $record->name=="Admin" or $record->name=="user" )
-
-@elseif($record->name=="Admin")
-
-@else
-{{Form::open(array(
-'route' => array( 'bookings.destroy', $record->id ),
-'method' => 'delete',
-'style' => 'display:inline',
-'onsubmit' => "return confirm('Are you sure you want to delete this row? ')",
-))}}
-
-<button class="btn btn-danger btn-xs ">
-<i class="ace-icon fa fa-trash-o bigger-130"></i>
-</button>
-
-{{Form::close()}}
-
-@endif
 
 
-</div>
+	 <div class="hidden-sm hidden-xs action-buttons">
+
+
+	 													 {{ link_to_route('bookings.edit', trans('Edit'), array($record->id), array('class' => 'btn btn-info btn-xs')) }}
+
+
+
+	 @if ($record->name=="client" or $record->name=="Admin" or $record->name=="user" )
+
+	 @elseif($record->name=="Admin")
+
+	 @else
+	 {{Form::open(array(
+	 'route' => array( 'bookings.destroy', $record->id ),
+	 'method' => 'delete',
+	 'style' => 'display:inline',
+	 'onsubmit' => "return confirm('Are you sure you want to delete this row? ')",
+	 ))}}
+
+	 <button class="btn btn-danger btn-xs ">
+	 <i class="ace-icon fa fa-trash-o bigger-130"></i>
+	 </button>
+
+	 {{Form::close()}}
+
+	 @endif
+
+
+	 </div>
+
+
+ @endif
+
+
 
 
 </td>

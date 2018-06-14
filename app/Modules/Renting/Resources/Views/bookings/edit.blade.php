@@ -44,9 +44,9 @@
 <!-- Box-->
 
 							<div class="col-xs-12 ">
+<div class="col-sm-8">
                 <div class=" page box">
 								<!-- PAGE CONTENT BEGINS -->
-
             <div class=" tile-body">
 
 {{ Form::model($item, array('method' => 'PATCH', 'route' => array('bookings.update', $item->id))) }}
@@ -62,7 +62,7 @@
 <option value="">  </option>
 @foreach($vehicles as $record)
 
-<option value="{{ $record->id }}" @if ($record->id == $item->vehicle_id) selected="selected" @endif >{{ $record->make_name.' '.$record->model_name .' '.$record->cat_name }}</option>
+<option value="{{ $record->vehicle_id}}" @if ($record->vehicle_id == $item->vehicle_id) selected="selected" @endif >{{ $record->make_name.' '.$record->model_name .' '.$record->cat_name }}</option>
 @endforeach
 </select>
 
@@ -98,7 +98,7 @@
 
 <div class="row">
 
-<div class="form-group col-sm-3 {{ $errors->has('booking_status') ? ' has-error' : '' }} ">
+<div class="form-group col-sm-5 {{ $errors->has('booking_status') ? ' has-error' : '' }} ">
 
 {{ Form::label('booking_status', trans(' Booked Status')) }}
 <br>
@@ -125,7 +125,7 @@ Cancelled
 
 
 
-<div class="form-group col-sm-3 {{ $errors->has('date_of_booking') ? ' has-error' : '' }} ">
+<div class="form-group col-sm-4 {{ $errors->has('date_of_booking') ? ' has-error' : '' }} ">
 {{ Form::label('date_of_booking', trans('Date of Booking')) }}
 {{ Form::text('date_of_booking',null, array('class' => 'form-control datepicker')) }}
 
@@ -136,7 +136,7 @@ Cancelled
 @endif
 </div>
 
-<div class="form-group col-sm-3 {{ $errors->has('starting_date_of_use') ? ' has-error' : '' }} ">
+<div class="form-group col-sm-4 {{ $errors->has('starting_date_of_use') ? ' has-error' : '' }} ">
 {{ Form::label('starting_date_of_use', trans('Starting Date of Use')) }}
 {{ Form::text('starting_date_of_use',null, array('class' => 'form-control datepicker')) }}
 
@@ -207,6 +207,17 @@ Self Drive
 
 </div>
 
+<div class="form-group col-sm-5 {{ $errors->has('booking_discount') ? ' has-error' : '' }} ">
+{{ Form::label('booking_discount', trans('Booking Discount')) }}
+{{ Form::text('booking_discount',$booking->cost6, array('class' => 'form-control')) }}
+{{ Form::hidden('booking_price',$booking->id, array('class' => 'form-control')) }}
+@if ($errors->has('booking_discount'))
+<span class="help-block">
+   <strong>{{ $errors->first('booking_discount') }}</strong>
+</span>
+@endif
+</div>
+
 </div>
 
 
@@ -227,7 +238,52 @@ Self Drive
 {{ Form::close() }}
 
 </div>
+
 </div>
+</div>
+<?php
+
+$datetime1 = date_create($item->end_date_of_use);
+$datetime2 = date_create($item->starting_date_of_use);
+$interval = date_diff($datetime1, $datetime2);
+$days=0;
+if($interval->format('%a')==0)
+{
+$days=1;
+}else
+{
+$days =$interval->format('%a')+1;
+
+}
+
+?>
+<div class="col-sm-4">
+                <div class=" page box">
+<table>
+<tr><td><h4>No of Days:</h4></td> <td><h4>{{$days}}</h4></td></tr>
+<tr><td><h4>Daily Rate:</h4></td> <td><h4>{{number_format($booking->cost1,0)}} @php $rate=$booking->cost1*$days; @endphp</h4></td></tr>
+@if($item->driver_option==1)
+<tr><td><h4>Daily Self Drive Rate:</h4></td> <td><h4>{{number_format($booking->cost3,0)}}@php $self=$booking->cost3*$days; @endphp </h4></td></tr>
+@else
+<tr><td><h4>Daily Driver Rate</h4></td> <td><h4>{{number_format($booking->cost2,0)}} @php $driver=$booking->cost2*$days; @endphp</h4></td></tr>
+@endif
+
+<tr><td><h4>Cost Of Dilivery</h4></td> <td><h4>{{number_format($booking->cost5,0)}}</h4></td></tr>
+<tr><td><h4>Discount</h4></td> <td><h4>{{number_format($booking->cost4,0)}}</h4></td></tr>
+<tr><td><h4>Booking Discount</h4></td> <td><h4>{{number_format($booking->cost6,0)}}</h4></td></tr>
+
+@if($item->driver_option==1)
+ @php $total=($rate+$self+$booking->cost5)-($booking->cost4+$booking->cost6) @endphp
+@else
+ @php $total=($rate+$driver+$booking->cost5)-($booking->cost4+$booking->cost6)@endphp
+@endif
+@php $feerate=$total*$setting->key_value @endphp
+<tr><td><h4>Total Cost</h4></td> <td><h4>{{ number_format($total,0)}}</h4></td></tr>
+<tr><td><h4>Trip Fee</h4></td> <td><h4>{{number_format( $feerate,0)}}</h4></td></tr>
+<tr><td><h4>Total Amount</h4></td> <td><h4>{{number_format( $total+$feerate,0)}}</h4></td></tr>
+</table>
+                </div></div>
+
 <!--box ends -->
 
 								<!-- PAGE CONTENT ENDS -->

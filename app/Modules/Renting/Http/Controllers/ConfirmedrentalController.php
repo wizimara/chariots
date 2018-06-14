@@ -48,6 +48,7 @@ class ConfirmedrentalController extends Controller
   ->Leftjoin('makes','models.make_id','=','makes.id')
 ->join('users','booked_by','=','users.id')
   ->select('bookings.*','model_name','make_name','cat_name','name')
+  ->where('booking_status','booked')
   ->orderBy('bookings.id', 'desc')->get();
 
            return View::make('renting::confirmedrentals.create', compact('bookings') );
@@ -72,6 +73,8 @@ class ConfirmedrentalController extends Controller
 
 
         Confirmedrental::create($input);
+
+        Booking::where('id',$input['booking_id'])->update(['booking_status'=>'confirmed']);
    //\LogActivity::addToLog('Role '.$input['display'].' Added');
 \Session::flash('flash_message','Confirmation detials added  .');
          return Redirect::route('confirmedrentals.index');
@@ -109,6 +112,7 @@ class ConfirmedrentalController extends Controller
   ->Leftjoin('makes','models.make_id','=','makes.id')
 ->join('users','booked_by','=','users.id')
   ->select('bookings.*','model_name','make_name','cat_name','name')
+  ->where('booking_status','booked')
   ->orderBy('bookings.id', 'desc')->get();
 
       if (is_null($item))
@@ -158,6 +162,7 @@ return Redirect::route('confirmedrentals.edit', $id)
     public function destroy($id)
     {
       $item= Confirmedrental::find($id);
+        Booking::where('id',$item->booking_id)->update(['booking_status'=>'booked']);
       Confirmedrental::find($id)->delete();
   //\LogActivity::addToLog('Role '.$role->display.' Deleted');
  \Session::flash('flash_message','Successfully Deleted.');

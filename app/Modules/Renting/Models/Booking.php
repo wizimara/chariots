@@ -8,7 +8,7 @@ class Booking extends Model
 {
   protected $guarded = array('id');
 protected $fillable = array('vehicle_id','user_id','booking_status','date_of_booking'
-,'starting_date_of_use','end_date_of_use','driver_option','booked_by'
+,'starting_date_of_use','end_date_of_use','driver_option','totalcost','booked_by'
 );
 
  public static $rules = array(

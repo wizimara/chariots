@@ -77,7 +77,7 @@
    <input type="radio" id="1" name="payment_status" value="1">Paid</label>
 
    <label class="radio-inline">
-   <input type="radio" id="0" name="payment_status" value="0">Not Paid</label>
+   <input type="radio" id="0" name="payment_status" value="0" checked>Not Paid</label>
 
 
    @if ($errors->has('payment_status'))
@@ -97,7 +97,7 @@
    <input type="radio" id="1" name="car_pickup_status" value="1">Picked</label>
 
    <label class="radio-inline">
-   <input type="radio" id="0" name="car_pickup_status" value="0">Not yet Picked</label>
+   <input type="radio" id="0" name="car_pickup_status" value="0" checked>Not yet Picked</label>
 
 
    @if ($errors->has('car_pickup_status'))
@@ -116,7 +116,7 @@
    <input type="radio" id="1" name="owner_pickup_confirmation" value="1">Yes</label>
 
    <label class="radio-inline">
-   <input type="radio" id="0" name="owner_pickup_confirmation" value="0">No</label>
+   <input type="radio" id="0" name="owner_pickup_confirmation" value="0" checked>No</label>
 
 
    @if ($errors->has('car_pickup_status'))

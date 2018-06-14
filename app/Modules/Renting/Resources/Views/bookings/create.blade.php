@@ -46,7 +46,7 @@
                <option value="">  </option>
                @foreach($vehicles as $record)
 
-               <option value="{{ $record->id }}"  >{{ $record->make_name.' '.$record->model_name .' '.$record->cat_name }}</option>
+               <option value="{{ $record->vehicle_id }}"  >{{ $record->make_name.' '.$record->model_name .' '.$record->cat_name }}</option>
                @endforeach
                </select>
 
@@ -91,7 +91,7 @@
        {{ Form::label('booking_status', trans(' Booked Status')) }}
        <br>
          <label class="radio-inline">
-   <input type="radio" id="No" name="booking_status" value="booked">Booked</label>
+   <input type="radio" id="No" name="booking_status" value="booked" checked>Booked</label>
 
    <label class="radio-inline">
    <input type="radio" id="Yes" name="booking_status" value="cancelled">Cancelled</label>
@@ -148,7 +148,7 @@
     {{ Form::label('driver_option', trans(' Drive Option')) }}
     <br>
       <label class="radio-inline">
-<input type="radio" id="No" name="driver_option" value="0">Driver</label>
+<input type="radio" id="No" name="driver_option" value="0" checked>Driver</label>
 
 <label class="radio-inline">
 <input type="radio" id="Yes" name="driver_option" value="1">Self Drive</label>
@@ -182,6 +182,17 @@
                                 @endif
 
             </div>
+
+						<div class="form-group col-sm-4 {{ $errors->has('booking_discount') ? ' has-error' : '' }} ">
+						{{ Form::label('booking_discount', trans('Booking Discount')) }}
+						{{ Form::text('booking_discount','0', array('class' => 'form-control')) }}
+						@if ($errors->has('booking_discount'))
+						<span class="help-block">
+						   <strong>{{ $errors->first('booking_discount') }}</strong>
+						</span>
+						@endif
+						</div>
+
 
 </div>
 
