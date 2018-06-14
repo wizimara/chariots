@@ -21,7 +21,7 @@ class CreateBookingPriceTable extends Migration
             $table->decimal('cost3',12, 0);
             $table->decimal('cost4',12, 0);
             $table->decimal('cost5',12, 0);
-              $table->decimal('cost6',12, 0)
+            $table->decimal('cost6',12, 0);
             $table->timestamps();
         });
     }
