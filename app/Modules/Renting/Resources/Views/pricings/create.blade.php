@@ -70,7 +70,7 @@
      <div class="form-group col-sm-3 {{ $errors->has('dailyrate') ? ' has-error' : '' }} ">
 
        {{ Form::label('dailyrate', trans(' Daily Rate')) }}
-    {{ Form::text('dailyrate',null, array('class' => 'form-control ')) }}
+    {{ Form::text('dailyrate','0', array('class' => 'form-control ')) }}
 
 
    @if ($errors->has('dailyrate'))
@@ -85,7 +85,7 @@
 
      <div class="form-group col-sm-3 {{ $errors->has('dailydriverrate') ? ' has-error' : '' }} ">
        {{ Form::label('dailydriverrate', trans('Daily Driver Rate')) }}
-        {{ Form::text('dailydriverrate',null, array('class' => 'form-control')) }}
+        {{ Form::text('dailydriverrate','0', array('class' => 'form-control')) }}
 
                @if ($errors->has('dailydriverrate'))
                    <span class="help-block">
@@ -96,7 +96,7 @@
 
 		 <div class="form-group col-sm-3 {{ $errors->has('selfdrive') ? ' has-error' : '' }} ">
 			 {{ Form::label('selfdrive', trans('Self Drive Rate')) }}
-				{{ Form::text('selfdrive',null, array('class' => 'form-control')) }}
+				{{ Form::text('selfdrive','0', array('class' => 'form-control')) }}
 
 							 @if ($errors->has('selfdrive'))
 									 <span class="help-block">
@@ -107,7 +107,7 @@
 
      <div class="form-group col-sm-3 {{ $errors->has('discount') ? ' has-error' : '' }} ">
        {{ Form::label('discount', trans('Discount')) }}
-        {{ Form::text('discount',null, array('class' => 'form-control ')) }}
+        {{ Form::text('discount','0', array('class' => 'form-control ')) }}
 
                @if ($errors->has('discount'))
                    <span class="help-block">
@@ -117,7 +117,7 @@
      </div>
      <div class="form-group col-sm-3 {{ $errors->has('costofdelivery') ? ' has-error' : '' }} ">
        {{ Form::label('costofdelivery', trans('Cost of Delivery')) }}
-        {{ Form::text('costofdelivery',null, array('class' => 'form-control ')) }}
+        {{ Form::text('costofdelivery','0', array('class' => 'form-control ')) }}
 
                @if ($errors->has('costofdelivery'))
                    <span class="help-block">

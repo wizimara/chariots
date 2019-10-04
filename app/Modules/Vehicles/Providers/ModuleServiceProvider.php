@@ -22,17 +22,17 @@ class ModuleServiceProvider extends ServiceProvider
             $menu = [
                 'text' => 'VEHICLES MANAGEMENT',
                 'url'  => 'vehicles',
-                'icon' => 'car',
+                'icon' => 'fa fa-car',
                 'submenu' => [
 							             [
                                 'text' => 'categories',
                                 'url'  => 'admin/vehicles/categories',
-                                'icon' => 'list',
+                                'icon' => 'fa fa-list',
                             ],
 							              [
                                 'text' => 'Makes',
                                 'url'  => 'admin/vehicles/makes',
-                                'icon' => 'car',
+                                'icon' => 'fa fa-car',
                             ],
                             [
                                 'text' => 'Models',

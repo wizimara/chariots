@@ -22,6 +22,7 @@ class CreateBookingsTable extends Migration
             $table->date('starting_date_of_use');
             $table->date('end_date_of_use');
             $table->tinyInteger('driver_option')->default(0)->nullable($value = true);
+            $table->decimal('totalcost',12, 0);
             $table->bigInteger('booked_by');
             $table->timestamps();
         });

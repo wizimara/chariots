@@ -18,35 +18,38 @@ class ModuleServiceProvider extends ServiceProvider
         $this->loadTranslationsFrom(__DIR__.'/../Resources/Lang', 'users');
         $this->loadViewsFrom(__DIR__.'/../Resources/Views', 'users');
         $this->loadMigrationsFrom(__DIR__.'/../Database/Migrations', 'users');
-		$events->listen(BuildingMenu::class, function (BuildingMenu $event) {
-            $menu = [
-                'text' => 'Users',
-                'url'  => 'users',
-                'icon' => 'group',
-				'can'  => 'manage-users',
-                'submenu' => [
-							[
-                                'text' => 'list users',
-                                'url'  => route('users.list'),
-                                'icon' => 'user',
-                            ],
-							[
-                                'text' => 'permissions',
-                                'url'  => route('permissions.list'),
-                                'icon' => 'lock',
-                            ],
-                            [
-                                'text' => 'roles',
-                                'url'  => route('roles.list'),
-                                'icon' => 'check',
+        $events->listen(BuildingMenu::class, function (BuildingMenu $event) {
+                        $menu = [
+                            'text' => 'Account Management',
+                            'icon' => 'lock',
+                            // 'can' => 'accounts_management',
+                            'submenu' => [
+                              [
+                                      'text' => 'Users',
+                                      'url'  => route('users.index'),
+                                      'icon' => 'lock',
+                                      //'can'=>'Edit Payment',
+                                    //'role'=>'admin',
+                                  ],
+                              [
+                                      'text' => 'Roles',
+                                      'url'  => route('roles.index'),
+                                      'icon' => 'lock',
+                                      //'can'=>'Edit Payment',
+                                    //'role'=>'admin',
+                                  ],
+                                  [
+                                      'text' => 'Permissions',
+                                      'url'  => route('permissions.index'),
+                                      'icon' => 'lock',
+                                   //'can'=>'view_roles',
+                                  ],
+
+
                             ]
-                           
-                           
-							
-                        ]
-            ];
-         $event->menu->add($menu);
-        });
+                        ];
+                     $event->menu->add($menu);
+                    });
     }
 
     /**

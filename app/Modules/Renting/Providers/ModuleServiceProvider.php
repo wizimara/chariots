@@ -22,28 +22,28 @@ class ModuleServiceProvider extends ServiceProvider
             $menu = [
                 'text' => 'RENTING',
                 'url'  => 'renting',
-                'icon' => 'money',
+                'icon' => 'fas fa-fw fa-money-bill-alt',
                 'submenu' => [
                   [
                       'text' => 'Pricings',
                       'url'  => 'admin/renting/pricings',
-                      'icon' => 'money',
+                      'icon' => 'fas fa-fw fa-money-bill-alt',
                   ],
-                  
+
                           [
                               'text' => 'Booking',
                               'url'  => 'admin/renting/bookings',
-                              'icon' => 'money',
+                              'icon' => 'fas fa-fw fa-money-bill-alt',
                           ],
                           [
                                 'text' => 'Confirmation Rentals',
                                 'url'  => 'admin/renting/confirmedrentals',
-                                'icon' => 'money',
+                                'icon' => 'fas fa-fw fa-money-bill-alt',
                           ],
                           [
                                   'text' => 'Payments',
                                   'url'  => 'admin/renting/payments',
-                                  'icon' => 'money',
+                                  'icon' => 'fas fa-fw fa-money-bill',
                           ],
 
                         ]

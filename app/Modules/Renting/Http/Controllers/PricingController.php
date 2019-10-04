@@ -151,6 +151,11 @@ return Redirect::route('pricings.edit', $id)
      */
     public function destroy($id)
     {
-        //
+      $item= Pricing::find($id);
+      Pricing::find($id)->delete();
+  //\LogActivity::addToLog('Role '.$role->display.' Deleted');
+ \Session::flash('flash_message','Successfully Deleted.');
+      return Redirect::route('pricings.index')
+   ->with('message', 'Car Price Detials Deleted.');
     }
 }

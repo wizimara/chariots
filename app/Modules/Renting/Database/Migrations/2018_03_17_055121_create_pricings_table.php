@@ -19,6 +19,7 @@ class CreatePricingsTable extends Migration
             $table->decimal('dailyrate',12, 0);
             $table->string('dateranges')->nullable($value = true);
             $table->decimal('dailydriverrate',12, 0);
+              $table->decimal('selfdrive',12, 0);
             $table->decimal('discount',12, 0)->default(0)->nullable($value = true);
               $table->decimal('costofdelivery',12, 0);
               $table->decimal('totalprice',12, 0);
