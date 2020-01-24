@@ -12,11 +12,10 @@
 */
 
 
-
+Route::get('/momo', 'HomeController@momo')->name('momo.test');
 Auth::routes();
-
 Route::get('/home', 'HomeController@index')->name('home');
 
-Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+
+

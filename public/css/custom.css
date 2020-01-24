@@ -1,0 +1,260 @@
+/*--------------------------------------------------------------
+
+    Template:  Sheltek Real Estate HTML5 Template
+    Author: http://devitems.com/
+    Version: 1
+    Design and Developed by: http://devitems.com/
+
+Note: This is the file where you can add your custom styles to change the look of the theme. But don't modify "style.css" file.
+
+---------------------------------------------------------------*/
+
+/* ----------------------------------------------------
+	You can put your custom css code here: 
+-------------------------------------------------------*/
+
+.slider-1-title-2 {
+	font-family: CooperHewitt-Medium;
+	font-weight: 300;
+	font-size: 3em;
+	text-transform: none;
+}
+
+.nivo-directionNav a {
+    border: 1px solid #c9c9c9;
+    color: #c9c9c9;
+	display: none;
+}
+
+.slider-2.bg-3 {
+	background: url(../images/slider/chariots-ultimate-road-trip.jpg); 
+}
+
+.slider-2 {
+	padding: 260px 0 260px;
+}
+
+.slider-2 .slider-content {
+	position: inherit;
+}
+
+.slider-1-desc {
+    font-size: 1.450em;
+}
+
+.find-home-box {
+	width: 65%;
+	border-bottom: none;
+	padding: 15px 30px 10px;
+	border-radius: 4px;
+}
+
+.find-homes div h5{
+	color: #ffffff;
+	padding: 0 15px;
+}
+
+.find-homes input[type="text"] {
+	background: #ffffff;
+}
+
+.find-car-area::before {
+    -webkit-transform: none;
+	transform: none;
+	border-right: 1px solid gray;
+	background: #1f223e;
+}
+
+.total-cars {
+	color: #AA00FF;
+}
+
+
+
+.reserve-bottom-info h5, .reserve-bottom-info a {
+	color: #999;
+}
+
+.reserve-bottom-info a:hover,
+.reserve-bottom-info a:active,
+.reserve-bottom-info a:focus {
+	color: #AA00FF;
+}
+
+.find-car-area {
+	padding-top: 40px;
+}
+
+.featured-flat .for-sale {
+	display:none;
+}
+
+.featured-flat .flat-item-info {
+    padding: 15px 5px;
+}
+
+.featured-flat .flat-item-info .flat-title-price .price {font-size: 20px;}
+
+.featured-flat-area .section-title-2 h2, 
+.blog-area .section-title-2 h2,
+.features-info .section-title h2 { 
+	font-family: CooperHewitt-Medium;
+	font-weight: 300;
+	text-transform: none;
+	color: #AA00FF;
+	letter-spacing: 1.5px;
+	text-align: center;
+	
+} 
+
+.section-title-2 p,
+.features-info .features-desc p {
+	font-size: 1.450em;
+	text-align: center;
+}
+
+.features-info .features-include .features-include-list h6 {
+	font-family: CooperHewitt-Medium;
+	color: #AA00FF;
+	letter-spacing: 1.2px;
+	font-size: 1.450em;
+}
+
+.features-info .features-include .features-include-list p {
+	font-size: 1.17em;
+}
+
+.features-info .features-include .features-include-list {
+	padding: 5px 15px;
+	margin-top: 15px;
+}
+
+.features-info .features-include .features-include-list img {
+	margin-bottom: 20px;
+}
+
+.featured-flat .flat-item-image .flat-link > a {
+	font-size: 12px;
+	padding: 7px 10px 7px;
+}
+
+.featured-flat .flat-item-image {
+    border: 1px solid #e1e1e1;
+}
+
+.featured-flat .flat-item:hover {
+	background: #ffffff;
+}
+
+.flat-item:hover .flat-item-image::before {
+    visibility: hidden;
+}
+
+.car-categories .flat-item {
+	border: 1px solid #e1e1e1;
+}
+
+.flat-title-price h5 a { 
+	color: #AA00FF;
+}
+
+.featured-flat .flat-item:hover .flat-title-price h5 a {
+	color: #FFF;
+	-webkit-transition: all 0.4s ease-out 0s;
+	transition: all 0.4s ease-out 0s;
+}
+
+.featured-flat .flat-item:hover {
+    background: #A0F;
+	border: 1px solid #A0F;
+	-webkit-transition: all 0.4s ease-out 0s;
+	transition: all 0.4s ease-out 0s;
+}
+
+
+
+.flat-title-price h5 {
+    float: none;
+	text-align: center;
+}
+
+.featured-flat .flat-item:hover .flat-item-info p {
+	color: #e1e1e1;
+}
+
+.featured-flat .flat-item:hover .flat-item-image {
+    border: 1px solid #AA00FF;
+}
+
+.section-title h1, .section-title h2, .section-title h3 {
+    font-weight: 400;
+}
+
+.brand-area {padding: 2em 2em 0 2em;}
+
+.brand-area h4 {
+	font-weight: 400;
+	margin: 20px auto;
+    margin-left: auto;
+	margin-left: 15px;
+	font-size: 24px;
+	background: #A0F;
+	display: inline-block;
+	color: #fff;
+	padding: 5px;
+}
+
+.booking-area {
+	margin-bottom: 5em;
+}
+
+.call-to-bg.start-earning::before {
+	transform: skewX(-20deg);
+}
+
+.book-house h2 {
+	font-weight: 400;
+	padding-left: 15px;
+}
+
+.booking-area.bg-1 {
+	background: url(../images/bg/bmw-bumper-1.jpg);
+	background-attachment: fixed;
+	background-repeat: no-repeat;
+	background-position: center;
+}
+
+.copyright a b {
+	font-weight: 300;
+}
+
+.app-screen, .store-links {text-align: center;}
+
+.app-screen img {
+	max-width: 350px;
+}
+
+.features-area {
+    background: #f5f5f5;
+}
+
+.features-info {
+    padding: 100px 0px;
+}
+
+.features-info::before {
+	display: none;
+}
+
+.latest-news-info {
+	padding-left:0;
+}
+
+.footer-latest-news > li + li {
+    padding-top: 10px;
+}
+
+.footer-widget .fa-facebook, .footer-widget .fa-instagram, .footer-widget .fa-twitter {
+	color: #ffffff;
+}
+
