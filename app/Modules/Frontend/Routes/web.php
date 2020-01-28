@@ -16,3 +16,8 @@ Route::group(['prefix' => 'frontend'], function () {
         dd('This is the Frontend module index page. Build something great!');
     });
 });
+
+Route::get('how-it-works', function()
+{
+   return view('frontend::how_it_works');
+});

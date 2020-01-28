@@ -12,16 +12,17 @@
     <link rel="shortcut icon" type="image/x-icon" href="{{asset('images/icons/favicon.png')}}">
 
     <!-- All css files are included here. -->
+	<!-- This core.css file contents all plugings css file. -->
+    <link rel="stylesheet" href="{{asset('css/core.css')}}">
     <!-- Bootstrap fremwork main css -->
     <link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}">
 	<!-- nivo slider CSS -->
     <link rel="stylesheet" href="{{asset('lib/css/nivo-slider.css')}}"/>
-    <!-- This core.css file contents all plugings css file. -->
-    <link rel="stylesheet" href="{{asset('css/core.css')}}">
+    
     <!-- Theme shortcodes/elements style -->
     <link rel="stylesheet" href="{{asset('css/shortcode/shortcodes.css')}}">
     <!-- Theme main style -->
-    <link rel="stylesheet" href="{{asset('style.css')}}">
+    <link rel="stylesheet" href="{{asset('css/style.css')}}">
 	<!-- <link rel="stylesheet" href="css/fontawesome.min.css"> 
 	<link rel="stylesheet" href="css/solid.min.css">
 	<link rel="stylesheet" href="css/regular.min.css"> -->
@@ -39,6 +40,8 @@
 	<script src="{{asset('js/svg-with-js.min.css')}}" type='text/javascript'></script>
 	
 	<link href="{{asset('js/datetimepicker/css/bootstrap-datetimepicker.min.css')}}" rel='stylesheet' type='text/css'>
+	
+	@yield('assets')
 </head>
 
 <body>
@@ -56,7 +59,7 @@
                     <div class="row">
                         <div class="col-md-12 col-sm-12 col-xs-12">
                             <div class="logo">
-                                <a href="index.html">
+                                <a href="{{url('/')}}">
                                     <!-- <img src="images/logo/logo.png" alt=""> -->
 									CHARIOTS
                                 </a>
@@ -99,20 +102,20 @@
                 </div>
             </div>
 			
-            <div id="sticky-header" class="header-middle-area  transparent-header hidden-xs">
+            <div id="sticky-header" class="header-middle-area  transparent-header hidden-xs dark-header">
                 <div class="container">
                     <div class="full-width-mega-drop-menu">
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="sticky-logo">
-                                    <a href="index.html">
+                                    <a href="{{url('/')}}">
                                         <!-- <img src="images/logo/logo.png" alt=""> -->
 										<span>CHARIOTS</span>
                                     </a>
                                 </div>
                                 <nav id="primary-menu">
                                     <ul class="main-menu text-center">
-                                        <li><a href="#">How it works</a></li>
+                                        <li><a href="{{url('how-it-works')}}">How it works</a></li>
                                         <li><a href="#">List your car</a></li>
                                         <li><a href="#">Sign up</a></li>
                                         <li><a href="#">Login</a></li>
@@ -140,7 +143,7 @@
                         <div class="mobile-menu">
                             <nav id="dropdown">
                                 <ul>
-                                    <li><a href="#">How it works</a></li>
+                                    <li><a href="{{url('how-it-works')}}">How it works</a></li>
                                     <li><a href="#">List your car</a></li>
                                     <li><a href="#">Sign up</a></li>
                                     <li><a href="#">Login</a></li>
@@ -243,7 +246,7 @@
                                 <ul class="footer-latest-news">
                                     <li>
                                         <div class="latest-news-info">
-                                            <h6><a href="#">How it works</a></h6>
+                                            <h6><a href="{{url('how-it-works')}}">How it works</a></h6>
                                         </div>
                                     </li>
                                     <li>
