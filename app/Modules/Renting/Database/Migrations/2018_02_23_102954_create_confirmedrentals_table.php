@@ -19,7 +19,8 @@ class CreateConfirmedrentalsTable extends Migration
               $table->tinyInteger('payment_status')->default(0)->nullable($value = true);
               $table->tinyInteger('car_pickup_status')->default(0)->nullable($value = true);
               $table->tinyInteger('owner_pickup_confirmation')->default(0)->nullable($value = true);
-              $table->DateTime('pick_up_time');
+              $table->date('pick_up_date');
+			  $table->string('pick_up_time');	
             $table->timestamps();
         });
     }
