@@ -178,13 +178,13 @@ return [
             'files' => [
                 [
                     'type' => 'js',
-                    'asset' => false,
-                    'location' => '//cdn.datatables.net/v/bs/dt-1.10.18/datatables.min.js',
+                    'asset' => true,
+                    'location' => 'vendor/DataTables/datatables.min.js',
                 ],
                 [
                     'type' => 'css',
-                    'asset' => false,
-                    'location' => '//cdn.datatables.net/v/bs/dt-1.10.18/datatables.min.css',
+                    'asset' => true,
+                    'location' => 'vendor/DataTables/datatables.min.css',
                 ],
             ],
         ],
@@ -221,7 +221,7 @@ return [
             'files' => [
                 [
                     'type' => 'js',
-                    'asset' => false,
+                    'asset' => true,
                     'location' => '//cdn.jsdelivr.net/npm/sweetalert2@8',
                 ],
             ],
@@ -232,15 +232,31 @@ return [
             'files' => [
                 [
                     'type' => 'css',
-                    'asset' => false,
+                    'asset' => true,
                     'location' => '//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/themes/blue/pace-theme-center-radar.min.css',
                 ],
                 [
                     'type' => 'js',
-                    'asset' => false,
+                    'asset' => true,
                     'location' => '//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.min.js',
                 ],
             ],
         ],
+        [
+           'name' => 'Toastr',
+           'active' => true,
+           'files' => [
+               [
+                   'type' => 'css',
+                   'asset' => true,
+                   'location' => 'vendor/toastr/toastr.min.css',
+               ],
+               [
+                   'type' => 'js',
+                   'asset' => true,
+                   'location' => 'vendor/toastr/toastr.min.js',
+               ],
+           ],
+       ],
     ],
 ];

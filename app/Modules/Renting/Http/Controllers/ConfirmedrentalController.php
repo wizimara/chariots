@@ -24,14 +24,7 @@ class ConfirmedrentalController extends Controller
      */
     public function index()
     {
-      $items = Confirmedrental::join('bookings','booking_id','=','bookings.id')
-      ->Leftjoin('vehicles','bookings.vehicle_id','=','vehicles.id')
-      ->Leftjoin('models','vehicles.model_id','=','models.id')
-  ->Leftjoin('makes','models.make_id','=','makes.id')
-  ->Leftjoin('categories','vehicles.category_id','=','categories.id')
-  ->join('users','bookings.user_id','=','users.id')
-  ->select('confirmedrentals.*','model_name','make_name','cat_name','name')
-  ->orderBy('confirmedrentals.id', 'desc')->get();
+      $items = Confirmedrental::all();
   return View::make('renting::confirmedrentals.index', compact('items'));
     }
 
@@ -42,14 +35,7 @@ class ConfirmedrentalController extends Controller
      */
     public function create()
     {
-      $bookings=Booking::join('vehicles','bookings.vehicle_id','=','vehicles.id')
-  ->Leftjoin('categories','vehicles.category_id','=','categories.id')
-  ->Leftjoin('models','vehicles.model_id','=','models.id')
-  ->Leftjoin('makes','models.make_id','=','makes.id')
-->join('users','booked_by','=','users.id')
-  ->select('bookings.*','model_name','make_name','cat_name','name')
-  ->where('booking_status','booked')
-  ->orderBy('bookings.id', 'desc')->get();
+        $bookings=Booking::where('booking_status','Booked')->get();
 
            return View::make('renting::confirmedrentals.create', compact('bookings') );
     }
@@ -62,28 +48,28 @@ class ConfirmedrentalController extends Controller
      */
     public function store(Request $request)
     {
-      $input = Input::all();
 
-     $validation = Validator::make($input, Confirmedrental::$rules,Confirmedrental::$messages);
+      $validation = request()->validate(Confirmedrental::$rules,Confirmedrental::$messages);
+      $booking = New Confirmedrental;
+      $booking->booking_id =request()->input('booking_id');
+      $booking->payment_status =request()->input('payment_status');
+      $booking->car_pickup_status =request()->input('car_pickup_status');
+      $booking->owner_pickup_confirmation =request()->input('owner_pickup_confirmation');
+      $booking->pick_up_time =request()->input('pick_up_time');
+      $booking->pick_up_date =request()->input('pick_up_date');
+      $booking->save();
 
+      $booking1 =Booking::find(request()->input('booking_id'));
+      $booking1->booking_status='Confirmed';
+      $booking1->save();
+      $alerts = [
+   'bustravel-flash'         => true,
+   'bustravel-flash-type'    => 'success',
+   'bustravel-flash-title'   => 'Pricing Saving',
+   'bustravel-flash-message' => ' has successfully been saved',
+];
 
-
-     if ($validation->passes())
-     {
-
-
-        Confirmedrental::create($input);
-
-        Booking::where('id',$input['booking_id'])->update(['booking_status'=>'confirmed']);
-   //\LogActivity::addToLog('Role '.$input['display'].' Added');
-\Session::flash('flash_message','Confirmation detials added  .');
-         return Redirect::route('confirmedrentals.index');
-     }
-
-     return Redirect::route('confirmedrentals.create')
-         ->withInput()
-         ->withErrors($validation)
-         ->with('message', 'There were validation errors.');
+   return redirect()->route('confirmedrentals.index')->with($alerts);
     }
 
     /**
@@ -106,14 +92,7 @@ class ConfirmedrentalController extends Controller
     public function edit($id)
     {
       $item = Confirmedrental::find($id);
-      $bookings=Booking::join('vehicles','bookings.vehicle_id','=','vehicles.id')
-  ->Leftjoin('categories','vehicles.category_id','=','categories.id')
-  ->Leftjoin('models','vehicles.model_id','=','models.id')
-  ->Leftjoin('makes','models.make_id','=','makes.id')
-->join('users','booked_by','=','users.id')
-  ->select('bookings.*','model_name','make_name','cat_name','name')
-  ->where('booking_status','booked')
-  ->orderBy('bookings.id', 'desc')->get();
+      $bookings=Booking::orderBy('bookings.id', 'desc')->get();
 
       if (is_null($item))
       {
@@ -132,25 +111,26 @@ class ConfirmedrentalController extends Controller
      */
     public function update(Request $request, $id)
     {
-      $input = Input::all();
+      $validation = request()->validate(Confirmedrental::$rules,Confirmedrental::$messages);
+      $booking = Confirmedrental::find($id);
+      $booking->booking_id =request()->input('booking_id');
+      $booking->payment_status =request()->input('payment_status');
+      $booking->car_pickup_status =request()->input('car_pickup_status');
+      $booking->owner_pickup_confirmation =request()->input('owner_pickup_confirmation');
+      $booking->pick_up_time =request()->input('pick_up_time');
+      $booking->pick_up_date =request()->input('pick_up_date');
+      $booking->save();
 
-
-
-     $validation = Validator::make($input, Confirmedrental::$rules,Confirmedrental::$messages);
-
-
-     if ($validation->passes())
-     {
-         $user = Confirmedrental::find($id);
-         $user->update($input);
-   //\LogActivity::addToLog('Role '.$input['display'].' Updated');
-   \Session::flash('flash_message','Successfully Updated.');
-         return Redirect::route('confirmedrentals.edit', $id);
-     }
-return Redirect::route('confirmedrentals.edit', $id)
-         ->withInput()
-         ->withErrors($validation)
-         ->with('message', 'There were validation errors.');
+      $booking1 =Booking::find(request()->input('booking_id'));
+      $booking1->booking_status='Confirmed';
+      $booking1->save();
+      $alerts = [
+   'bustravel-flash'         => true,
+   'bustravel-flash-type'    => 'success',
+   'bustravel-flash-title'   => 'Pricing Updating',
+   'bustravel-flash-message' => ' has successfully been saved',
+];
+ return redirect()->route('confirmedrentals.edit',$id)->with($alerts);
     }
 
     /**
@@ -159,14 +139,22 @@ return Redirect::route('confirmedrentals.edit', $id)
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function delete($id)
     {
       $item= Confirmedrental::find($id);
-        Booking::where('id',$item->booking_id)->update(['booking_status'=>'booked']);
+      $booking1 =Booking::find($item->booking_id);
+      $booking1->booking_status='Booked';
+      $booking1->save();
+      $name =$item->id;
       Confirmedrental::find($id)->delete();
-  //\LogActivity::addToLog('Role '.$role->display.' Deleted');
- \Session::flash('flash_message','Successfully Deleted.');
-      return Redirect::route('confirmedrentals.index')
-   ->with('message', 'Booking Deleted.');
+
+      $alerts = [
+      'bustravel-flash'         => true,
+      'bustravel-flash-type'    => 'error',
+      'bustravel-flash-title'   => 'Booking Deleting',
+      'bustravel-flash-message' => $name .' has successfully been Deleted',
+      ];
+
+      return redirect()->route('confirmedrentals.index')->with($alerts);
     }
 }

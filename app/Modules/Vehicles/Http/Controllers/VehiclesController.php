@@ -29,11 +29,7 @@ class VehiclesController extends Controller
      */
     public function index()
     {
-          $items = Vehicle::join('models','model_id','=','models.id')
-		  ->join('makes','make_id','=','makes.id')
-		  ->join('categories','category_id','=','categories.id')
-		  ->select('vehicles.*','model_name','make_name','cat_name')
-		  ->orderBy('vehicles.id', 'desc')->get();
+          $items = Vehicle::all();
 		 return View::make('vehicles::vehicles.index', compact('items'));
     }
 
@@ -63,35 +59,37 @@ class VehiclesController extends Controller
      */
     public function store(Request $request)
     {
+       $validation = request()->validate(Vehicle::$rules);
+       $vehicle = New Vehicle;
+       $vehicle->model_id =request()->input('model_id');
+       $vehicle->category_id =request()->input('category_id');
+       $vehicle->year_model =request()->input('year_model');
+       $vehicle->no_plate =strtoupper(str_replace(' ', '', request()->input('no_plate')));
+       $vehicle->color =request()->input('color');
+       $vehicle->passengers =request()->input('passengers');
+       $vehicle->tracker =request()->input('tracker');
+       $vehicle->transimition =request()->input('transimition');
+       $vehicle->insurance_type =request()->input('insurance_type');
+       $vehicle->insurance_expiry =request()->input('insurance_expiry')??NULL;
+       $vehicle->vehicle_desc =request()->input('vehicle_desc');
+       $vehicle->user_id =request()->input('user_id');
+       $vehicle->status =request()->input('status');
+       $vehicle->save();
 
-         $input = Input::all();
+       $features = $request->input('features');
+    foreach($features as $feature_id)
+    {
+     $vehicle->features()->attach($feature_id);
+    }
 
-        $validation = Validator::make($input,Vehicle::$rules,Vehicle::$messages);
+        $alerts = [
+      'bustravel-flash'         => true,
+      'bustravel-flash-type'    => 'success',
+      'bustravel-flash-title'   => 'Model Saving',
+      'bustravel-flash-message' => $vehicle->model_name.' has successfully been saved',
+       ];
 
-
-
-        if ($validation->passes())
-        {
-
- //$features = $request->input('features');
-	//	$vehicle = Vehicle::create($input);
-
-
-//foreach($features as $feature_id)
-//{
-	//$vehicle->features()->attach($feature_id);
-//}
-
-           Vehicle::create($input);
-			//\LogActivity::addToLog('Role '.$input['display'].' Added');
-  \Session::flash('flash_message','Vechile added  .');
-            return Redirect::route('vehicles.index');
-        }
-
-        return Redirect::route('vehicles.create')
-            ->withInput()
-            ->withErrors($validation)
-            ->with('message', 'There were validation errors.');
+    return redirect()->route('vehicles.index')->with($alerts);
     }
 
     /**
@@ -146,48 +144,47 @@ class VehiclesController extends Controller
     public function update(Request $request, $id)
     {
 
+      $validation = request()->validate([
+        'model_id' => 'required',
+      	'category_id' => 'required',
+      	'year_model' => 'required',
+      	'no_plate' => 'required|unique:vehicles,no_plate,'.$id,
+      	'color' => 'required',
+         'passengers' => 'required',
+         'user_id' => 'required',
+        'insurance_expiry' => 'required'
+   ],Vehicle::$messages);
+      $vehicle =  Vehicle::find($id);
+      $vehicle->model_id =request()->input('model_id');
+      $vehicle->category_id =request()->input('category_id');
+      $vehicle->year_model =request()->input('year_model');
+      $vehicle->no_plate =strtoupper(str_replace(' ', '', request()->input('no_plate')));
+      $vehicle->color =request()->input('color');
+      $vehicle->passengers =request()->input('passengers');
+      $vehicle->tracker =request()->input('tracker');
+      $vehicle->transimition =request()->input('transimition');
+      $vehicle->insurance_type =request()->input('insurance_type');
+      $vehicle->insurance_expiry =request()->input('insurance_expiry')??NULL;
+      $vehicle->vehicle_desc =request()->input('vehicle_desc');
+      $vehicle->user_id =request()->input('user_id');
+      $vehicle->status =request()->input('status');
+      $vehicle->save();
 
-	  $features = $request->input('features');
-//$features = implode(',', $features);
+	    $features = $request->input('features');
+      $vehicle->features()->detach();
+      foreach($features as $feature_id)
+      {
+      	$vehicle->features()->attach($feature_id);
+      }
 
-$vehicle = Vehicle::find($id);
-$vehicle->features()->detach();
+      $alerts = [
+    'bustravel-flash'         => true,
+    'bustravel-flash-type'    => 'success',
+    'bustravel-flash-title'   => 'Vehicle Saving',
+    'bustravel-flash-message' => $vehicle->id.' has successfully been saved',
+     ];
 
-//$vehicle = Vehicle::find($id);
-//$vehicle1->features()->detach($id);
-
-foreach($features as $feature_id)
-{
-	$vehicle->features()->attach($feature_id);
-}
-
-
-
-//$input = $request->except('features');
-//Assign the "mutated" news value to $input
-//$input['features'] = $features;
-
-
-
-	 $input = Input::all();
-
-
-
-        $validation = Validator::make($input, Vehicle::$rules,Vehicle::$messages);
-
-
-        if ($validation->passes())
-        {
-            $user = Vehicle::find($id);
-            $user->update($input);
-			//\LogActivity::addToLog('Role '.$input['display'].' Updated');
-			\Session::flash('flash_message','Successfully Updated.');
-            return Redirect::route('vehicles.edit', $id);
-        }
-return Redirect::route('vehicles.edit', $id)
-            ->withInput()
-            ->withErrors($validation)
-            ->with('message', 'There were validation errors.');
+  return redirect()->route('vehicles.edit',$id)->with($alerts);
     }
 
     /**
@@ -196,13 +193,18 @@ return Redirect::route('vehicles.edit', $id)
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function delete($id)
     {
         $item= vehicle::find($id);
+        $name =$item->no_plate;
         Vehicle::find($id)->delete();
-		//\LogActivity::addToLog('Role '.$role->display.' Deleted');
-	 \Session::flash('flash_message','Successfully Deleted.');
-        return Redirect::route('vehicles.index')
-		 ->with('message', 'Vehicle Deleted.');
+        $alerts = [
+      'bustravel-flash'         => true,
+      'bustravel-flash-type'    => 'error',
+      'bustravel-flash-title'   => 'Vehicle Deleting',
+      'bustravel-flash-message' => $name.'  Successfully Deleted',
+      ];
+
+      return redirect()->route('vehicles.index')->with($alerts);
     }
 }

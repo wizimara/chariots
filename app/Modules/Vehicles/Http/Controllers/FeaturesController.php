@@ -46,26 +46,19 @@ class FeaturesController extends Controller
      */
     public function store(Request $request)
     {
-        $input = Input::all();
+        $validation = request()->validate(Feature::$rules);
+         $feature = New Feature;
+         $feature->feature_name =request()->input('feature_name');
+         $feature->save();
 
-        $validation = Validator::make($input, Feature::$rules,Feature::$messages);
-		
-		
+         $alerts = [
+      'bustravel-flash'         => true,
+      'bustravel-flash-type'    => 'success',
+      'bustravel-flash-title'   => 'Feature Saving',
+      'bustravel-flash-message' => $feature->feature_name.' has successfully been saved',
+  ];
 
-        if ($validation->passes())
-        {
-			
-			
-           Feature::create($input);
-			//\LogActivity::addToLog('Role '.$input['display'].' Added');
-  \Session::flash('flash_message','Feature added  .');
-            return Redirect::route('features.index');
-        }
-
-        return Redirect::route('features.create')
-            ->withInput()
-            ->withErrors($validation)
-            ->with('message', 'There were validation errors.');
+      return redirect()->route('features.index')->with($alerts);
     }
 
     /**
@@ -91,7 +84,7 @@ class FeaturesController extends Controller
 
         if (is_null($item))
         {
-			
+
             return Redirect::route('features.index');
         }
         return View::make('vehicles::features/.edit', compact('item'));
@@ -106,25 +99,20 @@ class FeaturesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $input = Input::all();
-	
-	  
-     
-        $validation = Validator::make($input, Feature::$rules,Feature::$messages);
-	
-		
-        if ($validation->passes())
-        {
-            $user = Feature::find($id);
-            $user->update($input);
-			//\LogActivity::addToLog('Role '.$input['display'].' Updated');
-			\Session::flash('flash_message','Successfully Updated.');
-            return Redirect::route('features.edit', $id);
-        }
-return Redirect::route('features.edit', $id)
-            ->withInput()
-            ->withErrors($validation)
-            ->with('message', 'There were validation errors.');	
+      $validation = request()->validate(Feature::$rules);
+      $ids=request()->input('id');
+       $feature = Feature::find($ids);
+       $feature->feature_name =request()->input('feature_name');
+       $feature->save();
+
+       $alerts = [
+    'bustravel-flash'         => true,
+    'bustravel-flash-type'    => 'success',
+    'bustravel-flash-title'   => 'Feature Saving',
+    'bustravel-flash-message' => $feature->feature_name.' has successfully been updated',
+];
+
+    return redirect()->route('features.index')->with($alerts);
     }
 
     /**
@@ -133,13 +121,18 @@ return Redirect::route('features.edit', $id)
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function delete($id)
     {
-         $item= Feature::find($id); 
+         $item= Feature::find($id);
+        $name =$item->model_name;
         Feature::find($id)->delete();
-		//\LogActivity::addToLog('Role '.$role->display.' Deleted');
-	 \Session::flash('flash_message','Successfully Deleted.');
-        return Redirect::route('features.index')
-		 ->with('message', 'Make Deleted.');
+        $alerts = [
+              'bustravel-flash'         => true,
+              'bustravel-flash-type'    => 'error',
+              'bustravel-flash-title'   => 'Feature Deleted',
+              'bustravel-flash-message' => $name." has successfully been deleted",
+          ];
+
+          return redirect()->route('features.index')->with($alerts);
     }
 }

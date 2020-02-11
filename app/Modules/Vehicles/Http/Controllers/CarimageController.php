@@ -41,55 +41,37 @@ class CarimageController extends Controller
      */
     public function store(Request $request)
     {
-        $input = Input::all();
 
-        $validation = Validator::make($input, Carimage::$rules,Carimage::$messages);
+        $validation = request()->validate(Carimage::$rules,Carimage::$messages);
 
+        		$image = request()->input('url');
+            $filename = str_replace(' ', '', request()->input('no_plate')).time() . '.' .request()->url->getClientOriginalExtension();
+            if (!file_exists(public_path('vehicles')))
+                {
+                    mkdir(public_path('vehicles'), 0777, true);
+                }
+                    $path = public_path('vehicles/' . $filename);
+                    \Image::make(request()->url->getRealPath())->resize(1200, 1200,function ($constraint) {
+        		    $constraint->aspectRatio();
+        		    })->save($path);
+                 /*   $user->image = $filename;
+                    $user->save()*/
+        			$images ='vehicles/'.$filename;
 
+              $vehicle_image = New Carimage;
+              $vehicle_image->vehicle_id =request()->input('vehicle_id');
+              $vehicle_image->title =request()->input('title');
+              $vehicle_image->url =$images;
+              $vehicle_image->save();
 
-        if ($validation->passes())
-        {
+              $alerts = [
+            'bustravel-flash'         => true,
+            'bustravel-flash-type'    => 'success',
+            'bustravel-flash-title'   => 'Vehicle Image Saving',
+            'bustravel-flash-message' => ' Image has successfully been saved',
+             ];
 
-
-
-		 $image = $request->file('url');
-            $filename = $input['vehicle_name'].time() . '.' . $image->getClientOriginalExtension();
-
-			if (!file_exists(public_path('vehicles'))) {
-  mkdir(public_path('vehicles'), 0777, true);
-}
-
-
-            $path = public_path('vehicles/' . $filename);
-
-
-            \Image::make($image->getRealPath())->resize(1200, 1200,function ($constraint) {
-
-		    $constraint->aspectRatio();
-
-		})->save($path);
-         /*   $user->image = $filename;
-            $user->save()*/
-
-			$images ='vehicles/'.$filename;
-
-
-
-
-            Carimage::create(array(
-			'vehicle_id' => $input['vehicle_id'],
-			'title' => $input['title'],
-			'url' => $images,
-
-			));
-  \Session::flash('flash_message','Image added  .');
-            return Redirect::route('vehicles.edit', $input['vehicle_id']);
-        }
-
-        return Redirect::route('vehicles.edit', $input['vehicle_id'])
-            ->withInput()
-            ->withErrors($validation)
-            ->with('message', 'There were validation errors.');
+          return redirect()->route('vehicles.edit',$vehicle_image->vehicle_id)->with($alerts);
     }
 
     /**
@@ -129,13 +111,16 @@ class CarimageController extends Controller
 	public function published($id)
 	{
 	$user = Carimage::find($id);
-	\DB::table('carimages')->where('vehicle_id', $user->vehicle_id)->update(array('featured'=>0));
+	Carimage::where('vehicle_id', $user->vehicle_id)->update(array('featured'=>0));
+	Carimage::where('id', $id)->update(array('featured'=>1));
+  $alerts = [
+'bustravel-flash'         => true,
+'bustravel-flash-type'    => 'success',
+'bustravel-flash-title'   => 'Vehicle Image Featured',
+'bustravel-flash-message' => ' Image Successfully Featured',
+];
 
-	\DB::table('carimages')->where('id', $id)->update(array('featured'=>1));
-
-	\Session::flash('flash_message','Image Successfully Featured.');
-            return Redirect::route('vehicles.edit', $user->vehicle_id);
-
+return redirect()->route('vehicles.edit',$user->vehicle_id)->with($alerts);
 	}
 
     /**
@@ -144,14 +129,17 @@ class CarimageController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function delete($id)
     {
-	$user = Carimage::find($id);
-
+	    $image = Carimage::find($id);
       Carimage::find($id)->delete();
-		//\LogActivity::addToLog('Role '.$role->display.' Deleted');
-	 \Session::flash('flash_message','Successfully Deleted.');
-        return Redirect::route('vehicles.edit', $user->vehicle_id)
-		 ->with('message', 'Image Deleted.');
+      $alerts = [
+   'bustravel-flash'         => true,
+   'bustravel-flash-type'    => 'success',
+   'bustravel-flash-title'   => 'Vehicle Image Deleted',
+   'bustravel-flash-message' => ' Image has successfully been removed',
+    ];
+
+ return redirect()->route('vehicles.edit',$image->vehicle_id)->with($alerts);
     }
 }

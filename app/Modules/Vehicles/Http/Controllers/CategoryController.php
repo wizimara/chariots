@@ -34,7 +34,6 @@ class CategoryController extends Controller
     {
      return View::make('vehicles::categories.create' );
 
-
 	}
     /**
      * Store a newly created resource in storage.
@@ -44,26 +43,19 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-         $input = Input::all();
+        $validation = request()->validate(Category::$rules);
+           $category = New Category;
+           $category->cat_name =request()->input('cat_name');
+           $category->save();
 
-        $validation = Validator::make($input, Category::$rules,Category::$messages);
+           $alerts = [
+        'bustravel-flash'         => true,
+        'bustravel-flash-type'    => 'success',
+        'bustravel-flash-title'   => 'Client Saving',
+        'bustravel-flash-message' => 'Account has successfully been saved',
+    ];
 
-
-
-        if ($validation->passes())
-        {
-
-
-           Category::create($input);
-			//\LogActivity::addToLog('Role '.$input['display'].' Added');
-  \Session::flash('flash_message','Category added  .');
-            return Redirect::route('categories.index');
-        }
-
-        return Redirect::route('categories.create')
-            ->withInput()
-            ->withErrors($validation)
-            ->with('message', 'There were validation errors.');
+        return redirect()->route('categories.index')->with($alerts);
     }
 
     /**
@@ -104,25 +96,19 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $input = Input::all();
+        $validation = request()->validate(Category::$rules);
+        $ids=request()->input('id');
+        $category = Category::find($ids);
+        $category->cat_name =request()->input('cat_name');
+        $category->save();
+        $alerts = [
+     'bustravel-flash'         => true,
+     'bustravel-flash-type'    => 'success',
+     'bustravel-flash-title'   => 'Category Saving',
+     'bustravel-flash-message' => 'Category has successfully been saved',
+ ];
 
-
-
-        $validation = Validator::make($input, Category::$rules,Category::$messages);
-
-
-        if ($validation->passes())
-        {
-            $user = Category::find($id);
-            $user->update($input);
-			//\LogActivity::addToLog('Role '.$input['display'].' Updated');
-			\Session::flash('flash_message','Successfully Updated.');
-            return Redirect::route('categories.edit', $id);
-        }
-return Redirect::route('categories.edit', $id)
-            ->withInput()
-            ->withErrors($validation)
-            ->with('message', 'There were validation errors.');
+     return redirect()->route('categories.index')->with($alerts);
 
     }
 
@@ -132,13 +118,17 @@ return Redirect::route('categories.edit', $id)
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function delete($id)
     {
         $cat= Category::find($id);
         Category::find($id)->delete();
-		//\LogActivity::addToLog('Role '.$role->display.' Deleted');
-	 \Session::flash('flash_message','Successfully Deleted.');
-        return Redirect::route('categories.index')
-		 ->with('message', 'Category Deleted.');
+        $alerts = [
+              'bustravel-flash'         => true,
+              'bustravel-flash-type'    => 'error',
+              'bustravel-flash-title'   => 'Saving Deleted',
+              'bustravel-flash-message' => "Saving has successfully been deleted",
+          ];
+
+          return redirect()->route('categories.index')->with($alerts);
     }
 }

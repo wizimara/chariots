@@ -33,4 +33,12 @@ public static $messages = array(
  'booked_by.required' => 'Booked By required',
 
  );
+ public function vehicle_pricing()
+ {
+     return $this->belongsTo(Pricing::class,'vehicle_id');
+ }
+ public function client()
+ {
+     return $this->belongsTo('App\Modules\Users\Models\User','user_id');
+ }
 }

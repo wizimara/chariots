@@ -20,6 +20,7 @@
 
 
 @section('js')
+@include('shared::partials.toast')
 <script src="{{asset('js/bootstrap-datepicker.min.js')}}"></script>
 <script src="{{asset('js/bootstrap-timepicker.min.js')}}"></script>
 @stop

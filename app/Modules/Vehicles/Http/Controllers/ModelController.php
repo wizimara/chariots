@@ -25,10 +25,9 @@ class ModelController extends Controller
      */
     public function index()
     {
-         $items = Modelcars::join('makes','make_id','=','makes.id')
-		 ->select('models.*','make_name')
-		 ->orderBy('model_name', 'asc')->get();
-		 return View::make('vehicles::models.index', compact('items'));
+     $items = Modelcars::orderBy('model_name', 'asc')->get();
+     $makes=Make::orderBy('make_name','asc')->get();
+		 return View::make('vehicles::models.index', compact('items','makes'));
     }
 
     /**
@@ -38,7 +37,7 @@ class ModelController extends Controller
      */
     public function create()
     {
-		
+
 		$makes=Make::orderBy('make_name','asc')->get();
          return View::make('vehicles::models.create', compact('makes') );
     }
@@ -51,26 +50,20 @@ class ModelController extends Controller
      */
     public function store(Request $request)
     {
-         $input = Input::all();
+      $validation = request()->validate(Modelcars::$rules);
+       $model = New Modelcars;
+       $model->model_name =request()->input('model_name');
+       $model->make_id =request()->input('make_id');
+       $model->save();
 
-        $validation = Validator::make($input, Modelcars::$rules,Modelcars::$messages);
-		
-		
+        $alerts = [
+      'bustravel-flash'         => true,
+      'bustravel-flash-type'    => 'success',
+      'bustravel-flash-title'   => 'Model Saving',
+      'bustravel-flash-message' => $model->model_name.' has successfully been saved',
+       ];
 
-        if ($validation->passes())
-        {
-			
-			
-           Modelcars::create($input);
-			//\LogActivity::addToLog('Role '.$input['display'].' Added');
-  \Session::flash('flash_message','Model added  .');
-            return Redirect::route('models.index');
-        }
-
-        return Redirect::route('models.create')
-            ->withInput()
-            ->withErrors($validation)
-            ->with('message', 'There were validation errors.');
+    return redirect()->route('models.index')->with($alerts);
     }
 
     /**
@@ -96,7 +89,7 @@ class ModelController extends Controller
 $makes=Make::orderBy('make_name','asc')->get();
         if (is_null($item))
         {
-			
+
             return Redirect::route('models.index');
         }
         return View::make('vehicles::models/.edit', compact('item','makes'));
@@ -111,25 +104,21 @@ $makes=Make::orderBy('make_name','asc')->get();
      */
     public function update(Request $request, $id)
     {
-         $input = Input::all();
-	
-	  
-     
-        $validation = Validator::make($input, Modelcars::$rules,Modelcars::$messages);
-	
-		
-        if ($validation->passes())
-        {
-            $user = Modelcars::find($id);
-            $user->update($input);
-			//\LogActivity::addToLog('Role '.$input['display'].' Updated');
-			\Session::flash('flash_message','Successfully Updated.');
-            return Redirect::route('models.edit', $id);
-        }
-return Redirect::route('models.edit', $id)
-            ->withInput()
-            ->withErrors($validation)
-            ->with('message', 'There were validation errors.');	
+       $validation = request()->validate(Modelcars::$rules);
+       $ids=request()->input('id');
+       $model = Modelcars::find($ids);
+       $model->model_name =request()->input('model_name');
+       $model->make_id =request()->input('make_id');
+       $model->save();
+
+        $alerts = [
+      'bustravel-flash'         => true,
+      'bustravel-flash-type'    => 'success',
+      'bustravel-flash-title'   => 'Model Saving',
+      'bustravel-flash-message' => $model->model_name.' has successfully been saved',
+       ];
+
+    return redirect()->route('models.index')->with($alerts);
     }
 
     /**
@@ -138,13 +127,18 @@ return Redirect::route('models.edit', $id)
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function delete($id)
     {
-        $item= Modelcars::find($id); 
-        Modelcars::find($id)->delete();
-		//\LogActivity::addToLog('Role '.$role->display.' Deleted');
-	 \Session::flash('flash_message','Successfully Deleted.');
-        return Redirect::route('models.index')
-		 ->with('message', 'Model Deleted.');
+      $item= Modelcars::find($id);
+      $name =$item->model_name;
+      Modelcars::find($id)->delete();
+      $alerts = [
+            'bustravel-flash'         => true,
+            'bustravel-flash-type'    => 'error',
+            'bustravel-flash-title'   => 'Model Deleted',
+            'bustravel-flash-message' => $name." has successfully been deleted",
+        ];
+
+        return redirect()->route('models.index')->with($alerts);
     }
 }

@@ -46,26 +46,19 @@ class MakeController extends Controller
      */
     public function store(Request $request)
     {
-         $input = Input::all();
+        $validation = request()->validate(Make::$rules);
+         $make = New Make;
+         $make->make_name =request()->input('make_name');
+         $make->save();
 
-        $validation = Validator::make($input, Make::$rules,Make::$messages);
-		
-		
+         $alerts = [
+      'bustravel-flash'         => true,
+      'bustravel-flash-type'    => 'success',
+      'bustravel-flash-title'   => 'Make Saving',
+      'bustravel-flash-message' => 'Make has successfully been saved',
+  ];
 
-        if ($validation->passes())
-        {
-			
-			
-           Make::create($input);
-			//\LogActivity::addToLog('Role '.$input['display'].' Added');
-  \Session::flash('flash_message','Make added  .');
-            return Redirect::route('makes.index');
-        }
-
-        return Redirect::route('makes.create')
-            ->withInput()
-            ->withErrors($validation)
-            ->with('message', 'There were validation errors.');
+      return redirect()->route('makes.index')->with($alerts);
     }
 
     /**
@@ -91,7 +84,7 @@ class MakeController extends Controller
 
         if (is_null($item))
         {
-			
+
             return Redirect::route('makes.index');
         }
         return View::make('vehicles::makes/.edit', compact('item'));
@@ -106,25 +99,20 @@ class MakeController extends Controller
      */
     public function update(Request $request, $id)
     {
-       $input = Input::all();
-	
-	  
-     
-        $validation = Validator::make($input, Make::$rules,Make::$messages);
-	
-		
-        if ($validation->passes())
-        {
-            $user = Make::find($id);
-            $user->update($input);
-			//\LogActivity::addToLog('Role '.$input['display'].' Updated');
-			\Session::flash('flash_message','Successfully Updated.');
-            return Redirect::route('makes.edit', $id);
-        }
-return Redirect::route('makes.edit', $id)
-            ->withInput()
-            ->withErrors($validation)
-            ->with('message', 'There were validation errors.');	
+      $validation = request()->validate(Make::$rules);
+      $ids=request()->input('id');
+       $make = Make::find($ids);
+       $make->make_name =request()->input('make_name');
+       $make->save();
+
+       $alerts = [
+    'bustravel-flash'         => true,
+    'bustravel-flash-type'    => 'success',
+    'bustravel-flash-title'   => 'Make Saving',
+    'bustravel-flash-message' => $make->make_name.'has successfully been Updated',
+];
+
+    return redirect()->route('makes.index')->with($alerts);
     }
 
     /**
@@ -133,13 +121,18 @@ return Redirect::route('makes.edit', $id)
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function delete($id)
     {
-        $item= Make::find($id); 
+        $item= Make::find($id);
+        $name =$item->make_name;
         Make::find($id)->delete();
-		//\LogActivity::addToLog('Role '.$role->display.' Deleted');
-	 \Session::flash('flash_message','Successfully Deleted.');
-        return Redirect::route('makes.index')
-		 ->with('message', 'Make Deleted.');
+        $alerts = [
+              'bustravel-flash'         => true,
+              'bustravel-flash-type'    => 'error',
+              'bustravel-flash-title'   => 'Make Deleted',
+              'bustravel-flash-message' => $name." has successfully been deleted",
+          ];
+
+          return redirect()->route('makes.index')->with($alerts);
     }
 }

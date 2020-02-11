@@ -163,14 +163,12 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
-Laracasts\Flash\FlashServiceProvider::class,
-Collective\Html\HtmlServiceProvider::class,
 Intervention\Image\ImageServiceProvider::class,
         /*
          * Package Service Providers...
          */
          Caffeinated\Modules\ModulesServiceProvider::class,
-         
+
         /*
          * Application Service Providers...
          */
