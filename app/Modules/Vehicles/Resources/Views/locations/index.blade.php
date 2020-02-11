@@ -1,184 +1,188 @@
-
-
 @extends('shared::layouts.app')
 @section('title','Locations')
-
+@section('content_header')
+<div class="container-fluid">
+    <div class="row mb-2">
+      <div class="col-sm-6">
+        <h1 class="m-0 text-dark">Locations</h1>
+      </div><!-- /.col -->
+      <div class="col-sm-6">
+        <ol class="breadcrumb float-sm-right">
+          <li class="breadcrumb-item"><a href="#">Home</a></li>
+          <li class="breadcrumb-item active">locations</li>
+        </ol>
+      </div><!-- /.col -->
+    </div><!-- /.row -->
+</div>
+@stop
 @section('content')
-
-
-
-
-<div class="main-content-inner">
-
-
-					<div class="page-content">
-
-
-						<section class="content-header">
-							<h1>
-								Locations
-								<small>
-									<i class="ace-icon fa fa-angle-double-right"></i>
-									All Locations
-								</small> |
-							<a href="{{ url('/admin/vehicles/locations/create') }}" class="btn btn-primary btn-xs ">Add new Location</a>
-
-							</h1>
-						<br>
-								</section>
-
-
-						<div class="row">
-							<div class="col-xs-12">
-								<!-- PAGE CONTENT BEGINS -->
-								<!-- /.row -->
-
-
-								<div class="row">
-									<div class="col-xs-12">
-
-										<!-- div.table-responsive -->
-
-										<!-- div.dataTables_borderWrap -->
-										<div>
-
-
-
-       @if(Session::has('flash_message'))
-    <div class="alert alert-success"><i class="fa fa-check" aria-hidden="true"></i><em> {!! session('flash_message') !!}</em></div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+					@if ($errors->any())
+					<div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <ul>
+						   @foreach ($errors->all() as $error)
+								  <li>{{ $error }}</li>
+						   @endforeach
+					</ul>
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
 @endif
+        <div class="card">
+            <div class="card-header">
+            <h5 class="card-title">All Locations</h5>
 
-<!-- box table -->
-<div class="box">
-					<div class="box-header">
-						<h3 class="box-title">Locations</h3>
-					</div>
+            <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                <i class="fas fa-minus"></i>
+                </button>
+                <div class="btn-group">
+                <button type="button" class="btn btn-tool dropdown-toggle" data-toggle="dropdown">
+                    <i class="fas fa-plus"></i>
+                </button>
+                <div class="dropdown-menu dropdown-menu-right" role="menu">
+                    <a href="#modal-default" class="dropdown-item" data-toggle="modal">New Locations</a>
+										<a href="#" class="dropdown-item">delete selected</a>
+                </div>
+                </div>
 
-					<!-- /.box-header -->
+            </div>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+            <div class="row">
+               <div class="col-md-12">
+                 <table id="example1" class="table table-bordered table-hover table-striped dataTable" role="grid" aria-describedby="example1_info">
+                        <thead>
+                            <tr>
+                              <th>Name</th>
+																<th><i class="ace-icon fa fa-clock-o bigger-110 hidden-480"></i>Created</th>
+																<th><i class="ace-icon fa fa-clock-o bigger-110 hidden-480"></i>Update</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
 
-					<div class="box-body">
+													      @foreach ($items as $record)
+			                            <tr>
+				                                <td>{{ $record->location_name}} </td>
+																				<td>{{ Carbon\Carbon::parse($record->created_at)->format('d-m-Y ') }}</td>
+																				<td>{{ Carbon\Carbon::parse($record->updated_at)->format('d-m-Y ') }}</td>
+																				<td>
+																					   <div class="hidden-sm hidden-xs action-buttons">
+																							  <a title="Edit" href="#" data-id="{{$record->id}}" data-location_name="{{$record->location_name}}" data-toggle="modal"  data-target="#editModal"><i class="fas fa-edit"></i></a>
+																								<a title="Delete" onclick="return confirm('Are you sure you want to delete this Location')" href="{{route('locations.delete',$record->id)}}"><span style="color:tomato"><i class="fas fa-trash-alt"></i></span></a>
+							                                </div>
+						                            </td>
+					                        </tr>
+																@endforeach
+                        </tbody>
+                    </table>
+               </div>
+            </div>
+            <!-- /.row -->
+            </div>
+            <!-- ./card-body -->
 
-                                    @if ($items->count())
-
-
-
-
-
-
-
-
-                                            <table id="dynamic-table" class="table table-striped table-bordered table-hover">
-												<thead>
-													<tr>
-														<th class="center">
-															<label class="pos-rel">
-																<input type="checkbox" class="ace" />
-																<span class="lbl"></span>
-															</label>
-														</th>
-
-														<th>Name</th>
-
-
-
-														<th>
-															<i class="ace-icon fa fa-clock-o bigger-110 hidden-480"></i>
-														Created
-														</th>
-
-                                                        <th>
-															<i class="ace-icon fa fa-clock-o bigger-110 hidden-480"></i>
-															Update
-														</th>
-
-														<th></th>
-													</tr>
-												</thead>
-
-												<tbody>
-
-
-                                         @foreach ($items as $record)
-
-													<tr>
-														<td class="center">
-															<label class="pos-rel">
-																<input type="checkbox" class="ace" />
-																<span class="lbl"></span>
-															</label>
-														</td>
-
-
-
-
-														<td>{{ $record->location_name}}</td>
-
-                                                        <td>{{ Carbon\Carbon::parse($record->created_at)->format('d-m-Y ') }}</td>
-
-														<td>{{ Carbon\Carbon::parse($record->updated_at)->format('d-m-Y ') }}</td>
-
-
-
-														<td>
-															<div class="hidden-sm hidden-xs action-buttons">
-
-
-                                                              {{ link_to_route('locations.edit', trans('Edit'), array($record->id), array('class' => 'btn btn-info btn-xs')) }}
-
-
-       {{Form::open(array(
-    'route' => array( 'locations.destroy', $record->id ),
-    'method' => 'delete',
-    'style' => 'display:inline',
-    'onsubmit' => "return confirm('Are you sure you want to delete this row? ')",
-))}}
-
-<button class="btn btn-danger btn-xs ">
-												<i class="ace-icon fa fa-trash-o bigger-130"></i>
-											</button>
-
-{{Form::close()}}
-
-
-
-
-															</div>
-
-
-														</td>
-													</tr>
-
-                                                    @endforeach
-
-
-												</tbody>
-											</table>
-
-
-                                            @else
-    @lang('no data')
-@endif
+            <!-- /.card-footer -->
+        </div>
+        <!-- /.card -->
+        </div>
+        <!-- /.col -->
+    </div>
 </div>
 
-<!-- /.box-body -->
-</div>
-<!-- table box--> <!-- /.box -->
+<!--add form -->
+        <div class="modal fade" id="modal-default">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">Add  Location</h4>
 
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div class="col-md-12">
+              <form role="form" action="{{route('locations.store')}}" method="POST" >
+              {{csrf_field() }}
 
+              <div class="box-body">
+                  <div class="row">
+                    <div class="form-group col-md-12 ">
+                        <label for="exampleInputEmail1">Location</label>
+                        <input type="text"  name="location_name" value="{{old('feature_name')}}" class="form-control {{ $errors->has('location_name') ? ' is-invalid' : '' }}" id="exampleInputEmail1" placeholder="Enter Name"  >
+                        @if ($errors->has('location_name'))
+                            <span class="invalid-feedback">
+                                <strong>{{ $errors->first('location_name') }}</strong>
+                            </span>
+                        @endif
+                    </div>
+                      <button type="submit" class="btn btn-primary">Save changes</button>
+                  </div>
+              </div>
+            </form>
+          </div>
+            </div>
+            <div class="modal-footer justify-content-between">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+          <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+      </div>
+      <!-- /.modal -->
+        <!---end add -->
+				<!--edit form -->
+        <div class="modal fade" id="editModal">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">Edit  Location</h4>
 
-										</div>
-									</div>
-								</div>
-
-
-
-								<!-- PAGE CONTENT ENDS -->
-							</div><!-- /.col -->
-						</div><!-- /.row -->
-					</div><!-- /.page-content -->
-				</div>
-
-
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div class="col-md-12">
+              <form role="form" action="{{route('locations.update','hhh')}}" method="POST" enctype="multipart/form-data" >
+              {{csrf_field() }}
+              <div class="box-body">
+                  <div class="row">
+                    <div class="form-group col-md-12">
+                  <input type="hidden" name="id" id="Id">
+                  </div>
+                    <div class="form-group col-md-12 ">
+                        <label for="exampleInputEmail1">Name</label>
+                        <input type="text"  name="location_name" value="{{old('location_name')}}" class="form-control {{ $errors->has('location_name') ? ' is-invalid' : '' }}" id="Name" placeholder="Enter Name"  >
+                        @if ($errors->has('location_name'))
+                            <span class="invalid-feedback">
+                                <strong>{{ $errors->first('location_name') }}</strong>
+                            </span>
+                        @endif
+                    </div>
+                      <button type="submit" class="btn btn-primary">Save changes</button>
+                  </div>
+              </div>
+            </form>
+          </div>
+            </div>
+            <div class="modal-footer justify-content-between">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+          <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+      </div>
+      <!-- /.modal -->
+        <!---end edit -->
 
 
 @stop
@@ -187,18 +191,38 @@
   @parent
 <script>
 $(function () {
-    $('#example1').DataTable()
-    $('#dynamic-table').DataTable({
-      'paging'      : true,
-      'lengthChange': false,
-      'searching'   : true,
-      'ordering'    : true,
-      'info'        : true,
-      'autoWidth'   : false
-    })
+	var table = $('#example1').DataTable({
+      responsive: false,
+      dom: 'Blfrtip',
+      buttons: [
+        {
+          extend: 'excelHtml5',
+          exportOptions: {
+            columns: ':visible'
+          }
+        },
+        {
+          extend: 'pdfHtml5',
+          exportOptions: {
+            columns: ':visible'
+          }
+        },
+      'colvis',
+        //'selectAll',
+          //	'selectNone'
+      ],
+            });
+
+						$('#editModal').on('show.bs.modal', function (event) {
+				 var button = $(event.relatedTarget) // Button that triggered the modal
+					var Name = button.data('location_name') // Extract info from data-* attributes
+					var Id = button.data('id')
+					// If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+					// Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+					var modal = $(this)
+					modal.find('.modal-body #Id').val(Id)
+					modal.find('.modal-body #Name').val(Name)
+				});
   })
 </script>
-
-
-
 @endsection

@@ -10,8 +10,10 @@ use Illuminate\Support\Facades\View;
 use App\Http\Requests;
 use App\Modules\Renting\Models\Pricing;
 use App\Modules\Renting\Models\Booking;
+use App\Modules\Renting\Models\BookingPrice;
 use App\Modules\Vehicles\Models\Vehicle;
 use App\Modules\Renting\Models\Confirmedrental;
+use App\Modules\Settings\Models\Setting;
 use App\User;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Validator;
@@ -27,13 +29,7 @@ class BookingController extends Controller
      */
     public function index()
     {
-      $items = Booking::join('vehicles','vehicle_id','=','vehicles.id')
-      ->Leftjoin('models','vehicles.model_id','=','models.id')
-  ->Leftjoin('makes','models.make_id','=','makes.id')
-  ->Leftjoin('categories','vehicles.category_id','=','categories.id')
-  ->join('users','bookings.user_id','=','users.id')
-  ->select('bookings.*','model_name','make_name','cat_name','name')
-  ->orderBy('bookings.id', 'desc')->get();
+      $items = Booking::orderBy('id','DESC')->get();
   $confirmed=Confirmedrental::pluck('booking_id')->all();
   return View::make('renting::bookings.index', compact('items','confirmed'));
     }
@@ -45,12 +41,7 @@ class BookingController extends Controller
      */
     public function create()
     {
-     $vehicles=Pricing::join('vehicles','pricings.vehicle_id','=','vehicles.id')->
-        join('models','model_id','=','models.id')
-        ->join('makes','make_id','=','makes.id')
-        ->join('categories','category_id','=','categories.id')
-        ->select('pricings.*','model_name','make_name','cat_name')
-        ->orderBy('vehicles.id', 'desc')->get();
+     $vehicles=Pricing::all();
   $users =User::orderBy('name')->get();
            return View::make('renting::bookings.create', compact('vehicles','users') );
     }
@@ -63,72 +54,64 @@ class BookingController extends Controller
      */
     public function store(Request $request)
     {
-      $input = Input::all();
+      $validation = request()->validate(Booking::$rules,Booking::$messages);
 
-     $validation = Validator::make($input, Booking::$rules,Booking::$messages);
-
-
-
-     if ($validation->passes())
+     $datetime1 = date_create(request()->input('end_date_of_use'));
+     $datetime2 = date_create(request()->input('starting_date_of_use'));
+     $interval = date_diff($datetime1, $datetime2);
+     $days=0;
+     if($interval->format('%a')==0)
      {
+     $days=1;
+     }else
+     {
+     $days =$interval->format('%a')+1;
 
-       $datetime1 = date_create($input['end_date_of_use']);
-      $datetime2 = date_create($input['starting_date_of_use']);
-      $interval = date_diff($datetime1, $datetime2);
-      $days=0;
-      if($interval->format('%a')==0)
-      {
-      $days=1;
-      }else
-      {
-      $days =$interval->format('%a')+1;
+     }
 
-      }
-
-$setting=\DB::table('settings')->where('key_name','trip_fee_percentage')->first();
-$price=  Pricing::where('vehicle_id',$input['vehicle_id'])->first();
+$setting=Setting::where('key_name','trip_fee_percentage')->first();
+$price=  Pricing::find(request()->input('vehicle_id'));
 $totalcost=0;
-if($input['driver_option']==1){
-$totalcost= (($price->dailyrate*$days)+($price->selfdrive*$days)+$price->costofdelivery) - ($price->discount+$input['booking_discount']);
- $tripfee =$totalcost*$setting->key_value;
- $totalamount=$totalcost+$tripfee;
+if(request()->input('driver_option')==1){
+$totalcost= (($price->dailyrate*$days)+($price->selfdrive*$days)+$price->costofdelivery) - ($price->discount+request()->input('booking_discount'));
+$tripfee =$totalcost*$setting->key_value;
+$totalamount=$totalcost+$tripfee;
 }else{
-$totalcost= (($price->dailyrate*$days)+($price->dailydriverrate*$days)+$price->costofdelivery) - ($price->discount+$input['booking_discount']);
+$totalcost= (($price->dailyrate*$days)+($price->dailydriverrate*$days)+$price->costofdelivery) - ($price->discount+request()->input('booking_discount'));
 $tripfee =$totalcost*$setting->key_value;
 $totalamount=$totalcost+$tripfee;
 }
-$user= Booking::create(array(
-          'vehicle_id'=>$input['vehicle_id'],
-  'user_id'=>$input['user_id'],
-  'booking_status'=>$input['booking_status'],
-    'date_of_booking'=>$input['date_of_booking'],
-      'starting_date_of_use'=>$input['starting_date_of_use'],
-      'end_date_of_use'=>$input['end_date_of_use'],
-        'driver_option'=>$input['driver_option'],
-          'totalcost'=>$totalamount,
-            'booked_by'=>$input['booked_by']
-        ));
+$booking = New Booking;
+$booking->vehicle_id = request()->input('vehicle_id');
+$booking->user_id = request()->input('user_id');
+$booking->booking_status = request()->input('booking_status');
+$booking->date_of_booking = request()->input('date_of_booking');
+$booking->starting_date_of_use = request()->input('starting_date_of_use');
+$booking->end_date_of_use = request()->input('end_date_of_use');
+$booking->driver_option = request()->input('driver_option');
+$booking->totalcost = $totalamount;
+$booking->booked_by = request()->input('booked_by');
+$booking->save();
 
-      \DB::table('booking_price')->insert(
 
-            array('booking_id' =>$user->id,
-                    'cost1' => $price->dailyrate,
-                    'cost2' => $price->dailydriverrate ,
-                    'cost3' => $price->selfdrive,
-                    'cost4' => $price->discount,
-                    'cost5' => $price->costofdelivery,
-                    'cost6' => $input['booking_discount']
-                  ));
+$booking_price = New BookingPrice;
+$booking_price->booking_id=$booking->id;
+$booking_price->cost1=$price->dailyrate;
+$booking_price->cost2=$price->dailydriverrate ;
+$booking_price->cost3=$price->selfdrive;
+$booking_price->cost4=$price->discount;
+$booking_price->cost5=$price->costofdelivery ;
+$booking_price->cost6=request()->input('booking_discount')??0;
+$booking_price->save();
 
-   //\LogActivity::addToLog('Role '.$input['display'].' Added');
-\Session::flash('flash_message','Booking detials added  .');
-         return Redirect::route('bookings.index');
-     }
+$alerts = [
+'bustravel-flash'         => true,
+'bustravel-flash-type'    => 'success',
+'bustravel-flash-title'   => 'Booking Saving',
+'bustravel-flash-message' => $booking->id .' has successfully been saved',
+];
 
-     return Redirect::route('bookings.create')
-         ->withInput()
-         ->withErrors($validation)
-         ->with('message', 'There were validation errors.');
+return redirect()->route('bookings.index')->with($alerts);
     }
 
     /**
@@ -178,73 +161,66 @@ $user= Booking::create(array(
      */
     public function update(Request $request, $id)
     {
-      $input = Input::all();
 
-$setting=\DB::table('settings')->where('key_name','trip_fee_percentage')->first();
+      $validation = request()->validate(Booking::$rules,Booking::$messages);
 
-     $validation = Validator::make($input, Booking::$rules,Booking::$messages);
-
-
-     if ($validation->passes())
-     {
-       $datetime1 = date_create($input['end_date_of_use']);
-     	$datetime2 = date_create($input['starting_date_of_use']);
-     	$interval = date_diff($datetime1, $datetime2);
+     $datetime1 = date_create(request()->input('end_date_of_use'));
+     $datetime2 = date_create(request()->input('starting_date_of_use'));
+     $interval = date_diff($datetime1, $datetime2);
      $days=0;
-      if($interval->format('%a')==0)
-      {
+     if($interval->format('%a')==0)
+     {
      $days=1;
      }else
      {
-     	$days =$interval->format('%a')+1;
+     $days =$interval->format('%a')+1;
 
      }
 
-       $price=  Pricing::Where('vehicle_id',$input['vehicle_id'])->first();
-       $totalcost=0;
-       $totalamount=0;
-       if($input['driver_option']==1){
-       $totalcost= (($price->dailyrate*$days)+($price->selfdrive*$days)+$price->costofdelivery) - ($price->discount+$input['booking_discount']);
-        $tripfee =$totalcost*$setting->key_value;
-        $totalamount=$totalcost+$tripfee;
-       }else{
-       $totalcost= (($price->dailyrate*$days)+($price->dailydriverrate*$days)+$price->costofdelivery) - ($price->discount+$input['booking_discount']);
-       $tripfee =$totalcost*$setting->key_value;
-       $totalamount=$totalcost+$tripfee;
-       }
+$setting=Setting::where('key_name','trip_fee_percentage')->first();
+$price=  Pricing::find(request()->input('vehicle_id'));
+$totalcost=0;
+if(request()->input('driver_option')==1){
+$totalcost= (($price->dailyrate*$days)+($price->selfdrive*$days)+$price->costofdelivery) - ($price->discount+request()->input('booking_discount'));
+$tripfee =$totalcost*$setting->key_value;
+$totalamount=$totalcost+$tripfee;
+}else{
+$totalcost= (($price->dailyrate*$days)+($price->dailydriverrate*$days)+$price->costofdelivery) - ($price->discount+request()->input('booking_discount'));
+$tripfee =$totalcost*$setting->key_value;
+$totalamount=$totalcost+$tripfee;
+}
+$booking = Booking::find($id);
+$booking->vehicle_id = request()->input('vehicle_id');
+$booking->user_id = request()->input('user_id');
+$booking->booking_status = request()->input('booking_status');
+$booking->date_of_booking = request()->input('date_of_booking');
+$booking->starting_date_of_use = request()->input('starting_date_of_use');
+$booking->end_date_of_use = request()->input('end_date_of_use');
+$booking->driver_option = request()->input('driver_option');
+$booking->totalcost = $totalamount;
+$booking->booked_by = request()->input('booked_by');
+$booking->save();
 
 
-         $user = Booking::find($id);
-         $user->update(array(
-           'vehicle_id'=>$input['vehicle_id'],
-   'user_id'=>$input['user_id'],
-   'booking_status'=>$input['booking_status'],
-     'date_of_booking'=>$input['date_of_booking'],
-       'starting_date_of_use'=>$input['starting_date_of_use'],
-       'end_date_of_use'=>$input['end_date_of_use'],
-         'driver_option'=>$input['driver_option'],
-           'totalcost'=>$totalamount,
-          //   'booked_by'=>$input['booked_by']
-         ));
+$booking_price = BookingPrice::where('booking_id',$booking->id)->first();
+$booking_price->booking_id=$booking->id;
+$booking_price->cost1=$price->dailyrate;
+$booking_price->cost2=$price->dailydriverrate ;
+$booking_price->cost3=$price->selfdrive;
+$booking_price->cost4=$price->discount;
+$booking_price->cost5=$price->costofdelivery ;
+$booking_price->cost6=request()->input('booking_discount')??0;
+$booking_price->save();
 
-         \DB::table('booking_price')->where('id',$input['booking_price'])->update(
+$alerts = [
+'bustravel-flash'         => true,
+'bustravel-flash-type'    => 'success',
+'bustravel-flash-title'   => 'Booking Updated',
+'bustravel-flash-message' => $booking->id .' has successfully been Updated',
+];
 
-               array( 'cost1' => $price->dailyrate,
-                       'cost2' => $price->dailydriverrate ,
-                       'cost3' => $price->selfdrive,
-                       'cost4' => $price->discount,
-                       'cost5' => $price->costofdelivery,
-                       'cost6' => $input['booking_discount']
-                     ));
+return redirect()->route('bookings.edit',$id)->with($alerts);
 
-   //\LogActivity::addToLog('Role '.$input['display'].' Updated');
-   \Session::flash('flash_message','Successfully Updated.');
-         return Redirect::route('bookings.edit', $id);
-     }
-return Redirect::route('bookings.edit', $id)
-         ->withInput()
-         ->withErrors($validation)
-         ->with('message', 'There were validation errors.');
     }
 
     /**
@@ -253,13 +229,18 @@ return Redirect::route('bookings.edit', $id)
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function delete($id)
     {
       $item= Booking::find($id);
+      $name =$item->id;
       Booking::find($id)->delete();
-  //\LogActivity::addToLog('Role '.$role->display.' Deleted');
- \Session::flash('flash_message','Successfully Deleted.');
-      return Redirect::route('bookings.index')
-   ->with('message', 'Booking Deleted.');
+      $alerts = [
+      'bustravel-flash'         => true,
+      'bustravel-flash-type'    => 'error',
+      'bustravel-flash-title'   => 'Booking Deleting',
+      'bustravel-flash-message' => $name .' has successfully been Deleted',
+      ];
+
+      return redirect()->route('bookings.index')->with($alerts);
     }
 }

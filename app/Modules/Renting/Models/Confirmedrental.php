@@ -7,9 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class Confirmedrental extends Model
 {
   protected $guarded = array('id');
-protected $fillable = array('booking_id','payment_status','car_pickup_status','owner_pickup_confirmation'
-,'pick_up_time','pick_up_date'
-);
 
  public static $rules = array(
   'booking_id' => 'required',
@@ -28,4 +25,8 @@ public static $messages = array(
  'pick_up_time.required' => 'Pickup Time required ',
 'pick_up_date.required' => 'Pickup Date required ',
  );
+ public function booking()
+ {
+     return $this->belongsTo(Booking::class,'booking_id');
+ }
 }

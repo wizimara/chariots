@@ -25,5 +25,9 @@ public static $messages = array(
 'costofdelivery.required' => 'Cost of delivering car per km required',
 
 );
+public function car()
+{
+    return $this->belongsTo('App\Modules\Vehicles\Models\Vehicle','vehicle_id');
+}
 
 }

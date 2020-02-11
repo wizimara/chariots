@@ -22,13 +22,7 @@ class PricingController extends Controller
      */
     public function index()
     {
-      $items = Pricing::join('vehicles','vehicle_id','=','vehicles.id')
-      ->Leftjoin('models','vehicles.model_id','=','models.id')
-      ->join('users','vehicles.user_id','=','users.id')
-  ->Leftjoin('makes','models.make_id','=','makes.id')
-  ->Leftjoin('categories','vehicles.category_id','=','categories.id')
-  ->select('pricings.*','model_name','make_name','cat_name','name')
-  ->orderBy('pricings.id', 'desc')->get();
+      $items = Pricing::all();
   return View::make('renting::pricings.index', compact('items'));
     }
 
@@ -39,11 +33,7 @@ class PricingController extends Controller
      */
     public function create()
     {
-      $vehicles=Vehicle::join('models','model_id','=','models.id')
-  ->join('makes','make_id','=','makes.id')
-  ->join('categories','category_id','=','categories.id')
-  ->select('vehicles.*','model_name','make_name','cat_name')
-  ->orderBy('vehicles.id', 'desc')->get();
+      $vehicles=Vehicle::where('status', 1)->get();
   $users =User::orderBy('name')->get();
   return View::make('renting::pricings.create', compact('vehicles','users') );
     }
@@ -56,26 +46,29 @@ class PricingController extends Controller
      */
     public function store(Request $request)
     {
-      $input = Input::all();
+       $validation = request()->validate(Pricing::$rules,Pricing::$messages);
+       $pricing = New Pricing;
+       $pricing->vehicle_id =request()->input('vehicle_id');
+       $pricing->dailyrate =request()->input('dailyrate');
+       $pricing->dateranges =request()->input('dateranges')??NULL;
+       $pricing->dailydriverrate =request()->input('dailydriverrate');
+       $pricing->selfdrive =request()->input('selfdrive');
+       $pricing->discount =request()->input('discount');
+       $pricing->costofdelivery =request()->input('costofdelivery');
+      //$pricing->totalprice =request()->input('totalprice');
+      // $pricing->tripfee =request()->input('tripfee');
+       //$pricing->totaltriprice =request()->input('totaltriprice');
+       $pricing->save();
 
-     $validation = Validator::make($input, Pricing::$rules,Pricing::$messages);
+       $alerts = [
+    'bustravel-flash'         => true,
+    'bustravel-flash-type'    => 'success',
+    'bustravel-flash-title'   => 'Pricing Saving',
+    'bustravel-flash-message' => ' has successfully been saved',
+];
 
+    return redirect()->route('pricings.index')->with($alerts);
 
-
-     if ($validation->passes())
-     {
-
-
-        Pricing::create($input);
-   //\LogActivity::addToLog('Role '.$input['display'].' Added');
-\Session::flash('flash_message','Pricings added  .');
-         return Redirect::route('pricings.index');
-     }
-
-     return Redirect::route('pricings.create')
-         ->withInput()
-         ->withErrors($validation)
-         ->with('message', 'There were validation errors.');
     }
 
     /**
@@ -98,11 +91,7 @@ class PricingController extends Controller
     public function edit($id)
     {
       $item = Pricing::find($id);
-      $vehicles=Vehicle::join('models','model_id','=','models.id')
-      ->join('makes','make_id','=','makes.id')
-      ->join('categories','category_id','=','categories.id')
-      ->select('vehicles.*','model_name','make_name','cat_name')
-      ->orderBy('vehicles.id', 'desc')->get();
+      $vehicles=Vehicle::where('status',1)->get();
 
       if (is_null($item))
       {
@@ -121,27 +110,29 @@ class PricingController extends Controller
      */
     public function update(Request $request, $id)
     {
-      $input = Input::all();
+      $validation = request()->validate(Pricing::$rules,Pricing::$messages);
+      $pricing =  Pricing::find($id);
+      $pricing->vehicle_id =request()->input('vehicle_id');
+      $pricing->dailyrate =request()->input('dailyrate');
+      $pricing->dateranges =request()->input('dateranges')??NULL;
+      $pricing->dailydriverrate =request()->input('dailydriverrate');
+      $pricing->selfdrive =request()->input('selfdrive');
+      $pricing->discount =request()->input('discount');
+      $pricing->costofdelivery =request()->input('costofdelivery');
+     //$pricing->totalprice =request()->input('totalprice');
+     // $pricing->tripfee =request()->input('tripfee');
+      //$pricing->totaltriprice =request()->input('totaltriprice');
+      $pricing->save();
 
+      $alerts = [
+   'bustravel-flash'         => true,
+   'bustravel-flash-type'    => 'success',
+   'bustravel-flash-title'   => 'Pricing Saving',
+   'bustravel-flash-message' => ' has successfully been saved',
+];
 
-
-      $validation = Validator::make($input, Pricing::$rules,Pricing::$messages);
-
-
-      if ($validation->passes())
-      {
-          $user = Pricing::find($id);
-          $user->update($input);
-    //\LogActivity::addToLog('Role '.$input['display'].' Updated');
-    \Session::flash('flash_message','Successfully Updated.');
-          return Redirect::route('pricings.edit', $id);
-      }
-return Redirect::route('pricings.edit', $id)
-          ->withInput()
-          ->withErrors($validation)
-          ->with('message', 'There were validation errors.');
-
-    }
+   return redirect()->route('pricings.edit',$id)->with($alerts);
+ }
 
     /**
      * Remove the specified resource from storage.
@@ -153,9 +144,13 @@ return Redirect::route('pricings.edit', $id)
     {
       $item= Pricing::find($id);
       Pricing::find($id)->delete();
-  //\LogActivity::addToLog('Role '.$role->display.' Deleted');
- \Session::flash('flash_message','Successfully Deleted.');
-      return Redirect::route('pricings.index')
-   ->with('message', 'Car Price Detials Deleted.');
+      $alerts = [
+   'bustravel-flash'         => true,
+   'bustravel-flash-type'    => 'error',
+   'bustravel-flash-title'   => 'Pricing Deleting',
+   'bustravel-flash-message' => ' has successfully been deleted',
+  ];
+
+   return redirect()->route('pricings.index')->with($alerts);
     }
 }

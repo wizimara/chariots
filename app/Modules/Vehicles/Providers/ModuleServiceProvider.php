@@ -25,7 +25,7 @@ class ModuleServiceProvider extends ServiceProvider
                 'icon' => 'fa fa-car',
                 'submenu' => [
 							             [
-                                'text' => 'categories',
+                                'text' => 'Categories',
                                 'url'  => 'admin/vehicles/categories',
                                 'icon' => 'fa fa-list',
                             ],

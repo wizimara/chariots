@@ -44,26 +44,19 @@ class LocationController extends Controller
      */
     public function store(Request $request)
     {
-        $input = Input::all();
+      $validation = request()->validate(Location::$rules);
+       $location = New Location;
+       $location->location_name =request()->input('location_name');
+       $location->save();
 
-        $validation = Validator::make($input, Location::$rules,Location::$messages);
-		
-		
+       $alerts = [
+    'bustravel-flash'         => true,
+    'bustravel-flash-type'    => 'success',
+    'bustravel-flash-title'   => 'Location Saving',
+    'bustravel-flash-message' => $location->location_name.' has successfully been saved',
+];
 
-        if ($validation->passes())
-        {
-			
-			
-           Location::create($input);
-			//\LogActivity::addToLog('Role '.$input['display'].' Added');
-  \Session::flash('flash_message','Location added  .');
-            return Redirect::route('locations.index');
-        }
-
-        return Redirect::route('location.create')
-            ->withInput()
-            ->withErrors($validation)
-            ->with('message', 'There were validation errors.');
+    return redirect()->route('locations.index')->with($alerts);
     }
 
     /**
@@ -89,7 +82,7 @@ class LocationController extends Controller
 
         if (is_null($item))
         {
-			
+
             return Redirect::route('locations.index');
         }
         return View::make('vehicles::locations.edit', compact('item'));
@@ -104,25 +97,20 @@ class LocationController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $input = Input::all();
-	
-	  
-     
-        $validation = Validator::make($input, Location::$rules,Location::$messages);
-	
-		
-        if ($validation->passes())
-        {
-            $user = Location::find($id);
-            $user->update($input);
-			//\LogActivity::addToLog('Role '.$input['display'].' Updated');
-			\Session::flash('flash_message','Successfully Updated.');
-            return Redirect::route('locations.edit', $id);
-        }
-return Redirect::route('locations.edit', $id)
-            ->withInput()
-            ->withErrors($validation)
-            ->with('message', 'There were validation errors.');	
+      $validation = request()->validate(Location::$rules);
+      $ids=request()->input('id');
+       $location = Location::find($ids);
+       $location->location_name =request()->input('location_name');
+       $location->save();
+
+       $alerts = [
+    'bustravel-flash'         => true,
+    'bustravel-flash-type'    => 'success',
+    'bustravel-flash-title'   => 'Location Saving',
+    'bustravel-flash-message' => $location->location_name.' has successfully been updated',
+];
+
+    return redirect()->route('locations.index')->with($alerts);
     }
 
     /**
@@ -131,13 +119,18 @@ return Redirect::route('locations.edit', $id)
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function delete($id)
     {
-         $item= Location::find($id); 
+         $item= Location::find($id);
+         $name =$item->location_name;
         Location::find($id)->delete();
-		//\LogActivity::addToLog('Role '.$role->display.' Deleted');
-	 \Session::flash('flash_message','Successfully Deleted.');
-        return Redirect::route('locations.index')
-		 ->with('message', 'Location Deleted.');
+        $alerts = [
+              'bustravel-flash'         => true,
+              'bustravel-flash-type'    => 'error',
+              'bustravel-flash-title'   => 'Location Deleted',
+              'bustravel-flash-message' => $name." has successfully been deleted",
+          ];
+
+          return redirect()->route('locations.index')->with($alerts);
     }
 }

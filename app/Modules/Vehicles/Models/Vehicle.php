@@ -10,15 +10,15 @@ class Vehicle extends Model
   protected $fillable = array('vehicle_name','model_id','category_id','year_model','no_plate','color','passengers','tracker','status','transimition','insurance_type','insurance_expiry','vehicle_desc','user_id','location');
 
    public static $rules = array(
-    'vehicle_name' => 'required',
 	'model_id' => 'required',
 	'category_id' => 'required',
 	'year_model' => 'required',
-	'no_plate' => 'required',
+	'no_plate' => 'required|unique:vehicles',
 	'color' => 'required',
    'passengers' => 'required',
    'user_id' => 'required',
-  
+  'insurance_expiry' => 'required',
+
 
 
   );
@@ -39,5 +39,21 @@ class Vehicle extends Model
    public function features()
     {
         return $this->belongsToMany('App\Modules\Vehicles\Models\Feature','feature_vehicle');
+    }
+    public function car_model()
+    {
+        return $this->belongsTo(Modelcars::class,'model_id');
+    }
+    public function car_location()
+    {
+        return $this->belongsTo(Location::class,'location');
+    }
+    public function car_category()
+    {
+        return $this->belongsTo(Category::class,'category_id');
+    }
+    public function vehicle_images()
+    {
+        return $this->hasMany(Carimage::class,'vehicle_id');
     }
 }
