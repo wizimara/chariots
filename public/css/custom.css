@@ -1,7 +1,12 @@
 
 /* ----------------------------------------------------
-	You can put your custom css code here: 
+	You can put your custom css code here:
 -------------------------------------------------------*/
+.logo a {color:#666666;}
+
+.logo a:hover,
+.logo a:active,
+.logo a:focus {color:#A0F;}
 
 .slider-1-title-2 {
 	font-family: CooperHewitt-Medium;
@@ -17,7 +22,7 @@
 }
 
 .slider-2.bg-3 {
-	background: url(../images/slider/chariots-ultimate-road-trip.jpg); 
+	background: url(../images/slider/chariots-ultimate-road-trip.jpg);
 }
 
 .slider-2 {
@@ -85,17 +90,17 @@
 
 .featured-flat .flat-item-info .flat-title-price .price {font-size: 20px;}
 
-.featured-flat-area .section-title-2 h2, 
+.featured-flat-area .section-title-2 h2,
 .blog-area .section-title-2 h2,
-.features-info .section-title h2 { 
+.features-info .section-title h2 {
 	font-family: CooperHewitt-Medium;
 	font-weight: 300;
 	text-transform: none;
 	color: #AA00FF;
 	letter-spacing: 1.5px;
 	text-align: center;
-	
-} 
+
+}
 
 .section-title-2 p,
 .features-info .features-desc p {
@@ -144,7 +149,7 @@
 	border: 1px solid #e1e1e1;
 }
 
-.flat-title-price h5 a { 
+.flat-title-price h5 a {
 	color: #AA00FF;
 }
 
@@ -165,7 +170,10 @@
 
 .flat-title-price h5 {
     float: none;
-	text-align: center;
+		text-align: center;
+		font-weight: bold;
+		letter-spacing: 0.5px;
+		font-size: 16px;
 }
 
 .featured-flat .flat-item:hover .flat-item-info p {
@@ -257,15 +265,24 @@
 	color: #AA00FF;
 }
 
+.blog-carousel .post-title-time h5 {
+	font-size: 1.2em;
+	margin-bottom: 1.5em;
+}
+
 /*  ***************************** HOW IT WORKS *********************************  */
 
-#car_renters h3 {
+#car_renters h3, #car_owners h3 {
     color:#A0F;
     font-weight: 300;
 }
 
-.elements-tab-1 .nav-tabs > li.active > a, 
-.elements-tab-1 .nav-tabs > li.active > a:focus, 
+#car_renters img, #car_owners img {
+	margin-top: 15px;
+}
+
+.elements-tab-1 .nav-tabs > li.active > a,
+.elements-tab-1 .nav-tabs > li.active > a:focus,
 .elements-tab-1 .nav-tabs > li.active > a:hover,
 .elements-tab-1 .nav-tabs > li > a:hover {
 	color:#fff;
@@ -278,4 +295,36 @@
 
 .elements-tab-1 .nav-tabs {
     border-bottom: 1px solid #a0f;
+}
+
+.renter-area5, .owner-area5 {
+    margin: 0;
+    position: relative;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    margin-top: 25%;
+}
+
+.renter-area5 p, .owner-area5 p {font-size:1.3em;}
+
+.renter-area5 a, .owner-area5 a { margin-top: 20px;}
+
+.renter-area5 .btn-hover-1:hover, 
+.renter-area5 .btn-hover-1:active,
+.renter-area5 .btn-hover-1:focus,
+.owner-area5 .btn-hover-1:hover, 
+.owner-area5 .btn-hover-1:active,
+.owner-area5 .btn-hover-1:focus {
+	color: #A0F;
+	border: 1px solid #A0F;
+	background: #FFFFFF;
+}
+
+.renter-area6, .owner-area6 {text-align: center;}
+
+.renter-cta, .owner-cta {
+	border-top: 1px solid #A0F;
+	margin-top: 3em;
 }

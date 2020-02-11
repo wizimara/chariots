@@ -9,7 +9,7 @@
 				<div class="wow fadeInUp" data-wow-duration="1s" data-wow-delay="1.5s">
 					<p class="slider-1-desc">Lorem consectetur adipiscing elit sed do eiusmod tempor dolor sit amet.</p>
 				</div>
-			</div>			
+			</div>
             <div class="wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.5s">
                 <div class="find-home-box">
                     <div class="find-homes">
@@ -34,17 +34,17 @@
 										<input size="16" type="text" value="" placeholder="Until: Date / Time" readonly>
 										<span class="add-on"><i class="icon-th"></i></span>
 									</div>
-								</div>	
-							  
+								</div>
+
 								<div class="col-sm-2 col-xs-12">
 									<div class="find-home-item">
 										<a class="button-1 btn-block btn-hover-1" href="#">SEARCH</a>
 									</div>
-								</div>	
+								</div>
 							</div>
 							<div class="col-xs-12 reserve-bottom-info">
 								<h5 class="col-xs-6""><span class="total-cars">1,654</span> cars available</h5>
-								<p class="col-xs-6"><a href="#"><span class="pull-right"><i class="fa fa-search"></i> &nbsp;Advanced Search</span></a></p>								
+								<p class="col-xs-6"><a href="#"><span class="pull-right"><i class="fa fa-search"></i> &nbsp;Advanced Search</span></a></p>
 							</div>
                         </div>
                     </div>
@@ -54,7 +54,7 @@
         <!-- SLIDER SECTION END -->
 
 <!-- Start page content -->
-<section id="page-content" class="page-wrapper">	
+<section id="page-content" class="page-wrapper">
 
             <!-- FEATURED FLAT AREA START -->
             <div class="featured-flat-area pt-60 pb-60">
@@ -103,7 +103,7 @@
                                     </div>
                                     <div class="flat-item-info">
                                         <div class="flat-title-price">
-                                            <h5><a href="#">Vans/Minivans </a></h5>
+                                            <h5><a href="#">Vans / Minivans </a></h5>
                                         </div>
                                     </div>
                                 </div>
@@ -152,10 +152,10 @@
                 </div>
             </div>
 <!-- FEATURED FLAT AREA END -->
-	
+
             <!-- ELEMENTS AREA START -->
             <div class="elements-area pt-60 pb-0">
-            
+
             <!-- FEATURES AREA START -->
             <div class="features-area fix">
                 <div class="container">
@@ -208,10 +208,10 @@
                 </div>
             </div>
             <!-- FEATURES AREA END -->
-            
+
             </div>
             <!-- ELEMENTS AREA END -->
-			
+
             <!-- BOOKING AREA START -->
             <div class="booking-area bg-1 call-to-bg plr-140 pt-200 pb-200 start-earning">
                 <div class="container-fluid">
@@ -259,16 +259,16 @@
                             <div class="col-md-12">
                                 <article class="blog-item bg-gray">
                                     <div class="blog-image">
-                                        <a href="single-blog.html"><img src="images/blog/lady-in-sedan-car.jpg" alt=""></a>
+                                        <a href="{{url('how-it-works')}}"><img src="images/blog/lady-in-sedan-car.jpg" alt=""></a>
                                     </div>
                                     <div class="blog-info">
                                         <div class="post-title-time">
-                                            <h5><a href="single-blog.html">How Chariots works</a></h5>
+                                            <h5><a href="{{url('how-it-works')}}">How Chariots works</a></h5>
                                             <!-- <p>July 30, 2016 / 10 am</p> -->
 											</br>
                                         </div>
                                         <p>Lorem must explain to you how all this mistaolt denouncing pleasure and praising pain wasnad I will give you a complete pain was praising</p>
-                                        <a class="read-more" href="single-blog.html">Read more</a>
+                                        <a class="read-more" href="{{url('how-it-works')}}">Read more</a>
                                     </div>
                                 </article>
                             </div>
@@ -276,16 +276,16 @@
                             <div class="col-md-12">
                                 <article class="blog-item bg-gray">
                                     <div class="blog-image">
-                                        <a href="single-blog.html"><img src="images/blog/auto-checlist.jpg" alt=""></a>
+                                        <a href="#"><img src="images/blog/vehicle_inspection.jpg" alt=""></a>
                                     </div>
                                     <div class="blog-info">
                                         <div class="post-title-time">
-                                            <h5><a href="single-blog.html">Vehicle registration requirements</a></h5>
+                                            <h5><a href="#">Vehicle registration requirements</a></h5>
                                             <!-- <p>July 30, 2016 / 10 am</p> -->
 											</br>
                                         </div>
                                         <p>Lorem must explain to you how all this mistaolt denouncing pleasure and praising pain wasnad I will give you a complete pain was praising</p>
-                                        <a class="read-more" href="single-blog.html">Read more</a>
+                                        <a class="read-more" href="#">Read more</a>
                                     </div>
                                 </article>
                             </div>
@@ -306,7 +306,7 @@
                                     </div>
                                 </article>
                             </div>
-                            <!-- blog-item 
+                            <!-- blog-item
                             <div class="col-md-12">
                                 <article class="blog-item bg-gray">
                                     <div class="blog-image">
@@ -328,10 +328,10 @@
 					<hr>
                 </div>
             </div>
-            <!-- BLOG AREA END -->			
-			
-            <!-- DOWNLOAD THE APP START 
-			
+            <!-- BLOG AREA END -->
+
+            <!-- DOWNLOAD THE APP START
+
             <div class="blog-area pb-80">
                 <div class="container">
                     <div class="row">
@@ -353,8 +353,8 @@
                     </div>
                 </div>
             </div>
-			
-            <!-- DOWNLOAD THE APP END -->				
+
+            <!-- DOWNLOAD THE APP END -->
 </section>
 
 @endsection
