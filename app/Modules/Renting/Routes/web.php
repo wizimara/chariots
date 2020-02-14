@@ -22,6 +22,8 @@ Route::group(['prefix' => 'admin/renting'], function () {
     Route::get('pricings/{id}/edit', 'PricingController@edit')->name('pricings.edit');
     Route::any('pricings/{id}/update', 'PricingController@update')->name('pricings.update');
     Route::any('pricings/{id}/delete', 'PricingController@delete')->name('pricings.delete');
+    Route::post('schedules', 'PricingController@schedulesstore')->name('pricings.schedules.store');
+    Route::post('schedules/update', 'PricingController@schedulesupdate')->name('pricings.schedules.update');
     //bookings
     Route::get('bookings', 'BookingController@index')->name('bookings.index');
     Route::get('bookings/create', 'BookingController@create')->name('bookings.create');

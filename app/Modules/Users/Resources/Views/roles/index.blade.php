@@ -1,132 +1,99 @@
 @extends('shared::layouts.app')
-@section('title','Roles')
+
+@section('title', 'Roles')
+
+@section('content_header')
+<div class="container-fluid">
+    <div class="row mb-2">
+      <div class="col-sm-6">
+        <h1 class="m-0 text-dark">Roles</h1>
+      </div><!-- /.col -->
+      <div class="col-sm-6">
+        <ol class="breadcrumb float-sm-right">
+          <li class="breadcrumb-item"><a href="#">Home</a></li>
+          <li class="breadcrumb-item active">roles</li>
+        </ol>
+      </div><!-- /.col -->
+    </div><!-- /.row -->
+</div>
+@stop
+
 @section('content')
-	<!-- Content Wrapper. Contains page content -->
-	<div class="content-wrapper1">
-		<!-- Content Header (Page header) -->
-		<section class="content-header">
-			<h1>
-			User Roles
-				<small> |
-			<a href="{{ route('roles.create') }}" class="btn btn-primary btn-xs ">Add new Role</a></small>
-			</h1>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+            <h5 class="card-title">
+              All Roles
+            </h5>
 
-		</section>
+            <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                <i class="fas fa-minus"></i>
+                </button>
+                <div class="btn-group">
+                <button type="button" class="btn btn-tool dropdown-toggle" data-toggle="dropdown">
+                    <i class="fas fa-plus"></i>
+                </button>
+                <div class="dropdown-menu dropdown-menu-right" role="menu">
+                    <a href="{{route('users.roles.create')}}" class="dropdown-item" >New Role</a>
+                    <a href="#" class="dropdown-item">delete selected</a>
+                </div>
+                </div>
 
-		<!-- Main content -->
-		<section class="content">
-			<div class="row">
-				<!-- left column -->
-				<div class="col-md-112">
-					<!-- general form elements -->
-@include('flash::message')
-					<div class="box box-primary">
-						<!-- /.box-header -->
-						<!-- form start -->
+            </div>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+            <div class="row">
+               <div class="col-md-12">
+                    <table id="example1" class="table table-bordered table-hover table-striped dataTable" role="grid" aria-describedby="example1_info">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Guard Name</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
 
+                        @foreach ($roles as $role)
+                            <tr>
+                                <td>{{$role->name}}</td>
+                                <td>{{$role->guard_name}}</td>
+                                <td><a title="Edit" href="{{route('users.roles.edit',$role->id)}}"><i class="fas fa-edit"></i></a>
+                                    <a title="Delete" onclick="return confirm('Are you sure you want to delete this Role')" href="{{route('users.roles.delete',$role->id)}}"><span style="color:tomato"><i class="fas fa-trash-alt"></i></span></a>
+                                </td>
+                            </tr>
 
+                        @endforeach
+                    </tbody>
+                    </table>
+               </div>
+            </div>
+            <!-- /.row -->
+            </div>
+            <!-- ./card-body -->
+            <!-- /.card-footer -->
+        </div>
+        <!-- /.card -->
+        </div>
+        <!-- /.col -->
+    </div>
+</div>
+@stop
 
-							<div class="box-body">
-
-
-								@if ($roles->count())
-
-							                                            <table id="example1" class="table table-striped table-bordered table-hover">
-																			<thead>
-																				<tr>
-
-																					<th>Name</th>
-	<th>Gaurd Name</th>
-
-
-																					<th>
-																						<i class="ace-icon fa fa-clock-o bigger-110 hidden-480"></i>
-																					Created
-																					</th>
-
-							                                                        <th>
-																						<i class="ace-icon fa fa-clock-o bigger-110 hidden-480"></i>
-																						Update
-																					</th>
-
-																					<th></th>
-																				</tr>
-																			</thead>
-
-																			<tbody>
-
-
-							                                         @foreach ($roles as $record)
-
-																				<tr>
-
-
-																					<td>{{ $record->name}}</td>
-	<td>{{ $record->guard_name}}</td>
-							                                                        <td>{{ Carbon\Carbon::parse($record->created_at)->format('d-m-Y ') }}</td>
-																					<td>{{ Carbon\Carbon::parse($record->updated_at)->format('d-m-Y ') }}</td>
-																					<td>
-																						<div class="hidden-sm hidden-xs action-buttons">
-							                                                              {{ link_to_route('roles.edit', trans('Edit'), array($record->id), array('class' => 'btn btn-info btn-xs')) }}
-
-
-
-
-
-
-																						</div>
-
-
-																					</td>
-																				</tr>
-
-							                                                    @endforeach
-
-
-																			</tbody>
-
-																		</table>
-
-
-							                                            @else
-							    @lang('no data')
-							@endif
-
-							</div>
-							<!-- /.box-body -->
-
-					</div>
-					<!-- /.box -->
-
-
-				</div>
-
-			</div>
-			<!-- /.row -->
-		</section>
-		<!-- /.content -->
-	</div>
-	<!-- /.content-wrapper -->
+@section('css')
 
 @stop
 
 @section('js')
-  @parent
-<script>
-$(function () {
-    $('#example1').DataTable()
-    $('#dynamic-table').DataTable({
-      'paging'      : true,
-      'lengthChange': false,
-      'searching'   : true,
-      'ordering'    : true,
-      'info'        : true,
-      'autoWidth'   : false
-    });
-		$('div.alert').not('.alert-danger').delay(10000).fadeOut(350);
-  })
-</script>
-
-
-
-@endsection
+    @parent
+    <script>
+        $(function () {
+          $("#example1").DataTable();
+          $('div.alert').not('.alert-danger').delay(5000).fadeOut(350);
+        });
+    </script>
+@stop

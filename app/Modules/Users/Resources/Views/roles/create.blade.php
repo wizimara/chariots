@@ -1,77 +1,97 @@
 @extends('shared::layouts.app')
-@section('title','Roles')
+
+@section('title', 'Roles')
+
+@section('content_header')
+<div class="container-fluid">
+    <div class="row mb-2">
+      <div class="col-sm-6">
+        <h1 class="m-0 text-dark"><small><a href="{{route('users.roles')}}" class="btn btn-info">Back</a></small> Roles </h1>
+      </div><!-- /.col -->
+      <div class="col-sm-6">
+        <ol class="breadcrumb float-sm-right">
+          <li class="breadcrumb-item"><a href="#">Home</a></li>
+          <li class="breadcrumb-item active">roles</li>
+        </ol>
+      </div><!-- /.col -->
+    </div><!-- /.row -->
+</div>
+@stop
+
 @section('content')
-
-
-	<!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper1" >
-    <!-- Content Header (Page header) -->
-    <section class="content-header">
-      <h1>
-      User  Roles
-        <small> |
-			<a href="{{ route('roles.index') }}" class="btn btn-primary btn-xs ">Back</a></small>
-      </h1>
-
-    </section>
-
-    <!-- Main content -->
-    <section class="content">
-      <div class="row">
-        <!-- left column -->
+<div class="container-fluid">
+    <div class="row">
         <div class="col-md-12">
-          <!-- general form elements -->
-
-				@include('flash::message')
-          <div class="box box-primary">
-            <div class="box-header with-border">
-              <h3 class="box-title">Add a Role</h3>
+        <div class="card">
+            <div class="card-header">
+            <h5 class="card-title">Add Role</h5>
             </div>
-            <!-- /.box-header -->
-            <!-- form start -->
-            {{ Form::open(array('route' => 'roles.store','role'=>'form','class'=>'form-horizontal1')) }}
+            <!-- /.card-header -->
+            <div class="card-body">
+            <div class="row">
+              <div class="col-md-12">
+              <form role="form" action="{{route('users.roles.store')}}" method="POST" enctype="multipart/form-data">
+              {{csrf_field() }}
+
               <div class="box-body">
+                  <div class="row">
+                    <div class="form-group col-md-6  ">
+                        <label for="exampleInputEmail1">Role Name</label>
+                        <input type="text"  name="name" value="{{old('name')}}" class="form-control {{ $errors->has('name') ? ' is-invalid' : '' }}" id="exampleInputEmail1" placeholder="Enter Name"  required>
+                        @if ($errors->has('name'))
+                            <span class="invalid-feedback">
+                                <strong>{{ $errors->first('name') }}</strong>
+                            </span>
+                        @endif
+                    </div>
+                    <div class="form-group col-md-12">
+                         <label>Select Permissions</label>
+                         <select class="form-control select2 {{ $errors->has('permissions') ? ' is-invalid' : '' }}" name="permissions[]"  placeholder="Select Permissions" multiple>
+                           <option value="">Select Permissions</option>
+                           @foreach($permissions as $permission)
+                               <option value="{{$permission->id}}">{{$permission->name}}</option>
+                           @endforeach
+                         </select>
+                         @if ($errors->has('permissions'))
+                             <span class="invalid-feedback">
+                                 <strong>{{ $errors->first('permissions') }}</strong>
+                             </span>
+                         @endif
+                    </div>
 
-                <div class="row">
-
-                                      <div class="form-group col-sm-6 {{ $errors->has('name') ? ' has-error' : '' }} ">
-                                        {{ Form::label('name', trans('Name')) }}
-                                         {{ Form::text('name',null, array('class' => 'form-control')) }}
-
-                                                @if ($errors->has('name'))
-                                                    <span class="help-block">
-                                                        <strong>{{ $errors->first('name') }}</strong>
-                                                    </span>
-                                                @endif
-                                      </div>
-
-
-
-                 </div>
-
-
-
+                  </div>
               </div>
               <!-- /.box-body -->
-
               <div class="box-footer">
+              <div class="form-group col-md-12">
                 <button type="submit" class="btn btn-primary">Submit</button>
               </div>
+              </div>
             </form>
-          </div>
-          <!-- /.box -->
+            </div>
 
+            <!-- /.row -->
+            </div>
+            <!-- ./card-body -->
 
+            <!-- /.card-footer -->
         </div>
+        <!-- /.card -->
+        </div>
+        <!-- /.col -->
+    </div>
+</div>
+@stop
 
-      </div>
-      <!-- /.row -->
-    </section>
-    <!-- /.content -->
-  </div>
-  <!-- /.content-wrapper -->
+@section('css')
 
+@stop
 
-
-
+@section('js')
+    @parent
+    <script>
+        $(function () {
+          $('.select2').select2();
+        })
+    </script>
 @stop

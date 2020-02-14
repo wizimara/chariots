@@ -26,21 +26,21 @@ class ModuleServiceProvider extends ServiceProvider
                             'submenu' => [
                               [
                                       'text' => 'Users',
-                                      'url'  => route('users.index'),
+                                      'url'  => route('users'),
                                       'icon' => 'lock',
                                       //'can'=>'Edit Payment',
                                     //'role'=>'admin',
                                   ],
                               [
                                       'text' => 'Roles',
-                                      'url'  => route('roles.index'),
+                                      'url'  => route('users.roles'),
                                       'icon' => 'lock',
                                       //'can'=>'Edit Payment',
                                     //'role'=>'admin',
                                   ],
                                   [
                                       'text' => 'Permissions',
-                                      'url'  => route('permissions.index'),
+                                      'url'  => route('users.permissions'),
                                       'icon' => 'lock',
                                    //'can'=>'view_roles',
                                   ],

@@ -22,6 +22,11 @@ use App\Http\Controllers\Controller;
 
 class VehiclesController extends Controller
 {
+  public function __construct()
+    {
+        $this->middleware('web');
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *

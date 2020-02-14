@@ -1,135 +1,136 @@
 @extends('shared::layouts.app')
-@section('title','Users')
+
+@section('title', 'Users')
+
+@section('content_header')
+<div class="container-fluid">
+    <div class="row mb-2">
+      <div class="col-sm-6">
+        <h1 class="m-0 text-dark"><small><a href="{{route('users')}}" class="btn btn-info">Back</a></small> Users </h1>
+      </div><!-- /.col -->
+      <div class="col-sm-6">
+        <ol class="breadcrumb float-sm-right">
+          <li class="breadcrumb-item"><a href="#">Home</a></li>
+          <li class="breadcrumb-item active">users</li>
+        </ol>
+      </div><!-- /.col -->
+    </div><!-- /.row -->
+</div>
+@stop
+
 @section('content')
-	<!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper1">
-    <!-- Content Header (Page header) -->
-    <section class="content-header">
-      <h1>
-      Users
-
-      </h1>
-
-    </section>
-
-    <!-- Main content -->
-    <section class="content">
-      <div class="row">
-        <!-- left column -->
+<div class="container-fluid">
+    <div class="row">
         <div class="col-md-12">
-          <!-- general form elements -->
-
-					@include('flash::message')
-          <div class="box box-primary">
-            <div class="box-header with-border">
-              <h3 class="box-title">Add a User</h3>
+        <div class="card">
+            <div class="card-header">
+            <h5 class="card-title">Add User</h5>
             </div>
-            <!-- /.box-header -->
-            <!-- form start -->
-            {{ Form::open(array('route' => 'users.store','role'=>'form','class'=>'form-horizontal1')) }}
+            <!-- /.card-header -->
+            <div class="card-body">
+            <div class="row">
+              <div class="col-md-12">
+              <form role="form" action="{{route('users.store')}}" method="POST" >
+              {{csrf_field() }}
+
               <div class="box-body">
-								{{ csrf_field() }}
-                      <div class="row">
-	                        <div class=" col-md-6 form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-	                            <label for="name" class=" control-label">Name</label>
-	                                <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}">
-
-	                                @if ($errors->has('name'))
-	                                    <span class="help-block">
-	                                        <strong>{{ $errors->first('name') }}</strong>
-	                                    </span>
-	                                @endif
-	                        </div>
-                        </div>
-                        <div class="row">
-                          <div class="form-group col-sm-6">
-                                                    <label for="roles" class="control-label">User Role</label>
-                                                        <select  class="select2 form-control " name="role">
-                                                          @foreach($roles as $row)
-                                                       <option value="{{ $row->id }}">{{ $row->name  }}</option>
-                                                       @endforeach
-                                                       </select>
-                                                    </div>
-                                                </div>
-                      <div class="row">
-	                        <div class=" col-md-6 form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-	                            <label for="email" class="control-label">E-Mail Address</label>
-	                                <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}">
-
-	                                @if ($errors->has('email'))
-	                                    <span class="help-block">
-	                                        <strong>{{ $errors->first('email') }}</strong>
-	                                    </span>
-	                                @endif
-	                        </div>
-                        </div>
-                       <div class="row">
-	                        <div class=" col-md-3 form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-	                            <label for="password" class=" control-label">Password</label>
-	                                <input id="password" type="password" class="form-control" name="password">
-	                                @if ($errors->has('password'))
-	                                    <span class="help-block">
-	                                        <strong>{{ $errors->first('password') }}</strong>
-	                                    </span>
-	                                @endif
-	                            </div>
-
-	                        <div class="col-md-3 form-group{{ $errors->has('password_confirmation') ? ' has-error' : '' }}">
-	                            <label for="password-confirm" class=" control-label">Confirm Password</label>
-	                                <input id1="password-confirm" type="password" class="form-control" name="password_confirmation">
-
-	                                @if ($errors->has('password_confirmation'))
-	                                    <span class="help-block">
-	                                        <strong>{{ $errors->first('password_confirmation') }}</strong>
-	                                    </span>
-	                                @endif
-	                        </div>
-                          </div>
-                          <div class="row">
-                          <div class="form-group col-sm-3 {{ $errors->has('status') ? ' has-error' : '' }} ">
-<br>
-                                <label for="password-confirm" class=" control-label">Status</label><br>
-                                  <label class="radio-inline">
-                            <input type="radio" id="Active" name="user_status" value="1">Active</label>
-
-                            <label class="radio-inline">
-                            <input type="radio" checked="checked" id="Pending" name="user_status" value="2">Pending</label>
-  <label class="radio-inline">
-                            <input type="radio" id="Deactive" name="user_status" value="0">Deactive</label>
-                            @if ($errors->has('status'))
-                                                <span class="help-block">
-                                                    <strong>{{ $errors->first('status') }}</strong>
-                                                </span>
-                                            @endif
-                            </div>
-
-                </div>
-
+                  <div class="row">
+                    <div class="form-group col-md-6  ">
+                        <label for="exampleInputEmail1"> Name</label>
+                        <input type="text"  name="name" value="{{old('name')}}" class="form-control {{ $errors->has('name') ? ' is-invalid' : '' }}" id="exampleInputEmail1" placeholder="Enter Name"  >
+                        @if ($errors->has('name'))
+                            <span class="invalid-feedback">
+                                <strong>{{ $errors->first('name') }}</strong>
+                            </span>
+                        @endif
+                    </div>
+                    <div class="form-group col-md-6">
+                         <label>Select Role</label>
+                         <select class="form-control select2 {{ $errors->has('role') ? ' is-invalid' : '' }}" name="role"  placeholder="Select Role" >
+                           <option value="">Select Role</option>
+                           @foreach($roles as $role)
+                               <option value="{{$role->id}}">{{$role->name}}</option>
+                           @endforeach
+                         </select>
+                         @if ($errors->has('role'))
+                             <span class="invalid-feedback">
+                                 <strong>{{ $errors->first('role') }}</strong>
+                             </span>
+                         @endif
+                    </div>
+                    <div class="form-group col-md-4 ">
+                        <label for="exampleInputEmail1">E-Mail Address</label>
+                        <input type="text"  name="email" value="{{old('email')}}" class="form-control {{ $errors->has('email') ? ' is-invalid' : '' }}" id="exampleInputEmail1" placeholder="Enter Email"  >
+                        @if ($errors->has('email'))
+                            <span class="invalid-feedback">
+                                <strong>{{ $errors->first('email') }}</strong>
+                            </span>
+                        @endif
+                    </div>
+                    <div class="form-group col-md-12  ">
+                    </div>
+                    <div class="form-group col-md-3  ">
+                        <label for="exampleInputEmail1">Password</label>
+                        <input type="password"  name="password" value="{{old('password')}}" class="form-control {{ $errors->has('password') ? ' is-invalid' : '' }}" id="exampleInputEmail1" placeholder="Enter Password"  >
+                        @if ($errors->has('password'))
+                            <span class="invalid-feedback">
+                                <strong>{{ $errors->first('password') }}</strong>
+                            </span>
+                        @endif
+                    </div>
+                    <div class="form-group col-md-3  ">
+                        <label for="exampleInputEmail1">Confirm Password</label>
+                        <input type="password"  name="password_confirmation" value="{{old('password_confirmation')}}" class="form-control {{ $errors->has('password_confirmation') ? ' is-invalid' : '' }}" id="exampleInputEmail1" placeholder="Enter Confirm Password"  >
+                        @if ($errors->has('password_confirmation'))
+                            <span class="invalid-feedback">
+                                <strong>{{ $errors->first('password_confirmation') }}</strong>
+                            </span>
+                        @endif
+                    </div>
+                    <div class="form-group col-md-12  ">
+                    </div>
+                    <div class=" col-md-3 form-group">
+                        <label for="signed" class=" col-md-12 control-label">Status</label>
+                        <label class="radio-inline">
+                          <input type="radio" id="Active" name="status" value="1" checked> Active</label>
+                        </label>
+                       <label class="radio-inline">
+                          <input type="radio" id="Deactive" name="status" value="0" > Deactive</label>
+                       </label>
+                    </div>
+                  </div>
               </div>
               <!-- /.box-body -->
-
               <div class="box-footer">
+              <div class="form-group col-md-12">
                 <button type="submit" class="btn btn-primary">Submit</button>
               </div>
+              </div>
             </form>
-          </div>
-          <!-- /.box -->
+            </div>
 
+            <!-- /.row -->
+            </div>
+            <!-- ./card-body -->
 
+            <!-- /.card-footer -->
         </div>
+        <!-- /.card -->
+        </div>
+        <!-- /.col -->
+    </div>
+</div>
+@stop
 
-      </div>
-      <!-- /.row -->
-    </section>
-    <!-- /.content -->
-  </div>
-  <!-- /.content-wrapper -->
-  @stop
-    @section('js')
+@section('css')
+
+@stop
+
+@section('js')
     @parent
     <script>
-    $(function () {
-    $('.select2').select2();
-    })
+        $(function () {
+          $('.select2').select2();
+        })
     </script>
-    @stop
+@stop

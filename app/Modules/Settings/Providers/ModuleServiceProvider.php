@@ -22,15 +22,15 @@ class ModuleServiceProvider extends ServiceProvider
             $menu = [
                 'text' => 'Settings',
                 'url'  => 'settings',
-                'icon' => 'gear',
+                'icon' => 'fa fa-gear',
                 'submenu' => [
                           [
                               'text' => 'Car Rental Settings',
                               'url'  => 'admin/settings/settings',
-                              'icon' => 'gear',
+                              'icon' => 'fa fa-gear',
                           ],
 
-                      
+
 
                         ]
             ];

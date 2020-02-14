@@ -22,6 +22,11 @@ use App\Http\Controllers\Controller;
 
 class BookingController extends Controller
 {
+  public function __construct()
+    {
+        $this->middleware('web');
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -55,6 +60,8 @@ class BookingController extends Controller
     public function store(Request $request)
     {
       $validation = request()->validate(Booking::$rules,Booking::$messages);
+
+
 
      $datetime1 = date_create(request()->input('end_date_of_use'));
      $datetime2 = date_create(request()->input('starting_date_of_use'));

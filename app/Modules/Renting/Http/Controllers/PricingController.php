@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\View;
 use App\Modules\Vehicles\Models\Vehicle;
 use App\User;
 use App\Modules\Renting\Models\Pricing;
+use App\Modules\Renting\Models\CarAvailableDate;
+use App\Modules\Renting\Models\Carschedule;
 use App\Http\Requests;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Validator;
@@ -15,6 +17,12 @@ use App\Http\Controllers\Controller;
 
 class PricingController extends Controller
 {
+
+  public function __construct()
+    {
+        $this->middleware('web');
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -47,6 +55,21 @@ class PricingController extends Controller
     public function store(Request $request)
     {
        $validation = request()->validate(Pricing::$rules,Pricing::$messages);
+
+       $start_date =request()->input('start_date');
+       $end_date =request()->input('end_date');
+
+        if ($end_date < date('Y-m-d'))
+        {
+
+          $alerts = [
+       'bustravel-flash'         => true,
+       'bustravel-flash-type'    => 'error',
+       'bustravel-flash-title'   => 'Pricing',
+       'bustravel-flash-message' => 'End Date has already Passed  '. \Carbon\Carbon::parse($end_date)->format('d-m-Y '),
+   ];
+       return redirect()->route('pricings.create')->with($alerts);
+        }
        $pricing = New Pricing;
        $pricing->vehicle_id =request()->input('vehicle_id');
        $pricing->dailyrate =request()->input('dailyrate');
@@ -59,6 +82,28 @@ class PricingController extends Controller
       // $pricing->tripfee =request()->input('tripfee');
        //$pricing->totaltriprice =request()->input('totaltriprice');
        $pricing->save();
+
+        $startDate = new \Carbon\Carbon(request()->input('start_date'));
+        $endDate = new \Carbon\Carbon(request()->input('end_date'));
+        $all_dates = array();
+        while ($startDate->lte($endDate)){
+        $all_dates[] = $startDate->toDateString();
+        $startDate->addDay();
+        }
+        $schedule =new Carschedule;
+        $schedule->pricing_id =$pricing->id;
+        $schedule->start_date =request()->input('start_date');
+        $schedule->end_date =request()->input('end_date');
+        $schedule->save();
+
+        foreach($all_dates as $avaliabledate)
+        {
+        $avaliable =new CarAvailableDate;
+        $avaliable->pricing_id =$pricing->id;
+        $avaliable->schedule_id =$schedule->id;
+        $avaliable->available_date =$avaliabledate;
+        $avaliable->save();
+        }
 
        $alerts = [
     'bustravel-flash'         => true,
@@ -140,9 +185,11 @@ class PricingController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function delete($id)
     {
       $item= Pricing::find($id);
+      $date=$item->car_available_dates()->delete();
+      $schudeles=$item->schedules()->delete();
       Pricing::find($id)->delete();
       $alerts = [
    'bustravel-flash'         => true,
@@ -153,4 +200,55 @@ class PricingController extends Controller
 
    return redirect()->route('pricings.index')->with($alerts);
     }
+
+  public function schedulesstore()
+  {
+    $validation = request()->validate(CarSchedule::$rules);
+    $start_date =request()->input('start_date');
+    $end_date =request()->input('end_date');
+
+     if ($end_date < date('Y-m-d'))
+     {
+
+       $alerts = [
+    'bustravel-flash'         => true,
+    'bustravel-flash-type'    => 'error',
+    'bustravel-flash-title'   => 'Pricing',
+    'bustravel-flash-message' => 'End Date has already Passed  '. \Carbon\Carbon::parse($end_date)->format('d-m-Y '),
+];
+    return redirect()->route('pricings.index')->with($alerts);
+     }
+
+     $startDate = new \Carbon\Carbon(request()->input('start_date'));
+     $endDate = new \Carbon\Carbon(request()->input('end_date'));
+     $all_dates = array();
+     while ($startDate->lte($endDate)){
+     $all_dates[] = $startDate->toDateString();
+     $startDate->addDay();
+     }
+     $schedule =new Carschedule;
+     $schedule->pricing_id =request()->input('pricing_id');
+     $schedule->start_date =request()->input('start_date');
+     $schedule->end_date =request()->input('end_date');
+     $schedule->save();
+
+     foreach($all_dates as $avaliabledate)
+     {
+     $avaliable =new CarAvailableDate;
+     $avaliable->pricing_id =request()->input('pricing_id');
+     $avaliable->schedule_id =$schedule->id;
+     $avaliable->available_date =$avaliabledate;
+     $avaliable->save();
+     }
+
+    $alerts = [
+ 'bustravel-flash'         => true,
+ 'bustravel-flash-type'    => 'success',
+ 'bustravel-flash-title'   => 'Pricing Saving',
+ 'bustravel-flash-message' => ' has successfully been saved',
+];
+
+ return redirect()->route('pricings.edit',request()->input('pricing_id'))->with($alerts);
+
+  }
 }

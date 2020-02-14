@@ -1,174 +1,112 @@
 @extends('shared::layouts.app')
-@section('title','Users')
+
+@section('title', 'Users')
+
+@section('content_header')
+<div class="container-fluid">
+    <div class="row mb-2">
+      <div class="col-sm-6">
+        <h1 class="m-0 text-dark">Users</h1>
+      </div><!-- /.col -->
+      <div class="col-sm-6">
+        <ol class="breadcrumb float-sm-right">
+          <li class="breadcrumb-item"><a href="#">Home</a></li>
+          <li class="breadcrumb-item active">users</li>
+        </ol>
+      </div><!-- /.col -->
+    </div><!-- /.row -->
+</div>
+@stop
 
 @section('content')
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+            <h5 class="card-title">
+              All Users
+            </h5>
 
+            <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                <i class="fas fa-minus"></i>
+                </button>
+                <div class="btn-group">
+                <button type="button" class="btn btn-tool dropdown-toggle" data-toggle="dropdown">
+                    <i class="fas fa-plus"></i>
+                </button>
+                <div class="dropdown-menu dropdown-menu-right" role="menu">
+                    <a href="{{route('users.create')}}" class="dropdown-item" >New User</a>
+                    <a href="#" class="dropdown-item">delete selected</a>
+                </div>
+                </div>
 
-	<!-- Content Wrapper. Contains page content -->
-	<div class="content-wrapper1">
-		<!-- Content Header (Page header) -->
-		<section class="content-header">
-			<h1>
-			Users
-				<small> |
-			<a href="{{ url('/admin/users/users/create') }}" class="btn btn-primary btn-xs ">Add new User</a></small>
-			</h1>
+            </div>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+            <div class="row">
+               <div class="col-md-12">
+                    <table id="example1" class="table table-bordered table-hover table-striped dataTable" role="grid" aria-describedby="example1_info">
+                        <thead>
+                            <tr>
+                                <th>Status</th>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Phone Number</th>
+                                <th>Role</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
 
-		</section>
+                        @foreach ($users as $user)
+                            <tr>
+                                <td>
+                                  @if($user->user_status==1)
+                                      <span class="badge badge-success"> <i class="fas fa-check"></i></span>
+                                    @else
+                                  <span class="badge badge-danger"> <i class="fas fa-times"></i></span>
 
-		<!-- Main content -->
-		<section class="content">
-			<div class="row">
-				<!-- left column -->
-				<div class="col-md-112">
-					<!-- general form elements -->
-@include('flash::message')
-					<div class="box box-primary">
-						<div class="box-header with-border">
-							<h3 class="box-title">Users</h3>
-						</div>
-						<!-- /.box-header -->
-						<!-- form start -->
+                                    @endif
+                                 </td>
+                                <td>{{$user->name}}</td>
+                                <td>{{$user->email}}</td>
+                                <td>{{$user->phone_number}}</td>
+                                <td>{{$user->getRoleNames()}}</td>
+                                <td><a title="Edit" href="{{route('users.edit',$user->id)}}"><i class="fas fa-edit"></i></a>
+                                    <a title="Delete" onclick="return confirm('Are you sure you want to delete this User')" href="{{route('users.delete',$user->id)}}"><span style="color:tomato"><i class="fas fa-trash-alt"></i></span></a>
+                                </td>
+                            </tr>
 
+                        @endforeach
+                    </tbody>
+                    </table>
+               </div>
+            </div>
+            <!-- /.row -->
+            </div>
+            <!-- ./card-body -->
+            <!-- /.card-footer -->
+        </div>
+        <!-- /.card -->
+        </div>
+        <!-- /.col -->
+    </div>
+</div>
+@stop
 
-
-							<div class="box-body">
-
-
-								@if ($users->count())
-
-							                                            <table id="example1" class="table table-striped table-bordered table-hover">
-																			<thead>
-																				<tr>
-<th>Status</th>
-																					<th>Name</th>
-<th>Email</th>
-
-<th>Role</th>
-
-																					<th>
-																						<i class="ace-icon fa fa-clock-o bigger-110 hidden-480"></i>
-																					Created
-																					</th>
-
-							                                                        <th>
-																						<i class="ace-icon fa fa-clock-o bigger-110 hidden-480"></i>
-																						Update
-																					</th>
-
-																					<th></th>
-																				</tr>
-																			</thead>
-
-																			<tbody>
-
-
-							                                         @foreach ($users as $record)
-
-																				<tr>
-
-<td>
-@if($record->user_status==1)
-<span class="label label-success ">  <i class="ace-icon fa fa-check bigger-130"></i> Active</span>
-@elseif($record->user_status==2)
-<span class="label label-warning ">  <i class="ace-icon fa fa-check bigger-130"></i> Pending</span>
-@else
-<span class="label label-danger ">  <i class="ace-icon fa fa-check bigger-130"></i> Deactive</span>
-@endif
-	</td>
-																					<td>{{ $record->name}}</td>
-																					<td>{{ $record->email}}</td>
-
-<td>{{ $record->role->name??"no role"}}</td>
-							                                                        <td>{{ Carbon\Carbon::parse($record->created_at)->format('d-m-Y ') }}</td>
-
-																					<td>{{ Carbon\Carbon::parse($record->updated_at)->format('d-m-Y ') }}</td>
-
-
-
-																					<td>
-																						<div class="hidden-sm hidden-xs action-buttons">
-
-
-
-
-							                                                              {{ link_to_route('users.edit', trans('Edit'), array($record->id), array('class' => 'btn btn-info btn-xs')) }}
-
-
-                           @if($record->id ==1)
-													 @else
-							       {{Form::open(array(
-							    'route' => array( 'users.destroy', $record->id ),
-							    'method' => 'delete',
-							    'style' => 'display:inline',
-							    'onsubmit' => "return confirm('Are you sure you want to delete this row? ')",
-							))}}
-
-							<button class="btn btn-danger btn-xs ">
-																			<i class="ace-icon fa fa-trash-o bigger-130"></i>
-																		</button>
-
-							{{Form::close()}}
-                 @endif
-																						</div>
-
-
-																					</td>
-																				</tr>
-
-							                                                    @endforeach
-
-
-																			</tbody>
-
-
-																		</table>
-
-
-							                                            @else
-							    @lang('no data')
-							@endif
-
-							</div>
-							<!-- /.box-body -->
-
-					</div>
-					<!-- /.box -->
-
-
-				</div>
-
-			</div>
-			<!-- /.row -->
-		</section>
-		<!-- /.content -->
-	</div>
-	<!-- /.content-wrapper -->
-
-
-
-
-
-
+@section('css')
 
 @stop
 
 @section('js')
-  @parent
-<script>
-$(function () {
-    $('#example1').DataTable()
-    $('#dynamic-table').DataTable({
-      'paging'      : true,
-      'lengthChange': false,
-      'searching'   : true,
-      'ordering'    : true,
-      'info'        : true,
-      'autoWidth'   : false
-    })
-  })
-</script>
-
-
-
-@endsection
+    @parent
+    <script>
+        $(function () {
+          $("#example1").DataTable();
+          $('div.alert').not('.alert-danger').delay(5000).fadeOut(350);
+        });
+    </script>
+@stop

@@ -1,118 +1,100 @@
 @extends('shared::layouts.app')
-@section('title','Roles')
-@section('content')
 
-  <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper1">
-    <!-- Content Header (Page header) -->
-    <section class="content-header">
-      <h1>
-    Edit {{$role->role_name}}
-        <small> |
-      <a href="{{ url('/admin/users/roles') }}" class="btn btn-primary btn-xs ">Back</a></small>
-      </h1>
+@section('title', 'Roles')
 
-    </section>
-
-    <!-- Main content -->
-    <section class="content">
-      <div class="row">
-        <!-- left column -->
-        <div class="col-md-12">
-          <!-- general form elements -->
-	@include('flash::message')
-  <p>
-<span class="label label-warning ">   Updated {{ $diffs = Carbon\Carbon::parse($role->updated_at)->diffForHumans() }} </span>   &nbsp
-<span class="label label-success ">   Created {{ $diffs = Carbon\Carbon::parse($role->created_at)->diffForHumans() }} </span>    &nbsp
-</p>
-          <div class="box box-primary">
-            <div class="box-header with-border">
-              <h3 class="box-title">Edit Role</h3>
-            </div>
-            <!-- /.box-header -->
-            <!-- form start -->
-            {{ Form::model($role, array('method' => 'PATCH', 'route' => array('roles.update', $role->id),'role'=>'form','class'=>'form-horizontal1')) }}
-<div class="box-body ">
-  <div class="row">
-
-                        <div class="form-group col-sm-6{{ $errors->has('name') ? ' has-error' : '' }} ">
-                          {{ Form::label('name', trans('Name')) }}
-                           {{ Form::text('name',null, array('class' => 'form-control')) }}
-
-                                  @if ($errors->has('name'))
-                                      <span class="help-block">
-                                          <strong>{{ $errors->first('name') }}</strong>
-                                      </span>
-                                  @endif
-                        </div>
-   </div>
-
-   <div class="row">
-
-              <div class="form-group col-sm-12 {{ $errors->has('permission_id') ? ' has-error' : '' }} ">
-
-                      {{ Form::label('permission_id', trans('Permissions')) }}
-
-                       <select multiple="multiple" class="select2 form-control " name="permissions[]">
-                       @php
-                    	$current_permissions = $role->permissions()->pluck('id')->all();
-//
-                       @endphp
-                       @foreach($permissions as $user)
-
-       <option value="{{ $user->id }}" @if(in_array($user->id, $current_permissions)) selected @endif >{{ $user->name  }}</option>
-       @endforeach
-                   </select>
-
-
-   @if ($errors->has('permission_id'))
-                                      <span class="help-block">
-                                          <strong>{{ $errors->first('permission_id') }}</strong>
-                                      </span>
-                                  @endif
-
-              </div>
-              </div>
-
-
-  </div>
-
-                  <div class="form-group ">
-                   <div class=" col-sm-12">
-                       {{ Form::submit(trans('Update'), array('class' => 'btn btn-primary')) }}
-
-                   </div>
-
-                    <br><br>
-
-                   </div>
+@section('content_header')
+<div class="container-fluid">
+    <div class="row mb-2">
+      <div class="col-sm-6">
+        <h1 class="m-0 text-dark"><small><a href="{{route('users.roles')}}" class="btn btn-info">Back</a></small> Roles </h1>
+      </div><!-- /.col -->
+      <div class="col-sm-6">
+        <ol class="breadcrumb float-sm-right">
+          <li class="breadcrumb-item"><a href="#">Home</a></li>
+          <li class="breadcrumb-item active">Roles</li>
+        </ol>
+      </div><!-- /.col -->
+    </div><!-- /.row -->
 </div>
-           {{ Form::close() }}
+@stop
 
-          </div>
-          <!-- /.box -->
+@section('content')
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+            <h5 class="card-title">Edit {{$role->name}}  Role</h5>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+            <div class="row">
+              <div class="col-md-12">
+              <form role="form" action="{{route('users.roles.update',$role->id)}}" method="POST" enctype="multipart/form-data">
+              {{csrf_field() }}
 
+              <div class="box-body">
+                  <div class="row">
+                    <div class="form-group col-md-6  ">
+                        <label for="exampleInputEmail1">Role Name</label>
+                        <input type="text"  name="name" value="{{$role->name}}" class="form-control {{ $errors->has('name') ? ' is-invalid' : '' }}" id="exampleInputEmail1" placeholder="Enter Name"  required>
+                        @if ($errors->has('name'))
+                            <span class="invalid-feedback">
+                                <strong>{{ $errors->first('name') }}</strong>
+                            </span>
+                        @endif
+                    </div>
+                    @php
+                      $current_permissions = $role->permissions()->pluck('id')->all();
+                    @endphp
+                    <div class="form-group col-md-12">
+                         <label>Select Permissions</label>
+                         <select class="form-control select2 {{ $errors->has('permissions') ? ' is-invalid' : '' }}" name="permissions[]"  placeholder="Select Permissions" multiple>
+                           <option value="">Select Permissions</option>
+                           @foreach($permissions as $permission)
+                               <option value="{{$permission->id}}" @if(in_array($permission->id, $current_permissions)) selected @endif>{{$permission->name}}</option>
+                           @endforeach
+                         </select>
+                         @if ($errors->has('permissions'))
+                             <span class="invalid-feedback">
+                                 <strong>{{ $errors->first('permissions') }}</strong>
+                             </span>
+                         @endif
+                    </div>
+                  </div>
+              </div>
+              <!-- /.box-body -->
+              <div class="box-footer">
+                <div class="form-group col-md-12">
+                  <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+              </div>
+            </form>
+            </div>
 
+            <!-- /.row -->
+            </div>
+            <!-- ./card-body -->
+
+            <!-- /.card-footer -->
         </div>
+        <!-- /.card -->
+        </div>
+        <!-- /.col -->
+    </div>
+</div>
+@stop
 
-      </div>
-      <!-- /.row -->
-    </section>
-    <!-- /.content -->
-  </div>
-  <!-- /.content-wrapper -->
-  @section('js')
-  <style>
+@section('css')
 
-  }
-</style>
-   @parent
+@stop
+
+@section('js')
+    @parent
     <script>
-       $(document).ready(function() {
-      $('.select2').select2();
-$('div.alert').not('.alert-danger').delay(10000).fadeOut(350);
-    });
+        $(function () {
+          $('.select2').select2();
+        })
     </script>
-  @stop
 
-  @stop
+@stop
