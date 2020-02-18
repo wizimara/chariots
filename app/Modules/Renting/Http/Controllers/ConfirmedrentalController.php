@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\View;
 use App\Modules\Renting\Models\Booking;
 
 use App\Modules\Renting\Models\Confirmedrental;
+use App\Modules\Renting\Models\CarAvailableDate;
+use App\Modules\Renting\Models\BookedDate;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Redirect;
@@ -53,8 +55,51 @@ class ConfirmedrentalController extends Controller
      */
     public function store(Request $request)
     {
-
       $validation = request()->validate(Confirmedrental::$rules,Confirmedrental::$messages);
+      $booking1 =Booking::find(request()->input('booking_id'));
+      $startDate = new \Carbon\Carbon($booking1->starting_date_of_use);
+      $endDate = new \Carbon\Carbon($booking1->end_date_of_use);
+      $all_dates = array();
+      while ($startDate->lte($endDate)){
+       $all_dates[] = $startDate->toDateString();
+       $startDate->addDay();
+       }
+        $availabledates =CarAvailableDate::where('pricing_id',$booking1->vehicle_id)->pluck('available_date')->all();
+        $result2= array_intersect($availabledates,   $all_dates);
+        if(empty($result2))
+        {
+          $string2='';
+          foreach ($all_dates as $value){
+          $string2.=  \Carbon\Carbon::parse($value)->format('d-m-Y ').' , ';
+          }
+          $alerts = [
+          'bustravel-flash'         => true,
+          'bustravel-flash-type'    => 'error',
+          'bustravel-flash-title'   => 'Booking Saving',
+          'bustravel-flash-message' => 'Car Not avialable on these days: '. $string2,
+          ];
+
+          return back()->withInput()->with($alerts);
+        }
+
+        $bookeddates =BookedDate::where('pricing_id',$booking1->vehicle_id)->pluck('booked_date')->all();
+        $result = array_intersect($bookeddates,   $all_dates);
+        if(!empty($result))
+        {
+        $string='';
+        foreach ($result as $value){
+        $string.=  \Carbon\Carbon::parse($value)->format('d-m-Y ').' , ';
+        }
+        $alerts = [
+        'bustravel-flash'         => true,
+        'bustravel-flash-type'    => 'error',
+        'bustravel-flash-title'   => 'Booking Saving',
+        'bustravel-flash-message' => 'These Dates are already Booked: '. $string,
+        ];
+
+        return back()->withInput()->with($alerts);
+        }
+
       $booking = New Confirmedrental;
       $booking->booking_id =request()->input('booking_id');
       $booking->payment_status =request()->input('payment_status');
@@ -64,9 +109,19 @@ class ConfirmedrentalController extends Controller
       $booking->pick_up_date =request()->input('pick_up_date');
       $booking->save();
 
-      $booking1 =Booking::find(request()->input('booking_id'));
       $booking1->booking_status='Confirmed';
       $booking1->save();
+
+      foreach($all_dates as $bookdate)
+       {
+         $bookingdate =new BookedDate;
+         $bookingdate->booking_id =$booking1->id;
+         $bookingdate->pricing_id =$booking1->vehicle_id;
+         $bookingdate->booked_date =$bookdate;
+         $bookingdate->save();
+        }
+
+
       $alerts = [
    'bustravel-flash'         => true,
    'bustravel-flash-type'    => 'success',
@@ -150,6 +205,7 @@ class ConfirmedrentalController extends Controller
       $booking1 =Booking::find($item->booking_id);
       $booking1->booking_status='Booked';
       $booking1->save();
+      $dates= $booking1->car_booked_dates()->delete();
       $name =$item->id;
       Confirmedrental::find($id)->delete();
 

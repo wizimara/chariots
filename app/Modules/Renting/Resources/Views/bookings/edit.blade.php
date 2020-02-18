@@ -135,6 +135,7 @@
 										</div>
 										<div class="form-group col-md-4 ">
 												<label for="exampleInputEmail1">Booked Status</label><br>
+                        	<label class="radio-inline"><input type="radio"  name="booking_status" value="Confirmed" @php echo $item->booking_status == 'Confirmed' ? 'checked' :  "" @endphp> Confirmed</label>
 												<label class="radio-inline"><input type="radio"  name="booking_status" value="Booked" @php echo $item->booking_status == 'Booked' ? 'checked' :  "" @endphp> Booked</label>
 												<label class="radio-inline"><input type="radio"  name="booking_status" value="Cancelled" @php echo $item->booking_status == 'Cancelled' ? 'checked' :  "" @endphp> Cancelled</label>
 												@if ($errors->has('booking_status'))

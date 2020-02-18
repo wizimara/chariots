@@ -93,8 +93,8 @@
 
 											            	<td>{{$record->client->name }} </td>
 																		<td>{{$record->date_of_booking }} </td>
-																		<td>{{$record->starting_date_of_use }} </td>
-																		<td>{{$record->end_date_of_use }} </td>
+																		<td>{{ Carbon\Carbon::parse($record->starting_date_of_use )->format('d-m-Y ')}} </td>
+																		<td>{{ Carbon\Carbon::parse($record->end_date_of_use )->format('d-m-Y ')}} </td>
 																		<td>@if($record->driver_option==0)
 																		Driver
 																		@else

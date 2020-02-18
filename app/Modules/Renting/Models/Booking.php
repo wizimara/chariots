@@ -41,4 +41,8 @@ public static $messages = array(
  {
      return $this->belongsTo('App\Modules\Users\Models\User','user_id');
  }
+ public function car_booked_dates()
+ {
+     return $this->hasMany(BookedDate::class,'booking_id');
+ }
 }

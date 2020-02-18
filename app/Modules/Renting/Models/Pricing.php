@@ -40,4 +40,8 @@ public function car_available_dates()
 {
     return $this->hasMany(CarAvailableDate::class,'pricing_id');
 }
+public function car_booked_dates()
+{
+    return $this->hasMany(BookedDate::class,'pricing_id');
+}
 }

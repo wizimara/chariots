@@ -11,6 +11,8 @@ use App\Http\Requests;
 use App\Modules\Renting\Models\Pricing;
 use App\Modules\Renting\Models\Booking;
 use App\Modules\Renting\Models\BookingPrice;
+use App\Modules\Renting\Models\CarAvailableDate;
+use App\Modules\Renting\Models\BookedDate;
 use App\Modules\Vehicles\Models\Vehicle;
 use App\Modules\Renting\Models\Confirmedrental;
 use App\Modules\Settings\Models\Setting;
@@ -61,8 +63,72 @@ class BookingController extends Controller
     {
       $validation = request()->validate(Booking::$rules,Booking::$messages);
 
+      $today =date('Y-m-d');
+      if($today> request()->input('starting_date_of_use') )
+      {
+        $alerts = [
+        'bustravel-flash'         => true,
+        'bustravel-flash-type'    => 'error',
+        'bustravel-flash-title'   => 'Booking Saving',
+        'bustravel-flash-message' => 'Starting Date has already passed: '. \Carbon\Carbon::parse(request()->input('starting_date_of_use'))->format('d-m-Y '),
+        ];
+        return back()->withInput()->with($alerts);
+      }
+      if(request()->input('starting_date_of_use') > request()->input('end_date_of_use') )
+      {
+        $alerts = [
+        'bustravel-flash'         => true,
+        'bustravel-flash-type'    => 'error',
+        'bustravel-flash-title'   => 'Booking Saving',
+        'bustravel-flash-message' => 'End Date cannot be lessthan than Start Date : ',
+        ];
+        return back()->withInput()->with($alerts);
+      }
+
+      $startDate = new \Carbon\Carbon(request()->input('starting_date_of_use'));
+      $endDate = new \Carbon\Carbon(request()->input('end_date_of_use'));
+      $all_dates = array();
+      while ($startDate->lte($endDate)){
+       $all_dates[] = $startDate->toDateString();
+       $startDate->addDay();
+       }
+
+$availabledates =CarAvailableDate::where('pricing_id',request()->input('vehicle_id'))->pluck('available_date')->all();
+$result2= array_intersect($availabledates,   $all_dates);
+if(empty($result2))
+{
+  $string2='';
+  foreach ($all_dates as $value){
+  $string2.=  \Carbon\Carbon::parse($value)->format('d-m-Y ').' , ';
+  }
+  $alerts = [
+  'bustravel-flash'         => true,
+  'bustravel-flash-type'    => 'error',
+  'bustravel-flash-title'   => 'Booking Saving',
+  'bustravel-flash-message' => 'Car Not avialable on these days: '. $string2,
+  ];
+
+  return back()->withInput()->with($alerts);
+}
 
 
+$bookeddates =BookedDate::where('pricing_id',request()->input('vehicle_id'))->pluck('booked_date')->all();
+$result = array_intersect($bookeddates,   $all_dates);
+if(!empty($result))
+{
+$string='';
+foreach ($result as $value){
+$string.=  \Carbon\Carbon::parse($value)->format('d-m-Y ').' , ';
+}
+$alerts = [
+'bustravel-flash'         => true,
+'bustravel-flash-type'    => 'error',
+'bustravel-flash-title'   => 'Booking Saving',
+'bustravel-flash-message' => 'These Dates are already Booked: '. $string,
+];
+
+return redirect()->route('bookings.create')->withInput()->with($alerts);
+}
      $datetime1 = date_create(request()->input('end_date_of_use'));
      $datetime2 = date_create(request()->input('starting_date_of_use'));
      $interval = date_diff($datetime1, $datetime2);
@@ -141,7 +207,7 @@ return redirect()->route('bookings.index')->with($alerts);
     public function edit($id)
     {
       $item = Booking::find($id);
-     $price=  Pricing::Where('vehicle_id',$item->vehicle_id)->first();
+     $price=  Pricing::find($item->vehicle_id);
      $booking=\DB::table('booking_price')->where('booking_id',$id)->first();
      $setting=\DB::table('settings')->where('key_name','trip_fee_percentage')->first();
       $vehicles=Pricing::join('vehicles','pricings.vehicle_id','=','vehicles.id')->
@@ -170,7 +236,72 @@ return redirect()->route('bookings.index')->with($alerts);
     {
 
       $validation = request()->validate(Booking::$rules,Booking::$messages);
+      $today =date('Y-m-d');
+      if($today> request()->input('starting_date_of_use') )
+      {
+        $alerts = [
+        'bustravel-flash'         => true,
+        'bustravel-flash-type'    => 'error',
+        'bustravel-flash-title'   => 'Booking Saving',
+        'bustravel-flash-message' => 'Starting Date has already passed: '. \Carbon\Carbon::parse(request()->input('starting_date_of_use'))->format('d-m-Y '),
+        ];
+        return back()->withInput()->with($alerts);
+      }
+      if(request()->input('starting_date_of_use') > request()->input('end_date_of_use') )
+      {
+        $alerts = [
+        'bustravel-flash'         => true,
+        'bustravel-flash-type'    => 'error',
+        'bustravel-flash-title'   => 'Booking Saving',
+        'bustravel-flash-message' => 'End Date cannot be lessthan than Start Date : ',
+        ];
+        return back()->withInput()->with($alerts);
+      }
 
+      $startDate = new \Carbon\Carbon(request()->input('starting_date_of_use'));
+      $endDate = new \Carbon\Carbon(request()->input('end_date_of_use'));
+      $all_dates = array();
+      while ($startDate->lte($endDate)){
+       $all_dates[] = $startDate->toDateString();
+       $startDate->addDay();
+       }
+
+$availabledates =CarAvailableDate::where('pricing_id',request()->input('vehicle_id'))->pluck('available_date')->all();
+$result2= array_intersect($availabledates,   $all_dates);
+if(empty($result2))
+{
+  $string2='';
+  foreach ($all_dates as $value){
+  $string2.=  \Carbon\Carbon::parse($value)->format('d-m-Y ').' , ';
+  }
+  $alerts = [
+  'bustravel-flash'         => true,
+  'bustravel-flash-type'    => 'error',
+  'bustravel-flash-title'   => 'Booking Saving',
+  'bustravel-flash-message' => 'Car Not avialable on these days: '. $string2,
+  ];
+
+  return back()->withInput()->with($alerts);
+}
+
+
+$bookeddates =BookedDate::where('pricing_id',request()->input('vehicle_id'))->pluck('booked_date')->all();
+$result = array_intersect($bookeddates,   $all_dates);
+if(!empty($result))
+{
+$string='';
+foreach ($result as $value){
+$string.=  \Carbon\Carbon::parse($value)->format('d-m-Y ').' , ';
+}
+$alerts = [
+'bustravel-flash'         => true,
+'bustravel-flash-type'    => 'error',
+'bustravel-flash-title'   => 'Booking Saving',
+'bustravel-flash-message' => 'These Dates are already Booked: '. $string,
+];
+
+return redirect()->route('bookings.edit',$id)->withInput()->with($alerts);
+}
      $datetime1 = date_create(request()->input('end_date_of_use'));
      $datetime2 = date_create(request()->input('starting_date_of_use'));
      $interval = date_diff($datetime1, $datetime2);

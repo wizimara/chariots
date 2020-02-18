@@ -205,6 +205,8 @@
             <div class="row">
               <div class="col-md-12">
                 @php $avaliable_days =$item->car_available_dates()->get();@endphp
+                @php $bookeddays =$item->car_booked_dates()->get();@endphp
+                @php $booked =$item->car_booked_dates()->pluck('booked_date')->all();@endphp
                  <div id='calendar'></div>
             </div>
 
@@ -349,13 +351,29 @@
       events: [
 
         @foreach($avaliable_days as $dates)
-        @php $rand_color = "#".substr(md5(rand()), 0, 6); @endphp
+        @if(in_array($dates->available_date, $booked))
+        @foreach($bookeddays as $bookedday)
+        @if($dates->available_date == $bookedday->booked_date)
+        {
+          title          : 'Booked',
+          start          : '{{$dates->available_date}}',
+          url           : "{{route('bookings.edit',$bookedday->booking_id)}}",
+          backgroundColor: '#28a745', //red
+          borderColor    : '#28a745' //red
+        },
+        @endif
+        @endforeach
+        @else
         {
           title          : 'Avialable',
           start          : '{{$dates->available_date}}',
-          backgroundColor: '{{$rand_color}}', //red
-          borderColor    : '{{$rand_color}}' //red
+          backgroundColor: '#ffc107', //red
+          borderColor    : '#ffc107' //red
         },
+
+        @endif
+        @php $rand_color = "#".substr(md5(rand()), 0, 6); @endphp
+
         @endforeach
 
       ]
