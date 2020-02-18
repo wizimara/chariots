@@ -145,62 +145,7 @@
         <!-- /.card -->
         </div>
         <!-- /.col -->
-        <div class="card">
-            <div class="card-header">
-            <h5 class="card-title">Car Schedules</h5>
-            </div>
-            <!-- /.card-header -->
-            <div class="card-body">
-            <div class="row">
-              <div class="col-md-12">
-              <form role="form" action="{{route('carimages.store')}}" method="POST" enctype="multipart/form-data" >
-              {{csrf_field() }}
-              <div class="box-body">
-                  <div class="row">
-                    <input type="hidden" id="exampleInputFile" name="vehicle_id" value="">
-                    <input type="hidden" id="exampleInputFile" name="no_plate" value="">
-
-                    <div class="form-group col-md-3 ">
-                        <label for="exampleInputEmail1">Start Date</label>
-                        <input type="date" name="start_date" value="{{old('start_date')}}"  class="form-control {{ $errors->has('start_date') ? ' is-invalid' : '' }}" id="exampleInputEmail1" placeholder="Enter Start Date">
-                        @if ($errors->has('start_date'))
-                            <span class="invalid-feedback">
-                                <strong>{{ $errors->first('start_date') }}</strong>
-                            </span>
-                        @endif
-                    </div>
-                    <div class="form-group col-md-6">
-                          <label for="exampleInputEmail1">Select Image</label>
-                        <input type="file" id="exampleInputFile" name="url" class="form-control">
-                    </div>
-                    <div class="form-group col-md-3 ">
-                        <label for="exampleInputEmail1">Title/Caption</label>
-                        <input type="text"  name="title" value="" class="form-control {{ $errors->has('title') ? ' is-invalid' : '' }}" id="exampleInputEmail1" placeholder="Enter Caption" >
-                        @if ($errors->has('title'))
-                            <span class="invalid-feedback">
-                                <strong>{{ $errors->first('title') }}</strong>
-                            </span>
-                        @endif
-                    </div>
-                  </div>
-              </div>
-              <!-- /.box-body -->
-              <div class="box-footer">
-              <div class="form-group col-md-12">
-                <button type="submit" class="btn btn-primary">Submit</button>
-              </div>
-              </div>
-            </form>
-            </div>
-
-            <!-- /.row -->
-            </div>
-            <!-- ./card-body -->
-
-            <!-- /.card-footer -->
-        </div>
-        <!-- /.card -->
-        </div>
+        
 
     </div>
 </div>
