@@ -8,7 +8,7 @@ use App\Modules\Vehicles\Models\Vehicle;
 use App\User;
 use App\Modules\Renting\Models\Pricing;
 use App\Modules\Renting\Models\CarAvailableDate;
-use App\Modules\Renting\Models\Carschedule;
+use App\Modules\Renting\Models\CarSchedule;
 use App\Http\Requests;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Validator;
@@ -90,7 +90,7 @@ class PricingController extends Controller
         $all_dates[] = $startDate->toDateString();
         $startDate->addDay();
         }
-        $schedule =new Carschedule;
+        $schedule =new CarSchedule;
         $schedule->pricing_id =$pricing->id;
         $schedule->start_date =request()->input('start_date');
         $schedule->end_date =request()->input('end_date');
@@ -226,7 +226,7 @@ class PricingController extends Controller
      $all_dates[] = $startDate->toDateString();
      $startDate->addDay();
      }
-     $schedule =new Carschedule;
+     $schedule =new CarSchedule;
      $schedule->pricing_id =request()->input('pricing_id');
      $schedule->start_date =request()->input('start_date');
      $schedule->end_date =request()->input('end_date');
