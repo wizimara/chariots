@@ -34,7 +34,7 @@ public function car()
 }
 public function schedules()
 {
-    return $this->hasMany(Carschedule::class,'pricing_id');
+    return $this->hasMany(CarSchedule::class,'pricing_id');
 }
 public function car_available_dates()
 {
