@@ -15,6 +15,11 @@ Route::group(['prefix' => 'admin/settings'], function () {
     Route::get('/', function () {
         dd('This is the Settings module index page. Build something great!');
     });
-Route::resource('/settings', 'SettingController');
+//Route::resource('/settings', 'SettingController');
+Route::get('settings', 'SettingController@index')->name('settings.index');
+Route::post('settings', 'SettingController@store')->name('settings.store');
+Route::any('settings/{id}/update', 'SettingController@update')->name('settings.update');
+Route::any('settings/{id}/delete', 'SettingController@delete')->name('settings.delete');
+
 
 });

@@ -43,26 +43,21 @@ class SettingController extends Controller
      */
     public function store(Request $request)
     {
-      $input = Input::all();
+      $validation = request()->validate(Setting::$rules,Setting::$messages);
+         $setting = New Setting;
+         $setting->key_name =request()->input('key_name');
+         $setting->key_value =request()->input('key_value');
+         $setting->key_desc =request()->input('key_desc');
+         $setting->save();
 
-     $validation = Validator::make($input, Setting::$rules,Setting::$messages);
+         $alerts = [
+      'bustravel-flash'         => true,
+      'bustravel-flash-type'    => 'success',
+      'bustravel-flash-title'   => 'Settings Saving',
+      'bustravel-flash-message' => $setting->key_name .' Setting has successfully been saved',
+  ];
 
-
-
-     if ($validation->passes())
-     {
-
-
-        Setting::create($input);
-   //\LogActivity::addToLog('Role '.$input['display'].' Added');
-\Session::flash('flash_message','Setting added  .');
-         return Redirect::route('settings.index');
-     }
-
-     return Redirect::route('settings.create')
-         ->withInput()
-         ->withErrors($validation)
-         ->with('message', 'There were validation errors.');
+      return redirect()->route('settings.index')->with($alerts);
     }
 
     /**
@@ -103,25 +98,22 @@ class SettingController extends Controller
      */
     public function update(Request $request, $id)
     {
-      $input = Input::all();
+      $validation = request()->validate(Setting::$rules,Setting::$messages);
+         $ids=request()->input('id');
+         $setting =  Setting::find($ids);
+         $setting->key_name =request()->input('key_name');
+         $setting->key_value =request()->input('key_value');
+         $setting->key_desc =request()->input('key_desc');
+         $setting->save();
 
+         $alerts = [
+      'bustravel-flash'         => true,
+      'bustravel-flash-type'    => 'success',
+      'bustravel-flash-title'   => 'Settings Updating',
+      'bustravel-flash-message' => $setting->key_name .' , Setting has successfully been Updated',
+  ];
 
-
-      $validation = Validator::make($input, Setting::$rules,Setting::$messages);
-
-
-      if ($validation->passes())
-      {
-          $user = Setting::find($id);
-          $user->update($input);
-    //\LogActivity::addToLog('Role '.$input['display'].' Updated');
-    \Session::flash('flash_message','Successfully Updated.');
-          return Redirect::route('settings.edit', $id);
-      }
-return Redirect::route('settings.edit', $id)
-          ->withInput()
-          ->withErrors($validation)
-          ->with('message', 'There were validation errors.');
+      return redirect()->route('settings.index')->with($alerts);
 
     }
 
@@ -131,13 +123,18 @@ return Redirect::route('settings.edit', $id)
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function delete($id)
     {
-      $cat= Setting::find($id);
+      $setting= Setting::find($id);
+      $name =$setting->key_name;
       Setting::find($id)->delete();
-  //\LogActivity::addToLog('Role '.$role->display.' Deleted');
- \Session::flash('flash_message','Successfully Deleted.');
-      return Redirect::route('settings.index')
-   ->with('message', 'Setting Deleted.');
+      $alerts = [
+            'bustravel-flash'         => true,
+            'bustravel-flash-type'    => 'error',
+            'bustravel-flash-title'   => 'Setting Deleted',
+            'bustravel-flash-message' => $name. " , Setting has successfully been deleted",
+        ];
+
+        return redirect()->route('settings.index')->with($alerts);
     }
 }

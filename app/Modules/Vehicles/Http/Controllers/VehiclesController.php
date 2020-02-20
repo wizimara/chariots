@@ -64,7 +64,7 @@ class VehiclesController extends Controller
      */
     public function store(Request $request)
     {
-       $validation = request()->validate(Vehicle::$rules);
+       $validation = request()->validate(Vehicle::$rules,Vehicle::$messages);
        $vehicle = New Vehicle;
        $vehicle->model_id =request()->input('model_id');
        $vehicle->category_id =request()->input('category_id');
