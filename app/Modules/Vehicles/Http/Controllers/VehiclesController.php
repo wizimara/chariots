@@ -34,7 +34,15 @@ class VehiclesController extends Controller
      */
     public function index()
     {
+      if(auth()->user()->hasAnyRole('CR Carowner'))
+        {
+          $items =Vehicle::where('user_id',auth()->user()->id)->get();
+        }
+      else
+        {
           $items = Vehicle::all();
+        }
+
 		 return View::make('vehicles::vehicles.index', compact('items'));
     }
 

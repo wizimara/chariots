@@ -21,28 +21,28 @@ class ModuleServiceProvider extends ServiceProvider
         $events->listen(BuildingMenu::class, function (BuildingMenu $event) {
                         $menu = [
                             'text' => 'Account Management',
-                            'icon' => 'lock',
+                            'icon' => 'fa fa-lock',
                             // 'can' => 'accounts_management',
                             'submenu' => [
                               [
                                       'text' => 'Users',
                                       'url'  => route('users'),
-                                      'icon' => 'lock',
-                                      //'can'=>'Edit Payment',
+                                      'icon' => 'fa fa-users',
+                                      'can'=>'View CR Users',
                                     //'role'=>'admin',
                                   ],
                               [
                                       'text' => 'Roles',
                                       'url'  => route('users.roles'),
-                                      'icon' => 'lock',
-                                      //'can'=>'Edit Payment',
+                                      'icon' => 'fa fa-lock',
+                                      'can'=>'Manage CR Roles',
                                     //'role'=>'admin',
                                   ],
                                   [
                                       'text' => 'Permissions',
                                       'url'  => route('users.permissions'),
-                                      'icon' => 'lock',
-                                   //'can'=>'view_roles',
+                                      'icon' => 'fa fa-lock',
+                                      'can'=>'Manage CR Permissions',
                                   ],
 
 

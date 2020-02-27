@@ -31,7 +31,16 @@ class ConfirmedrentalController extends Controller
      */
     public function index()
     {
-      $items = Confirmedrental::all();
+
+      if(auth()->user()->hasAnyRole('CR Carowner'))
+        {
+         $booking_ids =Booking::where('user_id',auth()->user()->id)->pluck('id')->all();
+         $items = Confirmedrental::whereIn('booking_id',$booking_ids)->get();
+        }
+      else
+        {
+          $items = Confirmedrental::all();
+        }
   return View::make('renting::confirmedrentals.index', compact('items'));
     }
 

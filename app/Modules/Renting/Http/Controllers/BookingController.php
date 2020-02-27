@@ -36,8 +36,17 @@ class BookingController extends Controller
      */
     public function index()
     {
-      $items = Booking::orderBy('id','DESC')->get();
-  $confirmed=Confirmedrental::pluck('booking_id')->all();
+      if(auth()->user()->hasAnyRole('CR Carowner'))
+        {
+          $items = Booking::where('user_id',auth()->user()->id)->orderBy('id','DESC')->get();
+          $confirmed=Confirmedrental::pluck('booking_id')->all();
+        }
+      else
+        {
+          $items = Booking::orderBy('id','DESC')->get();
+          $confirmed=Confirmedrental::pluck('booking_id')->all();
+        }
+
   return View::make('renting::bookings.index', compact('items','confirmed'));
     }
 

@@ -28,22 +28,26 @@ class ModuleServiceProvider extends ServiceProvider
                       'text' => 'Pricings',
                       'url'  => 'admin/renting/pricings',
                       'icon' => 'fas fa-fw fa-money-bill-alt',
+                      'can' => 'View CR Pricings'
                   ],
 
                           [
                               'text' => 'Booking',
                               'url'  => 'admin/renting/bookings',
                               'icon' => 'fas fa-fw fa-money-bill-alt',
+                              'can' => 'View CR Bookings'
                           ],
                           [
                                 'text' => 'Confirmation Rentals',
                                 'url'  => 'admin/renting/confirmedrentals',
                                 'icon' => 'fas fa-fw fa-money-bill-alt',
+                                'can' => 'View CR Confirmed Bookings'
                           ],
                           [
                                   'text' => 'Payments',
                                   'url'  => 'admin/renting/payments',
                                   'icon' => 'fas fa-fw fa-money-bill',
+                                  'can' => 'View CR Payments'
                           ],
 
                         ]

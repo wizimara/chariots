@@ -22,12 +22,13 @@ class ModuleServiceProvider extends ServiceProvider
             $menu = [
                 'text' => 'Settings',
                 'url'  => 'settings',
-                'icon' => 'fa fa-gear',
+                'icon' => 'fa fa-cog',
                 'submenu' => [
                           [
                               'text' => 'Car Rental Settings',
                               'url'  => 'admin/settings/settings',
-                              'icon' => 'fa fa-gear',
+                              'icon' => 'fa fa-cog',
+                              'can' => 'Manage CR General Settings'
                           ],
 
 

@@ -28,31 +28,37 @@ class ModuleServiceProvider extends ServiceProvider
                                 'text' => 'Categories',
                                 'url'  => 'admin/vehicles/categories',
                                 'icon' => 'fa fa-list',
+                                'can' => 'Manage CR Categories',
                             ],
 							              [
                                 'text' => 'Makes',
                                 'url'  => 'admin/vehicles/makes',
                                 'icon' => 'fa fa-car',
+                                'can' => 'Manage CR Makes',
                             ],
                             [
                                 'text' => 'Models',
                                 'url'  => 'admin/vehicles/models',
-                                'icon' => 'car',
+                                'icon' => 'fa fa-car',
+                                'can' => 'Manage CR Models',
                             ],
                             [
                                 'text' => 'Features',
                                 'url'  => 'admin/vehicles/features',
-                                'icon' => 'list',
+                                'icon' => 'fa fa-list',
+                                'can' => 'Manage CR Features',
                             ],
                             [
                                 'text' => 'Locations',
                                 'url'  => 'admin/vehicles/locations',
-                                'icon' => 'marker',
+                                'icon' => ' fa fa-map-marker',
+                                'can' => 'Manage CR Locations',
                             ],
                             [
                                 'text' => 'Vehicles',
                                 'url'  => 'admin/vehicles/vehicles',
-                                'icon' => 'car',
+                                'icon' => 'fa fa-car',
+                                'can' => 'View CR Vehicles',
                             ],
 
 

@@ -30,7 +30,16 @@ class PricingController extends Controller
      */
     public function index()
     {
-      $items = Pricing::all();
+
+      if(auth()->user()->hasAnyRole('CR Carowner'))
+        {
+         $vehicle_ids =Vehicle::where('user_id',auth()->user()->id)->pluck('id')->all();
+         $items = Pricing::whereIn('vehicle_id',$vehicle_ids)->get();
+        }
+      else
+        {
+          $items = Pricing::all();
+        }
   return View::make('renting::pricings.index', compact('items'));
     }
 
