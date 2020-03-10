@@ -86,7 +86,7 @@
                             <div class="col-md-4 col-sm-6 col-xs-12">
                                 <div class="flat-item">
                                     <div class="flat-item-image">
-                                        <a href="#"><img src="images/flat/RAV4-SUV-368x235.jpg" alt=""></a>
+                                        <a href="#"><img src="images/flat/toyota-prado-sport-kit.jpg" alt=""></a>
                                     </div>
                                     <div class="flat-item-info">
                                         <div class="flat-title-price">
@@ -172,14 +172,14 @@
                                     <div class="row">
                                         <div class="col-lg-6 col-md-6 col-sm-4">
                                             <div class="features-include-list">
-												<img src="images/icons/subscription-dollar-sign.png" alt="no subscription or membership fees">
+												<img src="images/icons/subscription-dollar-sign_1.png" alt="no subscription or membership fees">
                                                 <h6>No subscription fees</h6>
                                                 <p>No monthly or annual subscription charges, use the Chariots service at your convenience.</p>
                                             </div>
                                         </div>
                                         <div class="col-lg-6 col-md-6 col-sm-4">
                                             <div class="features-include-list">
-												<img src="images/icons/sedan_car.png" alt="various car options">
+												<img src="images/icons/sedan_car_1.png" alt="various car options">
                                                 <h6>Lots of possibilities</h6>
                                                 <p>With a variety of cars, vans or trucks are readily available for you to take your pick.</p>
                                             </div>
@@ -188,14 +188,14 @@
 									<div class="row">
                                         <div class="col-lg-6 col-md-6 col-sm-4">
                                             <div class="features-include-list">
-												<img src="images/icons/cancel_payment.png" alt="cancel booking and payment">
+												<img src="images/icons/cancel_payment_1.png" alt="cancel booking and payment">
                                                 <h6>Flexible cancellation optons</h6>
                                                 <p>And just in case something comes up, you can cancel your booking for free 24 hours before your trip starts.</p>
                                             </div>
                                         </div>
                                         <div class="col-lg-6 col-md-6 col-sm-4">
                                             <div class="features-include-list">
-												<img src="images/icons/customer support.png" alt="reliable customer support">
+												<img src="images/icons/customer-support_1.png" alt="reliable customer support">
                                                 <h6>Reliable customer support</h6>
                                                 <p>Chariot's support teams are just a call away to assist you and ensure a smooth experience throughout your trip.</p>
                                             </div>
@@ -356,5 +356,11 @@
 
             <!-- DOWNLOAD THE APP END -->
 </section>
+
+<style>
+  .dark-header {
+    background: transparent;
+  }
+</style>
 
 @endsection

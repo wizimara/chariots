@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Chariots | Home</title>
+    <title>Chariot Rentals | Home</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -18,12 +18,12 @@
     <link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}">
 	<!-- nivo slider CSS -->
     <link rel="stylesheet" href="{{asset('lib/css/nivo-slider.css')}}"/>
-    
+
     <!-- Theme shortcodes/elements style -->
     <link rel="stylesheet" href="{{asset('css/shortcode/shortcodes.css')}}">
     <!-- Theme main style -->
     <link rel="stylesheet" href="{{asset('css/style.css')}}">
-	<!-- <link rel="stylesheet" href="css/fontawesome.min.css"> 
+	<!-- <link rel="stylesheet" href="css/fontawesome.min.css">
 	<link rel="stylesheet" href="css/solid.min.css">
 	<link rel="stylesheet" href="css/regular.min.css"> -->
     <!-- Responsive css -->
@@ -38,20 +38,20 @@
     <script src="{{asset('js/vendor/modernizr-2.8.3.min.js')}}"></script>
 	<script src="{{asset('js/datetimepicker/js/bootstrap-datetimepicker.min.js')}}" type='text/javascript'></script>
 	<script src="{{asset('js/svg-with-js.min.css')}}" type='text/javascript'></script>
-	
+
 	<link href="{{asset('js/datetimepicker/css/bootstrap-datetimepicker.min.css')}}" rel='stylesheet' type='text/css'>
-	
+
 	@yield('assets')
 </head>
 
 <body>
     <!--[if lt IE 8]>
         <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-    <![endif]-->  
+    <![endif]-->
 
     <!-- Body main wrapper start -->
     <div class="wrapper">
-	
+
         <!-- HEADER AREA START -->
         <header class="header-area header-wrapper">
             <div class="header-top-bar bg-white">
@@ -60,8 +60,7 @@
                         <div class="col-md-12 col-sm-12 col-xs-12">
                             <div class="logo">
                                 <a href="{{url('/')}}">
-                                    <!-- <img src="images/logo/logo.png" alt=""> -->
-									CHARIOTS
+                                    <img src="images/logo/chariot_rentals_logo.png" alt="Logo">
                                 </a>
                             </div>
                         </div>
@@ -81,7 +80,7 @@
                                         <img src="images/icons/mail-open.png" alt="">
                                     </div>
                                     <div class="header-info">
-                                        <h6><a href="mailto:hnasir770@gmail.com">info@Chariots.com</a></h6>
+                                        <h6><a href="mailto:hnasir770@gmail.com">info@chariotrentals.com</a></h6>
                                         <p>You can mail us</p>
                                     </div>
                                 </div>
@@ -101,7 +100,7 @@
                     </div>
                 </div>
             </div>
-			
+
             <div id="sticky-header" class="header-middle-area  transparent-header hidden-xs dark-header">
                 <div class="container">
                     <div class="full-width-mega-drop-menu">
@@ -109,8 +108,7 @@
                             <div class="col-md-12">
                                 <div class="sticky-logo">
                                     <a href="{{url('/')}}">
-                                        <!-- <img src="images/logo/logo.png" alt=""> -->
-										<span>CHARIOTS</span>
+                                      <img src="images/logo/chariot_rentals_logo.png" alt="Logo">
                                     </a>
                                 </div>
                                 <nav id="primary-menu">
@@ -164,7 +162,7 @@
 		@yield('content')
 
 			<!-- SLIDER SECTION START -->
-               
+
 
         <!-- Start footer area -->
         <footer id="footer" class="footer-area bg-2 bg-opacity-black-90">
@@ -200,8 +198,8 @@
                                             <img src="images/icons/world.png" alt="">
                                         </div>
                                         <div class="address-info">
-                                            <span>Email : enquiries@chariotapp.com</span>
-                                            <span>Web :<a href="#" target="_blank"> www.chariotapp.com</a></span>
+                                            <span>Email : enquiries@chariotrentals.com</span>
+                                            <span>Web :<a href="#" target="_blank"> www.chariotrentals.com</a></span>
                                         </div>
                                     </li>
                                 </ul>
@@ -210,7 +208,7 @@
                         <!-- footer-latest-news -->
                         <div class="col-lg-3 col-md-5 hidden-sm col-xs-12">
                             <div class="footer-widget middle">
-                                <h6 class="footer-titel">CHARIOTS</h6>
+                                <h6 class="footer-titel">CHARIOT RENTALS</h6>
                                 <ul class="footer-latest-news">
                                     <li>
                                         <div class="latest-news-info">
@@ -284,7 +282,7 @@
                     <div class="row">
                         <div class="col-xs-12">
                             <div class="copyright text-center">
-                                <p>Copyright &copy; 2020 | <span style="color:#aa00ff;">CHARIOTS</span> | All rights reserved. Powered by <a href="http://www.wizimara.com" target="_blank"><b style="color:#00ADEF;">WIZIMARA</b></a></p>
+                                <p>Copyright &copy; 2020 | <span style="color:#0DAAAD;">CHARIOT RENTALS</span> | All rights reserved. Powered by <a href="http://www.wizimara.com" target="_blank"><b style="color:#00ADEF;">WIZIMARA</b></a></p>
                             </div>
                         </div>
                     </div>
@@ -306,7 +304,7 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.1/moment.min.js"></script>
     <!-- Bootstrap framework js -->
     <script src="{{asset('js/bootstrap.min.js')}}"></script>
-    <!-- Nivo slider js -->    
+    <!-- Nivo slider js -->
     <script src="{{asset('lib/js/jquery.nivo.slider.js')}}"></script>
     <!-- ajax-mail js -->
     <script src="{{asset('js/ajax-mail.js')}}"></script>
@@ -314,7 +312,7 @@
     <script src="{{asset('js/plugins.js')}}"></script>
     <!-- Main js file that contents all jQuery plugins activation. -->
     <script src="{{asset('js/main.js')}}"></script>
-	<!-- Date/Time Picker --> 
+	<!-- Date/Time Picker -->
 	<script type="text/javascript">
 		$(".form_datetime").datetimepicker({
 			format: "dd MM yyyy - hh:ii",
@@ -322,7 +320,7 @@
 			todayBtn: true,
 			pickerPosition: "bottom-left"
 		});
-	</script>            
+	</script>
 
 </body>
 
