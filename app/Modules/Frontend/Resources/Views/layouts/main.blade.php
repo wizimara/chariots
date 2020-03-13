@@ -189,8 +189,8 @@
                                             <img src="images/icons/phone-3.png" alt="">
                                         </div>
                                         <div class="address-info">
-                                            <span>Telephone : (256) 4242  4343</span>
-                                            <span>Telephone : (256) 7040  0000</span>
+                                            <span>Telephone : (+256) 000 000000</span>
+                                            <span>Telephone : (+256) 111 111111</span>
                                         </div>
                                     </li>
                                     <li>
@@ -217,7 +217,7 @@
                                     </li>
                                     <li>
                                         <div class="latest-news-info">
-                                            <h6><a href="#">Get help</a></h6>
+                                          <h6><a href="{{url('get-help')}}">Get help</a></h6>
                                         </div>
                                     </li>
 									                                    <li>
@@ -282,7 +282,7 @@
                     <div class="row">
                         <div class="col-xs-12">
                             <div class="copyright text-center">
-                                <p>Copyright &copy; 2020 | <span style="color:#0DAAAD;">CHARIOT RENTALS</span> | All rights reserved. Powered by <a href="http://www.wizimara.com" target="_blank"><b style="color:#00ADEF;">WIZIMARA</b></a></p>
+                                <p>Copyright &copy; 2020 | <span style="color:#0DAAAD;">CHARIOT RENTALS</span> | All rights reserved. Powered by <a href="http://www.wizimara.com" target="_blank"><b>WIZIMARA</b></a></p>
                             </div>
                         </div>
                     </div>

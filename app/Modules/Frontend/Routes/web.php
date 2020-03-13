@@ -21,3 +21,8 @@ Route::get('how-it-works', function()
 {
    return view('frontend::how_it_works');
 });
+
+Route::get('get-help', function()
+{
+   return view('frontend::get_help');
+});

@@ -43,7 +43,7 @@
 								</div>
 							</div>
 							<div class="col-xs-12 reserve-bottom-info">
-								<h5 class="col-xs-6""><span class="total-cars">1,654</span> cars available</h5>
+								<h5 class="col-xs-6"><span class="total-cars">1,654</span> cars available</h5>
 								<p class="col-xs-6"><a href="#"><span class="pull-right"><i class="fa fa-search"></i> &nbsp;Advanced Search</span></a></p>
 							</div>
                         </div>
@@ -174,7 +174,7 @@
                                             <div class="features-include-list">
 												<img src="images/icons/subscription-dollar-sign_1.png" alt="no subscription or membership fees">
                                                 <h6>No subscription fees</h6>
-                                                <p>No monthly or annual subscription charges, use the Chariots service at your convenience.</p>
+                                                <p>No monthly or annual subscription charges, use the Chariot Rentals service at your convenience.</p>
                                             </div>
                                         </div>
                                         <div class="col-lg-6 col-md-6 col-sm-4">
@@ -197,7 +197,7 @@
                                             <div class="features-include-list">
 												<img src="images/icons/customer-support_1.png" alt="reliable customer support">
                                                 <h6>Reliable customer support</h6>
-                                                <p>Chariot's support teams are just a call away to assist you and ensure a smooth experience throughout your trip.</p>
+                                                <p>Our support teams are just a call away to assist you and ensure a smooth experience throughout your trip.</p>
                                             </div>
                                         </div>
                                     </div>
@@ -229,7 +229,7 @@
                                 <div class="book-house text-white">
                                     <h2>Register your vehicle, and start earning.</h2>
 									</br>
-                                    <div class="col-sm-2"><a class="button-1 btn-block btn-hover-1" href="#">SIGN UP</a></div>
+                                    <div class="col-sm-3"><a class="button-1 btn-block btn-hover-1" href="#">SIGN UP</a></div>
                                 </div>
                                 <!-- <div class="booking-imgae">
                                     <img src="images/others/booking.png" alt="">
@@ -263,11 +263,11 @@
                                     </div>
                                     <div class="blog-info">
                                         <div class="post-title-time">
-                                            <h5><a href="{{url('how-it-works')}}">How Chariots works</a></h5>
+                                            <h5><a href="{{url('how-it-works')}}">How Chariot Rentals works</a></h5>
                                             <!-- <p>July 30, 2016 / 10 am</p> -->
 											</br>
                                         </div>
-                                        <p>Lorem must explain to you how all this mistaolt denouncing pleasure and praising pain wasnad I will give you a complete pain was praising</p>
+                                        <p>Looking for the perfect car for that upcoming event or journey? Well hundreds of hosts ready to provide you with just the right car.</p>
                                         <a class="read-more" href="{{url('how-it-works')}}">Read more</a>
                                     </div>
                                 </article>
@@ -284,7 +284,7 @@
                                             <!-- <p>July 30, 2016 / 10 am</p> -->
 											</br>
                                         </div>
-                                        <p>Lorem must explain to you how all this mistaolt denouncing pleasure and praising pain wasnad I will give you a complete pain was praising</p>
+                                        <p>Find out how you can get your car registered. Then kickstart your pursuit to becoming a 5 star host & earn while you are at it.</p>
                                         <a class="read-more" href="#">Read more</a>
                                     </div>
                                 </article>
@@ -293,15 +293,15 @@
                             <div class="col-md-12">
                                 <article class="blog-item bg-gray">
                                     <div class="blog-image">
-                                        <a href="single-blog.html"><img src="images/blog/car-brekin.jpg" alt=""></a>
+                                        <a href="single-blog.html"><img src="images/blog/vehicle_inspection.jpg" alt=""></a>
                                     </div>
                                     <div class="blog-info">
                                         <div class="post-title-time">
-                                            <h5><a href="single-blog.html">Car safety essentials</a></h5>
+                                            <h5><a href="single-blog.html">Car care essentials</a></h5>
                                             <!-- <p>July 30, 2016 / 10 am</p> -->
 											</br>
                                         </div>
-                                        <p>Lorem must explain to you how all this mistaolt denouncing pleasure and praising pain wasnad I will give you a complete pain was praising</p>
+                                        <p>Keeping every car in exquisite shape is key to making every booking memorable. But lets be honest, as a driver you have just as much to do.</p>
                                         <a class="read-more" href="single-blog.html">Read more</a>
                                     </div>
                                 </article>
