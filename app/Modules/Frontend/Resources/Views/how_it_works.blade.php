@@ -31,36 +31,36 @@
 									<div class="col-md-12">
 										<div class="col-md-1 col-md-offset-3"><img src="images/icons/sign-up-64px.png" alt="Signs up"></div>
 										<div class="col-md-6 mt-10">
-											<h4>Sign up for Chariots</h4>
-											<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Et repellendus enim inventore dolor libero ex assumenda nemo, aspernatur rerum qui. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officia, aliquid.</p>
+											<h4>Sign up</h4>
+											<p>Joining Chariot Rentals is a simple process and costs you nothing to create your account. You will need to upload scans of your driver's license or other relevant identity documents.</p>
 										</div>
 									</div>
 									<div class="col-md-12">
 										<div class="col-md-1 col-md-offset-3"><img src="images/icons/tesla_model_s_1.png" alt="Find car"></div>
 										<div class="col-md-6 mt-10">
 											<h4>Find your ideal car</h4>
-											<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Et repellendus enim inventore dolor libero ex assumenda nemo, aspernatur rerum qui. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officia, aliquid.</p>
+											<p>Browse through a diverse listing of cars for all occasions or adventures from regular sedans to luxury SUVs.</p>
 										</div>
 									</div>
                                   <div class="col-md-12">
                                     <div class="col-md-1 col-md-offset-3"><img src="images/icons/make-booking_1.png" alt="Book a car"></div>
                                     <div class="col-md-6 mt-10">
                                       <h4>Make your booking</h4>
-                                      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Et repellendus enim inventore dolor libero ex assumenda nemo, aspernatur rerum qui. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officia, aliquid.</p>
+                                      <p>Make your booking and once confirmed with your host, you are ready roll.</p>
                                     </div>
                                   </div>
                                   <div class="col-md-12">
                                     <div class="col-md-1 col-md-offset-3"><img src="images/icons/road-trip_1.png" alt="hit the road"></div>
                                     <div class="col-md-6 mt-10">
                                       <h4>Hit the road</h4>
-                                      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Et repellendus enim inventore dolor libero ex assumenda nemo, aspernatur rerum qui. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officia, aliquid.</p>
+                                      <p>You can pick up a car from an agreed location or have it delivered to you. Always keep in mind the usage rules set by your host.</p>
                                     </div>
                                   </div>
 								  <div class="col-md-12">
                                     <div class="col-md-1 col-md-offset-3"><img src="images/icons/hand_shake_1.png" alt="Return car"></div>
                                     <div class="col-md-6 mt-10">
                                       <h4>Return car</h4>
-                                      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Et repellendus enim inventore dolor libero ex assumenda nemo, aspernatur rerum qui. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officia, aliquid.</p>
+                                      <p>Drop off the car, thank your host and be sure to give a review or any feedback of your experience.</p>
                                     </div>
                                   </div>
 								  <!-- Find a Rental Call to action -->
@@ -68,7 +68,7 @@
 								      <div class="col-md-6">
                                         <div class="find-home-item renter-area5">
 											<p>Whether you're in the need for a small single seater or a car that fits your entire family.</p>
-											<p>You'll find it here on Chariots</p>
+											<p>You'll find it here on Chariots Rentals</p>
                                             <a class="button-1 btn-hover-1" href="#">Find a rental</a>
                                         </div>
 									  </div>
@@ -85,36 +85,36 @@
 									<div class="col-md-12">
 										<div class="col-md-1 col-md-offset-3"><img src="images/icons/sign-up-64px.png" alt="Signs up"></div>
 										<div class="col-md-6 mt-10">
-											<h4>Sign up as an owner</h4>
-											<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Et repellendus enim inventore dolor libero ex assumenda nemo, aspernatur rerum qui. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officia, aliquid.</p>
+											<h4>Sign up as a host</h4>
+											<p>Register for a free account as a host, upload valid identification documents. Your car will have to undergo a mandatory inspection from a certified Auto Repair Shop/Garage.</p>
 										</div>
 									</div>
 									<div class="col-md-12">
 										<div class="col-md-1 col-md-offset-3"><img src="images/icons/list-cars_1.png" alt="List your car"></div>
 										<div class="col-md-6 mt-10">
 											<h4>List your cars</h4>
-											<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Et repellendus enim inventore dolor libero ex assumenda nemo, aspernatur rerum qui. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officia, aliquid.</p>
+											<p>Log into your dashboard and list your car, upload real photos of your car’s interior and exterior, select or add key features it possesses and finally list your conditions for use if any.</p>
 										</div>
 									</div>
                                   <div class="col-md-12">
                                     <div class="col-md-1 col-md-offset-3"><img src="images/icons/make-booking_1.png" alt="Schedule car availability"></div>
                                     <div class="col-md-6 mt-10">
                                       <h4>Schedule availability of cars</h4>
-                                      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Et repellendus enim inventore dolor libero ex assumenda nemo, aspernatur rerum qui. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officia, aliquid.</p>
+                                      <p>Mark out the period of time when your car is available, keep in mind that unscheduled cars will not appear on search listing pages.</p>
                                     </div>
                                   </div>
                                   <div class="col-md-12">
                                     <div class="col-md-1 col-md-offset-3"><img src="images/icons/replies_1.png" alt="Respond to requests"></div>
                                     <div class="col-md-6 mt-10">
                                       <h4>Respond to requests</h4>
-                                      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Et repellendus enim inventore dolor libero ex assumenda nemo, aspernatur rerum qui. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officia, aliquid.</p>
+                                      <p>Be on the look out for notifications of booking inquiries made for your scheduled cars. Respond to them in time and confirm inquiries that are satisfactory to your usage conditions.</p>
                                     </div>
                                   </div>
 								  <div class="col-md-12">
                                     <div class="col-md-1 col-md-offset-3"><img src="images/icons/earned_money_1.png" alt="Start earning"></div>
                                     <div class="col-md-6 mt-10">
                                       <h4>Start earning</h4>
-                                      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Et repellendus enim inventore dolor libero ex assumenda nemo, aspernatur rerum qui. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officia, aliquid.</p>
+                                      <p>Arrange to hand over the keys or deliver your car to the renter as agreed and on-time. Then sit back and start earning.</p>
                                     </div>
                                   </div>
 								  <!-- List your car Call to action -->

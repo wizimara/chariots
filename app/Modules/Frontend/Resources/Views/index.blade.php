@@ -276,7 +276,7 @@
                             <div class="col-md-12">
                                 <article class="blog-item bg-gray">
                                     <div class="blog-image">
-                                        <a href="#"><img src="images/blog/vehicle_inspection.jpg" alt=""></a>
+                                        <a href="#"><img src="images/blog/vehicle-checklist.jpg" alt=""></a>
                                     </div>
                                     <div class="blog-info">
                                         <div class="post-title-time">
