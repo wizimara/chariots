@@ -4,10 +4,10 @@
     <div class="slider-2 bg-3 bg-opacity-black-50">
 			<div class="slider-content text-center">
 				<div class="wow fadeInUp" data-wow-duration="1s" data-wow-delay="1s">
-					<h1 class="slider-1-title-2">Explore top destinations around you, hustle free.</h1>
+					<h1 class="slider-1-title-2">Rent a car at your convenience, for hustle free travel</h1>
 				</div>
 				<div class="wow fadeInUp" data-wow-duration="1s" data-wow-delay="1.5s">
-					<p class="slider-1-desc">Lorem consectetur adipiscing elit sed do eiusmod tempor dolor sit amet.</p>
+					<p class="slider-1-desc">Move with ease, enjoy new experiences, connect to places and loved ones.</p>
 				</div>
 			</div>
             <div class="wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.5s">
@@ -18,25 +18,25 @@
 								<h5>Find a rental car</h5>
 							</div>
 							<div class="col-sm-12 col-xs-12">
-								<div class="col-sm-3 col-xs-12">
+								<div class="col-md-3 col-sm-12 col-xs-12">
 									<div class="find-home-item">
 										<input type="text" name="location" placeholder="Your address / location">
 									</div>
 								</div>
-								<div class="col-sm-3 col-xs-12">
+								<div class="col-md-3 col-sm-12 col-xs-12">
 									<div class="input-append date form_datetime">
 										<input size="16" type="text" value="" placeholder="From: Date / Time" readonly>
 										<span class="add-on"><i class="icon-th"></i></span>
 									</div>
 								</div>
-								<div class="col-sm-3 col-xs-12">
+								<div class="col-md-3 col-sm-12 col-xs-12">
 									<div class="input-append date form_datetime">
 										<input size="16" type="text" value="" placeholder="Until: Date / Time" readonly>
 										<span class="add-on"><i class="icon-th"></i></span>
 									</div>
 								</div>
 
-								<div class="col-sm-2 col-xs-12">
+								<div class="col-md-2 col-sm-4 col-xs-12">
 									<div class="find-home-item">
 										<a class="button-1 btn-block btn-hover-1" href="#">SEARCH</a>
 									</div>
@@ -63,7 +63,7 @@
                         <div class="col-md-12">
                             <div class="section-title-2 text-center">
                                 <h2>Find a Rental</h2>
-                                <p>Chariots is the best for elit, sed do eiusmod tempor dolor sit amet.</p>
+                                <p>Whether for hourly or daily use, you'll find just the right car you need.</p>
                             </div>
                         </div>
                     </div>
@@ -163,37 +163,37 @@
                         <div class="col-md-12">
                             <div class="features-info bg-gray">
                                 <div class="section-title mb-30">
-                                    <h2>Call it your personal car sharing hub</h2>
+                                    <h2>Your ultimate personal car sharing hub</h2>
                                 </div>
                                 <div class="features-desc">
-                                    <p>Chariots is the best for lorna aliquatd minim veniam, quis nostrud.</p>
+                                    <p>Travel made easy with limited restrictions, and plenty of perks.</p>
                                 </div>
                                 <div class="features-include">
                                     <div class="row">
-                                        <div class="col-lg-6 col-md-6 col-sm-4">
+                                        <div class="col-lg-6 col-md-6 col-sm-6">
                                             <div class="features-include-list">
 												<img src="images/icons/subscription-dollar-sign_1.png" alt="no subscription or membership fees">
                                                 <h6>No subscription fees</h6>
-                                                <p>No monthly or annual subscription charges, use the Chariot Rentals service at your convenience.</p>
+                                                <p>No monthly or annual subscription fees, simply sign up and drive.</p>
                                             </div>
                                         </div>
-                                        <div class="col-lg-6 col-md-6 col-sm-4">
+                                        <div class="col-lg-6 col-md-6 col-sm-6">
                                             <div class="features-include-list">
 												<img src="images/icons/sedan_car_1.png" alt="various car options">
                                                 <h6>Lots of possibilities</h6>
-                                                <p>With a variety of cars, vans or trucks are readily available for you to take your pick.</p>
+                                                <p>A variety of cars, vans and trucks readily available to suit your need.</p>
                                             </div>
                                         </div>
 									</div>
 									<div class="row">
-                                        <div class="col-lg-6 col-md-6 col-sm-4">
+                                        <div class="col-lg-6 col-md-6 col-sm-6">
                                             <div class="features-include-list">
 												<img src="images/icons/cancel_payment_1.png" alt="cancel booking and payment">
                                                 <h6>Flexible cancellation optons</h6>
-                                                <p>And just in case something comes up, you can cancel your booking for free 24 hours before your trip starts.</p>
+                                                <p>Just in case something comes up, you can cancel your booking for free 24 hours before your trip starts.</p>
                                             </div>
                                         </div>
-                                        <div class="col-lg-6 col-md-6 col-sm-4">
+                                        <div class="col-lg-6 col-md-6 col-sm-6">
                                             <div class="features-include-list">
 												<img src="images/icons/customer-support_1.png" alt="reliable customer support">
                                                 <h6>Reliable customer support</h6>
@@ -218,7 +218,7 @@
                     <div class="row">
                         <div class="col-md-3 col-sm-4 col-xs-12">
 						<a href="#">
-                            <div class="section-title text-white">
+                            <div class="section-title text-white sign-up-here">
                                 <h3>Sign up</h3>
                                 <h2 class="h1">Here</h2>
                             </div>
@@ -249,7 +249,7 @@
                         <div class="col-md-12">
                             <div class="section-title-2 text-center">
                                 <h2>Lets break it down a little</h2>
-                                <p>Chariots is the best for  elit, sed do eiusmod tempor dolor sit amet conse.</p>
+                                <p>A car sharing hub created to ease travel and extra income for car owners.</p>
                             </div>
                         </div>
                     </div>

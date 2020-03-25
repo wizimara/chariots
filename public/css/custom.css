@@ -402,6 +402,46 @@
     padding: 80px 20px;
 	}
 
+	.elements-area .elements-tab-1 .nav > li > a {
+    position: relative;
+    display: block;
+    padding: 10px 10px;
+  }
+
+	.elements-tab-1 .nav {
+    padding-left: 0;
+  }
+
+	.experience .fa.fa-check {
+		display: none;
+	}
+
+	.experience .col-sm-11 {
+		display: list-item;
+	}
+
+	.experience.section-A {
+		margin-bottom: 70px;
+	}
+
+	.renter-area5,.owner-area5 {
+		padding-top: 100px;
+	}
+
+}
+
+@media (max-width: 768px) {
+	.slider-1-desc {
+		display: none;
+	}
+
+	.experience .fa.fa-check {
+		display: none;
+	}
+
+	.experience .col-sm-11 {
+		display: list-item;
+	}
 }
 
 @media (min-width: 767px) {
@@ -467,5 +507,61 @@
     margin-bottom: 15px;
 	}
 
+	.elements-area.ptb-115 {
+		padding: 50px 0;
+	}
+
+	#car_renters h3, #car_owners h3 {
+    font-size: 22px;
+	}
+
+	.renter-area6 img, .owner-area6 img {
+    margin-top: -80px !important;
+	}
+
+	.experience h5 img {display: none;}
+
+	.experience-inquiry-area .row h3 {
+		font-size: 19px;
+	}
+
+	.experience-inquiry-area.pb-115 {
+    padding-bottom: 80px;
+	}
+
+	.experience.section-A {
+		margin-bottom: 50px;
+	}
+
+	.copyright > p {
+    font-size: 10px;
+	}
+
+}
+
+@media (min-width: 414px) and (max-width: 768px) {
+	.slider-2 {
+    padding: 160px 0 180px;
+	}
+
+	.slider-1-title-2 {
+		font-size: 36px;
+		line-height: 1.2;
+	}
+
+	.book-house .col-sm-3 {
+		width: 40%;
+	}
+
+	.sign-up-here {
+		margin-left: 10px;
+	}
+
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+	.find-home-box .find-home-item {
+	    margin-bottom: 20px;
+	}
 
 }

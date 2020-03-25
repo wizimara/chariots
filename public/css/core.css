@@ -3,7 +3,7 @@
     Template:  Sheltek Real Estate HTML5 Template
     Author: http://devitems.com/
     Version: 1
-    Design and Developed by: http://devitems.com/ 
+    Design and Developed by: http://devitems.com/
 
 Note: This core style file includes all external plugins css file.
 
@@ -13,6 +13,7 @@ Note: This core style file includes all external plugins css file.
 @import url("montserrat.css");
 @import url("anson-font.css");
 @import url("cooperhewitt.css");
+@import url("cinzel-decorative-black.css");
 
 /*Icon*/
 @import url("font-awesome.min.css");

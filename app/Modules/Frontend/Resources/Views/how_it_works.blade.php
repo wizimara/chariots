@@ -32,7 +32,7 @@
 										<div class="col-md-1 col-md-offset-3"><img src="images/icons/sign-up-64px.png" alt="Signs up"></div>
 										<div class="col-md-6 mt-10">
 											<h4>Sign up</h4>
-											<p>Joining Chariot Rentals is a simple process and costs you nothing to create your account. You will need to upload scans of your driver's license or other relevant identity documents.</p>
+											<p>Joining Chariot Rentals is a simple process and is free of charge. All you need is to upload your driver’s license and national ID/Passport.</p>
 										</div>
 									</div>
 									<div class="col-md-12">
@@ -46,29 +46,29 @@
                                     <div class="col-md-1 col-md-offset-3"><img src="images/icons/make-booking_1.png" alt="Book a car"></div>
                                     <div class="col-md-6 mt-10">
                                       <h4>Make your booking</h4>
-                                      <p>Make your booking and once confirmed with your host, you are ready roll.</p>
+                                      <p>Confirm with your host and you're good to go.</p>
                                     </div>
                                   </div>
                                   <div class="col-md-12">
                                     <div class="col-md-1 col-md-offset-3"><img src="images/icons/road-trip_1.png" alt="hit the road"></div>
                                     <div class="col-md-6 mt-10">
                                       <h4>Hit the road</h4>
-                                      <p>You can pick up a car from an agreed location or have it delivered to you. Always keep in mind the usage rules set by your host.</p>
+                                      <p>Pick up the car or have it delivered to you. Always observe the guidelines set by the host.</p>
                                     </div>
                                   </div>
 								  <div class="col-md-12">
                                     <div class="col-md-1 col-md-offset-3"><img src="images/icons/hand_shake_1.png" alt="Return car"></div>
                                     <div class="col-md-6 mt-10">
                                       <h4>Return car</h4>
-                                      <p>Drop off the car, thank your host and be sure to give a review or any feedback of your experience.</p>
+                                      <p>Re-fuelled and in good condition. Be sure to give a review of your experience.</p>
                                     </div>
                                   </div>
 								  <!-- Find a Rental Call to action -->
 								  <div class="col-md-12 renter-cta">
 								      <div class="col-md-6">
                                         <div class="find-home-item renter-area5">
-											<p>Whether you're in the need for a small single seater or a car that fits your entire family.</p>
-											<p>You'll find it here on Chariots Rentals</p>
+											<p>Whether you’re in need of a small town car, family van or multi-purpose truck.</p>
+											<p>Chariot Rentals has got you covered.</p>
                                             <a class="button-1 btn-hover-1" href="#">Find a rental</a>
                                         </div>
 									  </div>
@@ -81,19 +81,19 @@
                                 </div>
 						<!-- Next Tab -->
                                 <div class="tab-pane fade" id="car_owners">
-									<h3 class="mb-40 mt-50 text-center">Your car on Chariot Rentals, the perfect pair</h3>
+									<h3 class="mb-40 mt-50 text-center">Joining as a host</h3>
 									<div class="col-md-12">
 										<div class="col-md-1 col-md-offset-3"><img src="images/icons/sign-up-64px.png" alt="Signs up"></div>
 										<div class="col-md-6 mt-10">
 											<h4>Sign up as a host</h4>
-											<p>Register for a free account as a host, upload valid identification documents. Your car will have to undergo a mandatory inspection from a certified Auto Repair Shop/Garage.</p>
+											<p>Register for a free account as a host. Upload required valid identification documents. Your car will have to undergo a mandatory inspection from a certified garage.</p>
 										</div>
 									</div>
 									<div class="col-md-12">
 										<div class="col-md-1 col-md-offset-3"><img src="images/icons/list-cars_1.png" alt="List your car"></div>
 										<div class="col-md-6 mt-10">
 											<h4>List your cars</h4>
-											<p>Log into your dashboard and list your car, upload real photos of your car’s interior and exterior, select or add key features it possesses and finally list your conditions for use if any.</p>
+											<p>Login, list your car and upload real photos of your car’s interior and exterior.</p>
 										</div>
 									</div>
                                   <div class="col-md-12">
@@ -107,7 +107,7 @@
                                     <div class="col-md-1 col-md-offset-3"><img src="images/icons/replies_1.png" alt="Respond to requests"></div>
                                     <div class="col-md-6 mt-10">
                                       <h4>Respond to requests</h4>
-                                      <p>Be on the look out for notifications of booking inquiries made for your scheduled cars. Respond to them in time and confirm inquiries that are satisfactory to your usage conditions.</p>
+                                      <p>Confirm inquiries that consent to your guidelines.</p>
                                     </div>
                                   </div>
 								  <div class="col-md-12">
@@ -121,12 +121,11 @@
 								  <div class="col-md-12 owner-cta">
 								      <div class="col-md-6">
                                         <div class="find-home-item owner-area5">
-											<p>Your car is an asset.</p>
-											<p>List your car today and join hundreds of car owners on Chariots gracefully raking in that extra cash.</p>
+											<p>List your car today and join hundreds of car owners on Chariot Rentals earning from their assets.</p>
                                             <a class="button-1 btn-hover-1" href="#">Register your car</a>
                                         </div>
 									  </div>
-									  <div class="col-md-6 ownerr-area6">
+									  <div class="col-md-6 owner-area6">
 										<img src="images/flat/Merc-E-Class.png">
 									  </div>
 								  </div>
@@ -163,7 +162,7 @@
                                           <div class="row">
                                               <h3>Safety tips</h3>
                                               <div class="col-sm-6">
-                                                  <div class="experience">
+                                                  <div class="experience section-A">
                                                       <h4>For drivers</h4>
                                                       <div><img src="images/blog/lady-driver.jpg" alt="Car Drivers"></div>
                                                       <i class="fa fa-check col-sm-1"></i><p class="col-sm-11">Ensure the car's insurane policy will be valid for the entire period of your reserved days.</p>
