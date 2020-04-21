@@ -40,7 +40,7 @@ class PublicController extends Controller
 		return view('frontend::cars_in_category',compact('vehicles'));
 	}
 
-	public function vehicle_detail($vehicle_id,$start_date,$end_date)
+	public function vehicle_detail($vehicle_id,$start_date=null,$end_date=null)
 	{
 		$vehicle = Vehicle::find($vehicle_id);
 		$vehicle_images = Carimage::where('vehicle_id',$vehicle->id)->get();
