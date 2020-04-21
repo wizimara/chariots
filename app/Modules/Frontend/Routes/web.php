@@ -11,6 +11,7 @@
 |
 */
 Route::get('/', 'PublicController@showHomepage')->name('home');
+Route::post('/','PublicController@search_for_vehicles')->name('vehicles.search');
 Route::group(['prefix' => 'frontend'], function () {
     Route::get('/', function () {
         dd('This is the Frontend module index page. Build something great!');
@@ -26,3 +27,8 @@ Route::get('get-help', function()
 {
    return view('frontend::get_help');
 });
+
+Route::get('vehicle-categories/{category_id}','PublicController@view_vehicles_in_category')->name('vehicles.in.category');
+Route::get('vehicle/{vehicle_id}/{start?}/{end?}','PublicController@vehicle_detail')->name('vehicle.detail');
+Route::post('vehicle/{vehicle_id}/{start?}/{end?}','PublicController@book_vehicle')->name('booking.save');
+Route::get('result','PublicController@show_notification')->name('frontend.notification');

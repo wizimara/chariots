@@ -61,6 +61,7 @@
                         <thead>
                             <tr>
                                 <th>Name</th>
+                                <th>Image path</th>
 																<th>	<i class="ace-icon fa fa-clock-o bigger-110 hidden-480"></i>Created</th>
 																<th><i class="ace-icon fa fa-clock-o bigger-110 hidden-480"></i>Update</th>
                                 <th>Action</th>
@@ -70,12 +71,13 @@
 
 													      @foreach ($cats as $record)
 			                            <tr>
-				                                <td>{{ $record->cat_name}} </td>
+                                        <td>{{ $record->cat_name}} </td>
+                                        <td>{{ $record->category_image}} </td>
 																				<td>{{ Carbon\Carbon::parse($record->created_at)->format('d-m-Y ') }}</td>
 																				<td>{{ Carbon\Carbon::parse($record->updated_at)->format('d-m-Y ') }}</td>
 																				<td>
 																					   <div class="hidden-sm hidden-xs action-buttons">
-																							  <a title="Edit" href="#" data-id="{{$record->id}}" data-cat_name="{{$record->cat_name}}" data-toggle="modal"  data-target="#editModal"><i class="fas fa-edit"></i></a>
+                                             <a title="Edit" href="#" data-id="{{$record->id}}" data-category_image="{{$record->category_image}}" data-cat_name="{{$record->cat_name}}" data-toggle="modal"  data-target="#editModal"><i class="fas fa-edit"></i></a>
 																								<a title="Delete" onclick="return confirm('Are you sure you want to delete this Category')" href="{{route('categories.delete',$record->id)}}"><span style="color:tomato"><i class="fas fa-trash-alt"></i></span></a>
 							                                </div>
 						                            </td>
@@ -116,7 +118,7 @@
               <div class="box-body">
                   <div class="row">
                     <div class="form-group col-md-12 ">
-                        <label for="exampleInputEmail1">Client</label>
+                        <label for="exampleInputEmail1">Category Name</label>
                         <input type="text"  name="cat_name" value="{{old('cat_name')}}" class="form-control {{ $errors->has('cat_name') ? ' is-invalid' : '' }}" id="exampleInputEmail1" placeholder="Enter Name"  >
                         @if ($errors->has('cat_name'))
                             <span class="invalid-feedback">
@@ -124,6 +126,15 @@
                             </span>
                         @endif
                     </div>
+                    <div class="form-group col-md-12 ">
+                      <label for="exampleInputEmail2">Category Image path</label>
+                      <input type="text"  name="category_image" value="{{old('category_image')}}" class="form-control {{ $errors->has('category_image') ? ' is-invalid' : '' }}" id="exampleInputEmail2" placeholder="/vehicle_categories/image.png"  >
+                      @if ($errors->has('category_image'))
+                          <span class="invalid-feedback">
+                              <strong>{{ $errors->first('category_image') }}</strong>
+                          </span>
+                      @endif
+                  </div>
                       <button type="submit" class="btn btn-primary">Save changes</button>
                   </div>
               </div>
@@ -169,6 +180,15 @@
                             </span>
                         @endif
                     </div>
+                    <div class="form-group col-md-12 ">
+                      <label for="exampleInputEmail2">Category Image path</label>
+                      <input type="text"  name="category_image" value="{{old('category_image')}}" class="form-control {{ $errors->has('category_image') ? ' is-invalid' : '' }}" id="CImage" placeholder="/vehicle_categories/image.png"  >
+                      @if ($errors->has('category_image'))
+                          <span class="invalid-feedback">
+                              <strong>{{ $errors->first('category_image') }}</strong>
+                          </span>
+                      @endif
+                  </div>
                       <button type="submit" class="btn btn-primary">Save changes</button>
                   </div>
               </div>
@@ -218,12 +238,14 @@ $(function () {
 						$('#editModal').on('show.bs.modal', function (event) {
 				 var button = $(event.relatedTarget) // Button that triggered the modal
 					var Name = button.data('cat_name') // Extract info from data-* attributes
+          var CImage = button.data('category_image')
 					var Id = button.data('id')
 					// If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
 					// Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
 					var modal = $(this)
 					modal.find('.modal-body #Id').val(Id)
 					modal.find('.modal-body #Name').val(Name)
+          modal.find('.modal-body #CImage').val(CImage)
 				});
   })
 </script>

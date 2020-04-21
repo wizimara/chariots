@@ -32,12 +32,13 @@
     <link href="{{asset('css/color/color-core.css')}}" data-style="styles" rel="stylesheet">
     <!-- User style -->
     <link rel="stylesheet" href="{{asset('css/custom.css')}}">
+    <link rel="stylesheet" href="{{asset('vendor/toastr/toastr.min.css')}}">
 
 
-    <!-- Modernizr JS -->
-    <script src="{{asset('js/vendor/modernizr-2.8.3.min.js')}}"></script>
-	<script src="{{asset('js/datetimepicker/js/bootstrap-datetimepicker.min.js')}}" type='text/javascript'></script>
-	<script src="{{asset('js/svg-with-js.min.css')}}" type='text/javascript'></script>
+   <!-- 
+    <script src="{{asset('js/svg-with-js.min.css')}}" type='text/javascript'></script>
+    
+   -->
 
 	<link href="{{asset('js/datetimepicker/css/bootstrap-datetimepicker.min.css')}}" rel='stylesheet' type='text/css'>
 
@@ -60,7 +61,7 @@
                         <div class="col-md-12 col-sm-12 col-xs-12">
                             <div class="logo">
                                 <a href="{{url('/')}}">
-                                    <img src="images/logo/chariot_rentals_logo.png" alt="Logo">
+                                    <img src="{{asset('images/logo/chariot_rentals_logo.png')}}" alt="Logo">
                                 </a>
                             </div>
                         </div>
@@ -108,15 +109,15 @@
                             <div class="col-md-12">
                                 <div class="sticky-logo">
                                     <a href="{{url('/')}}">
-                                      <img src="images/logo/chariot_rentals_logo.png" alt="Logo">
+                                        <img src="{{asset('images/logo/chariot_rentals_logo.png')}}" alt="Logo">
                                     </a>
                                 </div>
                                 <nav id="primary-menu">
                                     <ul class="main-menu text-center">
                                         <li><a href="{{url('how-it-works')}}">How it works</a></li>
                                         <li><a href="#">List your car</a></li>
-                                        <li><a href="#">Sign up</a></li>
-                                        <li><a href="#">Login</a></li>
+                                        <li><a href="/register">Sign up</a></li>
+                                        <li><a href="/login">Login</a></li>
                                         <li><a href="#">EN-UK</a>
                                             <ul class="drop-menu menu-right">
                                                 <li><a href="#">Français</a></li>
@@ -143,8 +144,8 @@
                                 <ul>
                                     <li><a href="{{url('how-it-works')}}">How it works</a></li>
                                     <li><a href="#">List your car</a></li>
-                                    <li><a href="#">Sign up</a></li>
-                                    <li><a href="#">Login</a></li>
+                                    <li><a href="/register">Sign up</a></li>
+                                    <li><a href="/login">Login</a></li>
                                     <li><a href="#">EN-UK</a>
                                         <ul>
                                             <li><a href="#">Français</a></li>
@@ -310,17 +311,24 @@
     <script src="{{asset('js/ajax-mail.js')}}"></script>
     <!-- All js plugins included in this file. -->
     <script src="{{asset('js/plugins.js')}}"></script>
+    <!-- Modernizr JS -->
+    <script src="{{asset('js/vendor/modernizr-2.8.3.min.js')}}"></script>
+	<script src="{{asset('js/datetimepicker/js/bootstrap-datetimepicker.min.js')}}" type='text/javascript'></script>
+    <script src="{{asset('vendor/toastr/toastr.min.js')}}" type='text/javascript'></script>
+    
     <!-- Main js file that contents all jQuery plugins activation. -->
+
     <script src="{{asset('js/main.js')}}"></script>
 	<!-- Date/Time Picker -->
 	<script type="text/javascript">
 		$(".form_datetime").datetimepicker({
-			format: "dd MM yyyy - hh:ii",
+			format: "dd MM yyyy hh:ii",
 			autoclose: true,
 			todayBtn: true,
-			pickerPosition: "bottom-left"
+			pickerPosition: "bottom-right"
 		});
-	</script>
+    </script>
+    @include('shared::partials.toast')
 
 </body>
 

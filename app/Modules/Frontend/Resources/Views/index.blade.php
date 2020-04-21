@@ -16,34 +16,53 @@
                         <div class="row">
 							<div class="col-sm-12 col-xs-12">
 								<h5>Find a rental car</h5>
-							</div>
+                            </div>
+                            <form method="post">
+                                @csrf
 							<div class="col-sm-12 col-xs-12">
 								<div class="col-md-3 col-sm-12 col-xs-12">
-									<div class="find-home-item">
-										<input type="text" name="location" placeholder="Your address / location">
-									</div>
+									<div class="find-home-items">
+										<input class="form-control {{ $errors->has('location') ? 'is-invalid' : '' }}" value="{{ old('location') }}" type="text" name="location" placeholder="Your address / location" required>
+                                    </div>
+                                    @if ($errors->has('location'))
+                                    <div class="invalid-feedback">
+                                        {{ $errors->first('location') }}
+                                    </div>
+                                    
+                                    @endif
 								</div>
 								<div class="col-md-3 col-sm-12 col-xs-12">
 									<div class="input-append date form_datetime">
-										<input size="16" type="text" value="" placeholder="From: Date / Time" readonly>
+										<input class="form-control {{ $errors->has('start_date') ? 'is-invalid' : '' }}" value="{{ old('start_date') }}" name="start_date" size="16" type="text" value="" placeholder="From: Date / Time" >
 										<span class="add-on"><i class="icon-th"></i></span>
-									</div>
+                                    </div>
+                                    @if ($errors->has('start_date'))
+                                    <div class="invalid-feedback">
+                                        {{ $errors->first('start_date') }}
+                                    </div>
+                                    @endif
 								</div>
 								<div class="col-md-3 col-sm-12 col-xs-12">
 									<div class="input-append date form_datetime">
-										<input size="16" type="text" value="" placeholder="Until: Date / Time" readonly>
+										<input class="form-control {{ $errors->has('end_date') ? 'is-invalid' : '' }}" value="{{ old('end_date') }}" name="end_date" size="16" type="text" value="" placeholder="Until: Date / Time" >
 										<span class="add-on"><i class="icon-th"></i></span>
-									</div>
+                                    </div>
+                                    @if ($errors->has('end_date'))
+                                    <div class="invalid-feedback">
+                                        {{ $errors->first('end_date') }}
+                                    </div>
+                                    @endif
 								</div>
 
 								<div class="col-md-2 col-sm-4 col-xs-12">
 									<div class="find-home-item">
-										<a class="button-1 btn-block btn-hover-1" href="#">SEARCH</a>
+										<button class="button-1 btn-block btn-hover-1" >SEARCH</button>
 									</div>
-								</div>
+                                </div>
+                            </form>
 							</div>
 							<div class="col-xs-12 reserve-bottom-info">
-								<h5 class="col-xs-6"><span class="total-cars">1,654</span> cars available</h5>
+								<h5 class="col-xs-6"><span class="total-cars">{{$vehicles_count}}</span> cars available</h5>
 								<p class="col-xs-6"><a href="#"><span class="pull-right"><i class="fa fa-search"></i> &nbsp;Advanced Search</span></a></p>
 							</div>
                         </div>
@@ -69,84 +88,23 @@
                     </div>
                     <div class="featured-flat car-categories">
                         <div class="row">
-                            <!-- flat-item -->
+                            @foreach ($vehicle_categories as $category)
+                                <!-- flat-item -->
                             <div class="col-md-4 col-sm-6 col-xs-12">
                                 <div class="flat-item">
                                     <div class="flat-item-image">
-                                        <a href="#"><img src="images/flat/Toyota_Corolla.jpg" alt=""></a>
+                                        <a href="{{route('vehicles.in.category',$category->id)}}"><img src="{{asset($category->category_image)}}" alt=""></a>
                                     </div>
                                     <div class="flat-item-info">
                                         <div class="flat-title-price">
-                                            <h5><a href="#">Saloons </a></h5>
+                                        <h5><a href="{{route('vehicles.in.category',$category->id)}}">{{$category->cat_name}} </a></h5>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <!-- flat-item -->
-                            <div class="col-md-4 col-sm-6 col-xs-12">
-                                <div class="flat-item">
-                                    <div class="flat-item-image">
-                                        <a href="#"><img src="images/flat/toyota-prado-sport-kit.jpg" alt=""></a>
-                                    </div>
-                                    <div class="flat-item-info">
-                                        <div class="flat-title-price">
-                                            <h5><a href="#">SUVs </a></h5>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- flat-item -->
-                            <div class="col-md-4 col-sm-6 col-xs-12">
-                                <div class="flat-item">
-                                    <div class="flat-item-image">
-                                        <a href="#"><img src="images/flat/nissan_minivan.jpg" alt=""></a>
-                                    </div>
-                                    <div class="flat-item-info">
-                                        <div class="flat-title-price">
-                                            <h5><a href="#">Vans / Minivans </a></h5>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- flat-item -->
-                            <div class="col-md-4 col-sm-6 col-xs-12">
-                                <div class="flat-item">
-                                    <div class="flat-item-image">
-                                        <a href="#"><img src="images/flat/Toyota-Tundra.jpg" alt=""></a>
-                                    </div>
-                                    <div class="flat-item-info">
-                                        <div class="flat-title-price">
-                                            <h5><a href="#">Pickup Trucks </a></h5>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- flat-item -->
-                            <div class="col-md-4 col-sm-6 col-xs-12">
-                                <div class="flat-item">
-                                    <div class="flat-item-image">
-                                        <a href="#"><img src="images/flat/2010_outback.jpg" alt=""></a>
-                                    </div>
-                                    <div class="flat-item-info">
-                                        <div class="flat-title-price">
-                                            <h5><a href="#">Wagons </a></h5>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- flat-item -->
-                            <div class="col-md-4 col-sm-6 col-xs-12">
-                                <div class="flat-item">
-                                    <div class="flat-item-image">
-                                        <a href="#"><img src="images/flat/golf-hatchback_368x235.jpg" alt=""></a>
-                                    </div>
-                                    <div class="flat-item-info">
-                                        <div class="flat-title-price">
-                                            <h5><a href="#">Hatchbacks </a></h5>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                                
+                            @endforeach
+                            
                         </div>
                     </div>
                 </div>

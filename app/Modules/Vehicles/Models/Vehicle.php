@@ -38,7 +38,7 @@ class Vehicle extends Model
 
    public function features()
     {
-        return $this->belongsToMany('App\Modules\Vehicles\Models\Feature','feature_vehicle');
+        return $this->belongsToMany('App\Modules\Vehicles\Models\Feature','feature_vehicle','vehicle_id','feature_id');
     }
     public function car_model()
     {
@@ -55,5 +55,9 @@ class Vehicle extends Model
     public function vehicle_images()
     {
         return $this->hasMany(Carimage::class,'vehicle_id');
+    }
+    public function pricing()
+    {
+        return $this->hasOne('App\Modules\Renting\Models\Pricing','vehicle_id');
     }
 }

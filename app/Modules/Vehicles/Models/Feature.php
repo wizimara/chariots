@@ -17,5 +17,10 @@ class Feature extends Model
   public static $messages = array(
    'feature_name.required' => 'Name required',
 
-   ); 
+   );
+   
+   public function vehicles()
+   {
+      return $this->belongsToMany('App\Modules\Vehicles\Vehicle','feature_vehicles','feature_id','vehicle_id');
+   }
 }

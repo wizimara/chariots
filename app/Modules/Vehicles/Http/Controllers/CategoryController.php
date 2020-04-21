@@ -50,14 +50,15 @@ class CategoryController extends Controller
     {
         $validation = request()->validate(Category::$rules);
            $category = New Category;
-           $category->cat_name =request()->input('cat_name');
+           $category->cat_name = $request->cat_name;
+           $category->category_image = $request->category_image;
            $category->save();
 
            $alerts = [
         'bustravel-flash'         => true,
         'bustravel-flash-type'    => 'success',
-        'bustravel-flash-title'   => 'Client Saving',
-        'bustravel-flash-message' => 'Account has successfully been saved',
+        'bustravel-flash-title'   => 'Category Saving',
+        'bustravel-flash-message' => 'Category has successfully been saved',
     ];
 
         return redirect()->route('categories.index')->with($alerts);
@@ -105,6 +106,7 @@ class CategoryController extends Controller
         $ids=request()->input('id');
         $category = Category::find($ids);
         $category->cat_name =request()->input('cat_name');
+        $category->category_image =request()->input('category_image');
         $category->save();
         $alerts = [
      'bustravel-flash'         => true,

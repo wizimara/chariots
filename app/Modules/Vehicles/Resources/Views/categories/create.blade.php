@@ -43,12 +43,19 @@
                     <div class="row">
 
                       <div class="form-group col-sm-12 {{ $errors->has('cat_name') ? ' has-error' : '' }} ">
-                        {{ Form::label('cat_name', trans('Name')) }}
-                         {{ Form::text('cat_name',null, array('class' => 'form-control')) }}
-
-                                @if ($errors->has('cat_name'))
+                        {{ Form::label('cat_name', 'Category Name')) }}
+                        {{ Form::text('cat_name',null, array('class' => 'form-control')) }}
+                        @if ($errors->has('cat_name'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('cat_name') }}</strong>
+                                    </span>
+                                @endif
+                        {{ Form::label('category_image', 'Category Image Url')) }}
+                        {{ Form::text('category_image',null, array('class' => 'form-control')) }}
+
+                                @if ($errors->has('category_image'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('category_image') }}</strong>
                                     </span>
                                 @endif
                       </div>
