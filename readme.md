@@ -1,8 +1,8 @@
 
 
-## About CAR RENTAL
+## About Chariots
 
-It is a car rental app for african market..blah
+It is a .......... app for african market..blah
 
 ## contributing
 
@@ -17,4 +17,4 @@ It is a car rental app for african market..blah
 
 ## License
 
-The car rental is licenced to WIZIMARA LTD..
+Chariots is licenced to WIZIMARA LTD..
