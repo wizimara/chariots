@@ -25,4 +25,9 @@ public static $messages = array(
  'payment_gateway.required' => 'Payment Gateway required',
 
  );
+
+ public function booking()
+ {
+     return $this->belongsTo(Confirmedrental::class,'confirmed_rentals_id');
+ }
 }

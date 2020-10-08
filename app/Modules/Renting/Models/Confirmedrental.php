@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Confirmedrental extends Model
 {
   protected $guarded = array('id');
-
+ protected $casts = [ 'pick_up_date' => 'datetime','pick_up_time' => 'datetime'];
  public static $rules = array(
   'booking_id' => 'required',
   'payment_status' => 'required',
