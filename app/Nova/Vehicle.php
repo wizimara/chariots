@@ -30,7 +30,10 @@ class Vehicle extends Resource
      *
      * @var string
      */
-    public static $title = 'no_plate';
+     public function title()
+ {
+     return $this->car_model->model_name.' - '.$this->no_plate;
+ }
 
     /**
      * The columns that should be searched.
@@ -81,7 +84,8 @@ class Vehicle extends Resource
            'Comprehensive' => 'Comprehensive',
            'Third party' => 'Third party',
             ]),
-            Date::make('Insurance Expiry Date','insurance_expiry')->format('YYYY-MM-DD'),
+            Date::make('Insurance Expiry Date','insurance_expiry')->format('DD-MM-YYYY')
+            ->pickerFormat('Y-m-d')->nullable(),
             Textarea::make('Description','vehicle_desc'),
             BelongsTo::make('Location','car_location', \App\Nova\Location::class),
             HasMany::make('Carimages','vehicle_images',\App\Nova\Carimage::class),

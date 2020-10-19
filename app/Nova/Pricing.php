@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\HasMany;
+use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
@@ -24,7 +25,10 @@ class Pricing extends Resource
      *
      * @var string
      */
-    public static $title = 'id';
+     public function title()
+ {
+     return $this->car->car_model->model_name.' - '.$this->car->no_plate;
+ }
 
     /**
      * The columns that should be searched.
@@ -45,7 +49,10 @@ class Pricing extends Resource
     {
         return [
             ID::make(__('ID'), 'id')->sortable(),
-            BelongsTo::make('Vihicle','car', \App\Nova\Vehicle::class),
+            BelongsTo::make('Vehicle','car', \App\Nova\Vehicle::class),
+            Text::make('Name', function () {
+         return $this->first_name.' '.$this->last_name;
+                 }),
             Number::make('Daily Rate','dailyrate'),
             Number::make('Daily Driver Rate','dailydriverrate'),
             Number::make('Self Drive Rate','selfdrive'),

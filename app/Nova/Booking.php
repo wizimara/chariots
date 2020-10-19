@@ -27,7 +27,10 @@ class Booking extends Resource
      *
      * @var string
      */
-    public static $title = 'id';
+     public function title()
+ {
+     return $this->vehicle_pricing->car->car_model->model_name.' - '.$this->vehicle_pricing->car->no_plate;
+ }
 
     /**
      * The columns that should be searched.
@@ -48,7 +51,7 @@ class Booking extends Resource
     {
         return [
             ID::make(__('ID'), 'id')->sortable(),
-            BelongsTo::make('Vihicle','vehicle_pricing', \App\Nova\Pricing::class),
+            BelongsTo::make('Vehicle','vehicle_pricing', \App\Nova\Pricing::class),
             BelongsTo::make('User','client', \App\Nova\User::class),
             DateTime::make('Date of Booking','date_of_booking')->format('DD-MM-YYYY')
             ->pickerFormat('Y-m-d')

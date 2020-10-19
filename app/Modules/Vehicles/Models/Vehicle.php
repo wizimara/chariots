@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Vehicle extends Model
 {
      protected $guarded = array('id');
+     protected $casts = [ 'insurance_expiry' => 'date:Y-m-d'];
   protected $fillable = array('vehicle_name','model_id','category_id','year_model','no_plate','color','passengers','tracker','status','transimition','insurance_type','insurance_expiry','vehicle_desc','user_id','location');
 
    public static $rules = array(

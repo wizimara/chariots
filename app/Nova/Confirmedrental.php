@@ -24,8 +24,10 @@ class Confirmedrental extends Resource
      *
      * @var string
      */
-    public static $title = 'id';
-
+     public function title()
+ {
+     return $this->booking->vehicle_pricing->car->car_model->model_name.' - '.$this->booking->vehicle_pricing->car->no_plate.' [ '.$this->booking->starting_date_of_use.' '.$this->booking->end_date_of_use. ']';
+ }
     /**
      * The columns that should be searched.
      *
