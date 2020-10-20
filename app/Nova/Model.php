@@ -23,7 +23,11 @@ class Model extends Resource
      *
      * @var string
      */
-    public static $title = 'model_name';
+     public function title()
+ {
+     return $this->model_name.' - '.$this->car_make->make_name;
+ }
+
 
     /**
      * The columns that should be searched.

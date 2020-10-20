@@ -61,4 +61,8 @@ class Vehicle extends Model
     {
         return $this->hasOne('App\Modules\Renting\Models\Pricing','vehicle_id');
     }
+    public function car_color()
+    {
+        return $this->belongsTo(Color::class,'color');
+    }
 }

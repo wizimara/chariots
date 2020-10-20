@@ -7,6 +7,7 @@ use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\File;
 use Laravel\Nova\Fields\Image;
+use Laravel\Nova\Fields\BelongsToMany;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
 class Category extends Resource
@@ -50,6 +51,12 @@ class Category extends Resource
                 ->sortable()
                 ->rules('required', 'max:255'),
             Image::make('Image','category_image')->path('category_images'),
+            BelongsToMany::make('Models','category_models')
+            ->actions(function () {
+             return [
+            new Actions\MarkAsActive,
+        ];
+    }),
         ];
     }
 

@@ -12,7 +12,7 @@ use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\Date;
 use Laravel\Nova\Fields\BelongsToMany;
-
+use Manmohanjit\BelongsToDependency\BelongsToDependency;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
 class Vehicle extends Resource
@@ -54,17 +54,19 @@ class Vehicle extends Resource
     {
         return [
             ID::make(__('ID'), 'id')->sortable(),
-            BelongsTo::make('Model','car_model', \App\Nova\Model::class),
-            BelongsTo::make('Category','car_category', \App\Nova\Category::class),
+          //  BelongsTo::make('Model','car_model', \App\Nova\Model::class),
+          BelongsTo::make('Category','car_category', \App\Nova\Category::class),
+           BelongsToDependency::make('Model','car_model',\App\Nova\Model::class)
+      ->dependsOn('category_models', 'category_id'),
+
+          //  BelongsTo::make('Category','car_category', \App\Nova\Category::class),
             Text::make('year','year_model')
                 ->sortable()
                 ->rules('required', 'max:255'),
             Text::make('Plate','no_plate')
                 ->sortable()
                 ->rules('required', 'max:255'),
-            Text::make('Color','color')
-                ->sortable()
-                ->rules('required', 'max:255'),
+                BelongsTo::make('Color','car_color', \App\Nova\Color::class),
             Text::make('Passengers','passengers')
                 ->sortable()
                 ->rules('required', 'max:255'),

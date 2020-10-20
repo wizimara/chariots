@@ -24,4 +24,5 @@ class Modelcars extends Model
 	 {
 			 return $this->belongsTo(Make::class,'make_id');
 	 }
+	 
 }
