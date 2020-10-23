@@ -49,9 +49,9 @@ class Vehicle extends Model
     {
         return $this->belongsTo(Location::class,'location');
     }
-    public function car_category()
+    public function car_make()
     {
-        return $this->belongsTo(Category::class,'category_id');
+        return $this->belongsTo(Make::class,'make_id');
     }
     public function vehicle_images()
     {

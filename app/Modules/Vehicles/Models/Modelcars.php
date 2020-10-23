@@ -24,5 +24,10 @@ class Modelcars extends Model
 	 {
 			 return $this->belongsTo(Make::class,'make_id');
 	 }
-	 
+
+	 public function category_models()
+		{
+				return $this->belongsToMany('App\Modules\Vehicles\Models\Category','model_category','model_id','category_id');
+		}
+
 }

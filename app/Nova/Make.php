@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
-
+use Laravel\Nova\Fields\HasMany;
 class Make extends Resource
 {
     /**
@@ -46,6 +46,7 @@ class Make extends Resource
             Text::make('Name','make_name')
                 ->sortable()
                 ->rules('required', 'max:255'),
+            HasMany::make('Models','make_models',\App\Nova\Model::class),
         ];
     }
 

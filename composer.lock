@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0a8b04736165cd79ad30397f17f0ef02",
+    "content-hash": "ea0f8e1f4690aeb74928cbc3337ec281",
     "packages": [
         {
             "name": "almasaeed2010/adminlte",
@@ -1929,7 +1929,10 @@
             "keywords": [
                 "admin",
                 "laravel"
-            ]
+            ],
+            "transport-options": {
+                "relative": true
+            }
         },
         {
             "name": "laravel/tinker",
@@ -7153,6 +7156,47 @@
             ],
             "description": "Composer plugin to merge multiple composer.json files",
             "time": "2017-04-25T02:31:25+00:00"
+        },
+        {
+            "name": "ynacorp/nova-swatches",
+            "version": "v1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ynacorp/nova-swatches.git",
+                "reference": "bb02ca3d8c7afba7b046c89f76cd9b163ce3aaf3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ynacorp/nova-swatches/zipball/bb02ca3d8c7afba7b046c89f76cd9b163ce3aaf3",
+                "reference": "bb02ca3d8c7afba7b046c89f76cd9b163ce3aaf3",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.1.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Yna\\NovaSwatches\\FieldServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Yna\\NovaSwatches\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "A beautiful color picking field for Laravel Nova.",
+            "keywords": [
+                "laravel",
+                "nova"
+            ],
+            "time": "2020-04-02T17:01:37+00:00"
         }
     ],
     "packages-dev": [
@@ -7933,7 +7977,6 @@
             "keywords": [
                 "tokenizer"
             ],
-            "abandoned": true,
             "time": "2019-09-17T06:23:10+00:00"
         },
         {

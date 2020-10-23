@@ -5,6 +5,7 @@ namespace App\Nova;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
+use Yna\NovaSwatches\Swatches;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
 class Color extends Resource
@@ -45,6 +46,7 @@ class Color extends Resource
             Text::make('Name','name')
                 ->sortable()
                 ->rules('required', 'max:255'),
+            Swatches::make('Color')->colors('text-advanced'),
         ];
     }
 

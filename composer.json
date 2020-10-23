@@ -25,7 +25,8 @@
         "php-junior/nova-logs": "^1.0",
         "spatie/laravel-permission": "^3.3",
         "vyuldashev/nova-permission": "^2.4",
-        "wikimedia/composer-merge-plugin": "^1.4"
+        "wikimedia/composer-merge-plugin": "^1.4",
+        "ynacorp/nova-swatches": "^1.0"
     },
     "require-dev": {
         "filp/whoops": "^2.0",

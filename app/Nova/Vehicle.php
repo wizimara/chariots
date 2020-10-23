@@ -54,13 +54,10 @@ class Vehicle extends Resource
     {
         return [
             ID::make(__('ID'), 'id')->sortable(),
-          //  BelongsTo::make('Model','car_model', \App\Nova\Model::class),
-          BelongsTo::make('Category','car_category', \App\Nova\Category::class),
+            BelongsTo::make('Make','car_make',\App\Nova\Make::class),
            BelongsToDependency::make('Model','car_model',\App\Nova\Model::class)
-      ->dependsOn('category_models', 'category_id'),
-
-          //  BelongsTo::make('Category','car_category', \App\Nova\Category::class),
-            Text::make('year','year_model')
+      ->dependsOn('car_make', 'make_id'),
+        Text::make('year','year_model')
                 ->sortable()
                 ->rules('required', 'max:255'),
             Text::make('Plate','no_plate')

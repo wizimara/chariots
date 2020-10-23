@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\BelongsTo;
+use Laravel\Nova\Fields\BelongsToMany;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
 class Model extends Resource
@@ -52,6 +53,12 @@ class Model extends Resource
                 ->sortable()
                 ->rules('required', 'max:255'),
             BelongsTo::make('Make','car_make', \App\Nova\Make::class),
+            BelongsToMany::make('Categories','category_models')
+            ->actions(function () {
+             return [
+            new Actions\MarkAsActive,
+        ];
+    }),
         ];
     }
 
