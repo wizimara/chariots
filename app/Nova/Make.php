@@ -91,6 +91,6 @@ class Make extends Resource
      */
     public function actions(Request $request)
     {
-        return [];
+      return [new Actions\ImportMakes];
     }
 }

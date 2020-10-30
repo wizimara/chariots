@@ -1,0 +1,214 @@
+<?php
+
+use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
+use App\Modules\Vehicles\Models\Make;
+use App\Modules\Vehicles\Models\Category;
+use App\Modules\Vehicles\Models\Modelcars;
+
+class ModelsTableSeeder extends Seeder
+{
+    /**
+     * Run the database seeds.
+     *
+     * @return void
+     */
+    public function run()
+    {
+
+      $make1  = factory(Make::class)->create(['make_name' => 'AC Cars']);
+      $make2  = factory(Make::class)->create(['make_name' => 'Acura']);
+      $make3  = factory(Make::class)->create(['make_name' => 'Alfa Romeo']);
+      $make4  = factory(Make::class)->create(['make_name' => 'Alpine']);
+      $make5  = factory(Make::class)->create(['make_name' => 'Alvis']);
+      $make6  = factory(Make::class)->create(['make_name' => 'AMC / Eagle']);
+      $make7  = factory(Make::class)->create(['make_name' => 'Anadol']);
+      $make8  = factory(Make::class)->create(['make_name' => 'ARO']);
+      $make9  = factory(Make::class)->create(['make_name' => 'Artega']);
+      $make10  = factory(Make::class)->create(['make_name' => 'Asia Motors']);
+      $make11  = factory(Make::class)->create(['make_name' => 'Aston Martin']);
+      $make12  = factory(Make::class)->create(['make_name' => 'Audi']);
+      $make13  = factory(Make::class)->create(['make_name' => 'Autobianchi']);
+      $make14  = factory(Make::class)->create(['make_name' => 'Auto-Union']);
+      $make15  = factory(Make::class)->create(['make_name' => 'Bentley']);
+      $make16  = factory(Make::class)->create(['make_name' => 'Bitter']);
+      $make17  = factory(Make::class)->create(['make_name' => 'BMW']);
+      $make18  = factory(Make::class)->create(['make_name' => 'Bond']);
+      $make19  = factory(Make::class)->create(['make_name' => 'Borgward (including Goliath and Lloyd)']);
+      $make20  = factory(Make::class)->create(['make_name' => 'Bristol']);
+      $make21  = factory(Make::class)->create(['make_name' => 'British Leyland']);
+      $make22  = factory(Make::class)->create(['make_name' => 'Austin-Healey']);
+      $make23  = factory(Make::class)->create(['make_name' => 'Austin / Rover']);
+      $make24  = factory(Make::class)->create(['make_name' => 'Bugatti']);
+      $make25  = factory(Make::class)->create(['make_name' => 'Buick']);
+      $make26  = factory(Make::class)->create(['make_name' => 'Cadillac']);
+      $make27  = factory(Make::class)->create(['make_name' => 'Caterham']);
+      $make28  = factory(Make::class)->create(['make_name' => 'Checker']);
+      $make29  = factory(Make::class)->create(['make_name' => 'Chevrolet']);
+      $make28  = factory(Make::class)->create(['make_name' => 'Chevrolet India']);
+      $make29  = factory(Make::class)->create(['make_name' => 'Chrysler']);
+      $make30  = factory(Make::class)->create(['make_name' => 'Citroën']);
+      $make31  = factory(Make::class)->create(['make_name' => 'Cizeta-Moroder']);
+      $make32  = factory(Make::class)->create(['make_name' => 'Dacia']);
+      $make33  = factory(Make::class)->create(['make_name' => 'Daewoo / Chevrolet Korea']);
+      $make34  = factory(Make::class)->create(['make_name' => 'DAF']);
+      $make35  = factory(Make::class)->create(['make_name' => 'Daihatsu']);
+      $make36  = factory(Make::class)->create(['make_name' => 'Datsun']);
+      $make37  = factory(Make::class)->create(['make_name' => 'Delahaye']);
+      $make38  = factory(Make::class)->create(['make_name' => 'DeLorean']);
+      $make39  = factory(Make::class)->create(['make_name' => 'DeSoto']);
+      $make40  = factory(Make::class)->create(['make_name' => 'De Tomaso']);
+      $make41  = factory(Make::class)->create(['make_name' => 'Dodge']);
+      $make42  = factory(Make::class)->create(['make_name' => 'Edsel']);
+      $make43  = factory(Make::class)->create(['make_name' => 'Eicher Polaris']);
+      $make44  = factory(Make::class)->create(['make_name' => 'Facel Vega']);
+      $make45  = factory(Make::class)->create(['make_name' => 'Ferrari']);
+      $make46  = factory(Make::class)->create(['make_name' => 'Fiat']);
+      $make47  = factory(Make::class)->create(['make_name' => 'Fiat do Brasil']);
+      $make48  = factory(Make::class)->create(['make_name' => 'Fiat India']);
+      $make49  = factory(Make::class)->create(['make_name' => 'Fisker']);
+      $make50  = factory(Make::class)->create(['make_name' => 'Ford America']);
+      $make51  = factory(Make::class)->create(['make_name' => 'Ford Australia']);
+      $make52  = factory(Make::class)->create(['make_name' => 'Ford do Brasil']);
+      $make53  = factory(Make::class)->create(['make_name' => 'Ford Europe']);
+      $make54  = factory(Make::class)->create(['make_name' => 'Ford India']);
+      $make55  = factory(Make::class)->create(['make_name' => 'FSO']);
+      $make56  = factory(Make::class)->create(['make_name' => 'GAZ']);
+      $make57  = factory(Make::class)->create(['make_name' => 'Geo']);
+      $make58  = factory(Make::class)->create(['make_name' => 'Glas']);
+      $make59  = factory(Make::class)->create(['make_name' => 'GMC']);
+      $make60  = factory(Make::class)->create(['make_name' => 'GTA Spano']);
+      $make61  = factory(Make::class)->create(['make_name' => 'Gumpert']);
+      $make62  = factory(Make::class)->create(['make_name' => 'Hillman']);
+      $make63  = factory(Make::class)->create(['make_name' => 'Hindustan']);
+      $make64  = factory(Make::class)->create(['make_name' => 'Holden']);
+      $make65  = factory(Make::class)->create(['make_name' => 'Honda']);
+      $make66  = factory(Make::class)->create(['make_name' => 'Honda India']);
+      $make67  = factory(Make::class)->create(['make_name' => 'Hudson']);
+      $make68  = factory(Make::class)->create(['make_name' => 'Hummer']);
+      $make69  = factory(Make::class)->create(['make_name' => 'Hyundai']);
+      $make70  = factory(Make::class)->create(['make_name' => 'IFA (Trabant, Wartburg, Barkas)']);
+      $make71  = factory(Make::class)->create(['make_name' => 'Infiniti']);
+      $make72  = factory(Make::class)->create(['make_name' => 'Innocenti']);
+      $make73  = factory(Make::class)->create(['make_name' => 'Isdera']);
+      $make74  = factory(Make::class)->create(['make_name' => 'ISO']);
+      $make75  = factory(Make::class)->create(['make_name' => 'Isuzu']);
+      $make76  = factory(Make::class)->create(['make_name' => 'Iveco']);
+      $make77  = factory(Make::class)->create(['make_name' => 'Jaguar']);
+      $make78  = factory(Make::class)->create(['make_name' => 'Jeep']);
+      $make79  = factory(Make::class)->create(['make_name' => 'Jensen']);
+      $make80  = factory(Make::class)->create(['make_name' => 'Kia']);
+      $make81  = factory(Make::class)->create(['make_name' => 'Koenigsegg']);
+      $make82  = factory(Make::class)->create(['make_name' => 'Lada']);
+      $make83  = factory(Make::class)->create(['make_name' => 'Lamborghini']);
+      $make84  = factory(Make::class)->create(['make_name' => 'Lancia']);
+      $make85  = factory(Make::class)->create(['make_name' => 'Land Rover']);
+      $make86  = factory(Make::class)->create(['make_name' => 'Lexus']);
+      $make87  = factory(Make::class)->create(['make_name' => 'Lincoln']);
+      $make88  = factory(Make::class)->create(['make_name' => 'Lotus']);
+      $make89  = factory(Make::class)->create(['make_name' => 'LTI']);
+      $make90  = factory(Make::class)->create(['make_name' => 'LuAZ']);
+      $make91  = factory(Make::class)->create(['make_name' => 'Lynx']);
+      $make92  = factory(Make::class)->create(['make_name' => 'Mahindra']);
+      $make93  = factory(Make::class)->create(['make_name' => 'Maruti']);
+      $make94  = factory(Make::class)->create(['make_name' => 'Maserati']);
+      $make95  = factory(Make::class)->create(['make_name' => 'Matra']);
+      $make96  = factory(Make::class)->create(['make_name' => 'Mazda']);
+      $make97  = factory(Make::class)->create(['make_name' => 'McLaren']);
+      $make98  = factory(Make::class)->create(['make_name' => 'Mercedes (including Maybach)']);
+      $make99  = factory(Make::class)->create(['make_name' => 'Mercury']);
+      $make100  = factory(Make::class)->create(['make_name' => 'Merkur']);
+      $make101  = factory(Make::class)->create(['make_name' => 'Messerschmitt']);
+      $make102  = factory(Make::class)->create(['make_name' => 'Mini']);
+      $make103  = factory(Make::class)->create(['make_name' => 'Mitsubishi']);
+      $make104  = factory(Make::class)->create(['make_name' => 'Monteverdi']);
+      $make105  = factory(Make::class)->create(['make_name' => 'Morgan']);
+      $make106  = factory(Make::class)->create(['make_name' => 'Messerschmitt']);
+      $make107  = factory(Make::class)->create(['make_name' => 'Mini']);
+      $make108  = factory(Make::class)->create(['make_name' => 'Mitsubishi']);
+      $make109  = factory(Make::class)->create(['make_name' => 'Monteverdi']);
+      $make110  = factory(Make::class)->create(['make_name' => 'Morgan']);
+      $make111  = factory(Make::class)->create(['make_name' => 'Moskvitch']);
+      $make112  = factory(Make::class)->create(['make_name' => 'Nash']);
+      $make113  = factory(Make::class)->create(['make_name' => 'Naza']);
+      $make114  = factory(Make::class)->create(['make_name' => 'Nissan']);
+      $make115  = factory(Make::class)->create(['make_name' => 'Nissan India']);
+      $make116  = factory(Make::class)->create(['make_name' => 'NSU']);
+      $make117  = factory(Make::class)->create(['make_name' => 'Oldsmobile']);
+      $make118  = factory(Make::class)->create(['make_name' => 'Oltcit / Oltena']);
+      $make119  = factory(Make::class)->create(['make_name' => 'Opel']);
+      $make120  = factory(Make::class)->create(['make_name' => 'Pagani']);
+      $make121  = factory(Make::class)->create(['make_name' => 'Panhard']);
+      $make122  = factory(Make::class)->create(['make_name' => 'Panoz']);
+      $make123  = factory(Make::class)->create(['make_name' => 'Panther']);
+      $make124  = factory(Make::class)->create(['make_name' => 'Perodua']);
+      $make125  = factory(Make::class)->create(['make_name' => 'Peugeot']);
+      $make126  = factory(Make::class)->create(['make_name' => 'Plymouth']);
+      $make127  = factory(Make::class)->create(['make_name' => 'Pontiac']);
+      $make128  = factory(Make::class)->create(['make_name' => 'Porsche']);
+      $make129  = factory(Make::class)->create(['make_name' => 'Premier']);
+      $make130  = factory(Make::class)->create(['make_name' => 'Proton']);
+      $make131  = factory(Make::class)->create(['make_name' => 'Reliant']);
+      $make132  = factory(Make::class)->create(['make_name' => 'Renault']);
+      $make133  = factory(Make::class)->create(['make_name' => 'Rolls-Royce']);
+      $make134  = factory(Make::class)->create(['make_name' => 'Saab']);
+      $make135  = factory(Make::class)->create(['make_name' => 'Saleen']);
+      $make136  = factory(Make::class)->create(['make_name' => 'Samsung']);
+      $make137  = factory(Make::class)->create(['make_name' => 'San']);
+      $make138  = factory(Make::class)->create(['make_name' => 'Santana']);
+      $make139  = factory(Make::class)->create(['make_name' => 'Saturn']);
+      $make140  = factory(Make::class)->create(['make_name' => 'Scion']);
+      $make141  = factory(Make::class)->create(['make_name' => 'Seat']);
+      $make142  = factory(Make::class)->create(['make_name' => 'Shelby SuperCars']);
+      $make143  = factory(Make::class)->create(['make_name' => 'Simca / Talbot']);
+      $make144  = factory(Make::class)->create(['make_name' => 'Skoda']);
+      $make145  = factory(Make::class)->create(['make_name' => 'Smart']);
+      $make146  = factory(Make::class)->create(['make_name' => 'Spyker']);
+      $make147  = factory(Make::class)->create(['make_name' => 'SsangYong']);
+      $make148  = factory(Make::class)->create(['make_name' => 'Standard-Triumph']);
+      $make149  = factory(Make::class)->create(['make_name' => 'Studebaker']);
+      $make150  = factory(Make::class)->create(['make_name' => 'Subaru']);
+      $make151  = factory(Make::class)->create(['make_name' => 'Suzuki']);
+      $make152  = factory(Make::class)->create(['make_name' => 'Tata']);
+      $make153  = factory(Make::class)->create(['make_name' => 'Tatra']);
+      $make154  = factory(Make::class)->create(['make_name' => 'Tesla']);
+      $make155  = factory(Make::class)->create(['make_name' => 'Toyota']);
+      $make156  = factory(Make::class)->create(['make_name' => 'Toyota India']);
+      $make157  = factory(Make::class)->create(['make_name' => 'UAZ']);
+      $make158  = factory(Make::class)->create(['make_name' => 'Vauxhall']);
+      $make159  = factory(Make::class)->create(['make_name' => 'Venturi']);
+      $make160  = factory(Make::class)->create(['make_name' => 'Volkswagen']);
+      $make161  = factory(Make::class)->create(['make_name' => 'Volkswagen do Brasil']);
+      $make162  = factory(Make::class)->create(['make_name' => 'Volkswagen South Africa']);
+      $make163  = factory(Make::class)->create(['make_name' => 'Volvo']);
+      $make164  = factory(Make::class)->create(['make_name' => 'Wiesmann']);
+      $make165  = factory(Make::class)->create(['make_name' => 'Zastava']);
+      $make166  = factory(Make::class)->create(['make_name' => 'ZAZ']);
+      $make167  = factory(Make::class)->create(['make_name' => 'ZIL']);
+
+      $category1  = factory(Category::class)->create(['cat_name' => 'Subcompact car']);
+      $category2  = factory(Category::class)->create(['cat_name' => 'Compact car']);
+      $category3  = factory(Category::class)->create(['cat_name' => 'Mid-size car']);
+      $category4  = factory(Category::class)->create(['cat_name' => 'Grand tourers']);
+      $category5  = factory(Category::class)->create(['cat_name' => 'Full-size car']);
+      $category6  = factory(Category::class)->create(['cat_name' => 'Roadster car']);
+      $category7  = factory(Category::class)->create(['cat_name' => 'Sports car']);
+      $category8  = factory(Category::class)->create(['cat_name' => 'Compact SUV']);
+      $category9  = factory(Category::class)->create(['cat_name' => 'Compact crossover']);
+      $category10  = factory(Category::class)->create(['cat_name' => 'Mid-size SUV']);
+      $category11  = factory(Category::class)->create(['cat_name' => 'Mid-size crossover SUV']);
+      $category12  = factory(Category::class)->create(['cat_name' => 'Luxury SUV']);
+      $category13  = factory(Category::class)->create(['cat_name' => 'Personal luxury car']);
+      $category14  = factory(Category::class)->create(['cat_name' => 'Full-size SUV']);
+      $category15  = factory(Category::class)->create(['cat_name' => 'Compact MPV']);
+      $category16  = factory(Category::class)->create(['cat_name' => 'Minivan']);
+      $category17  = factory(Category::class)->create(['cat_name' => 'Subcompact crossover SUV']);
+      $category18  = factory(Category::class)->create(['cat_name' => 'Compact crossover SUV']);
+
+      $model1  = factory(Modelcars::class)->create(['model_name' => '250 Isetta, 300 Isetta','make_id'=>$make17->id]);
+      $category1->category_models()->attach($model1->id);
+
+
+    }
+    }
+}
