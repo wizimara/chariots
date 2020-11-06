@@ -23,13 +23,17 @@ class ModelsImport implements ToCollection , WithHeadingRow
         {
           $make =Make::where('make_name',$row['make_name'])->first();
           $category =Category::where('cat_name',$row['cat_name'])->first();
-          $modelcar=New Modelcars();
-          $modelcar->model_name=$row['model_name'].' - '.$row['generation_number'];
-          $modelcar->make_id =$make->id??0;
-          $modelcar->save();
-          if($category){
-            $category->category_models()->attach($modelcar->id);
+          $models=Modelcars::where('model_name',$row['model_name'].' - '.$row['generation_number'])->first();
+          if(!$models){
+            $modelcar=New Modelcars();
+            $modelcar->model_name=$row['model_name'].' - '.$row['generation_number'];
+            $modelcar->make_id =$make->id??0;
+            $modelcar->save();
+            if($category){
+              $category->category_models()->attach($modelcar->id);
+            }
           }
+
 
         }
 

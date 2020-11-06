@@ -26,7 +26,7 @@ class Model extends Resource
      */
      public function title()
  {
-     return $this->model_name.' - '.$this->car_make->make_name;
+     return $this->model_name??''.' - '.$this->car_make->make_name;
  }
 
 

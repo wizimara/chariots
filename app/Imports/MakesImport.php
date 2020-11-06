@@ -19,9 +19,13 @@ class MakesImport implements ToCollection , WithHeadingRow
     {
         foreach ($rows as $row)
         {
+          $make =Make::where('make_name',$row['make_name'])->first();
+          if(!$make){
             Make::create([
                 'make_name' => $row['make_name'],
-            ]);
+            ]);  
+          }
+
         }
 
     }

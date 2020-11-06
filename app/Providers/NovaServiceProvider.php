@@ -84,7 +84,6 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
             //return $request->user()->getAllPermissions()->contains('name','ManagePermissions');
             return true;
           }),
-           new \OptimistDigital\MenuBuilder\MenuBuilder,
            new NovaImport,
         ];
     }

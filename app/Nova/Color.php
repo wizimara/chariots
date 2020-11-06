@@ -22,7 +22,10 @@ class Color extends Resource
      *
      * @var string
      */
-    public static $title = 'name';
+     public function title()
+ {
+     return $this->name;
+ }
 
     /**
      * The columns that should be searched.

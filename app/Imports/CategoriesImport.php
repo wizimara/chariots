@@ -19,10 +19,14 @@ class CategoriesImport implements ToCollection , WithHeadingRow
     {
         foreach ($rows as $row)
         {
+          $category =Category::where('cat_name',$row['cat_name'])->first();
+          if(!$category){
             Category::create([
                 'id'=>$row['id'],
                 'cat_name' => $row['cat_name'],
-            ]);
+            ]);  
+          }
+
         }
 
     }

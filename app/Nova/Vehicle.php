@@ -10,7 +10,7 @@ use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Fields\HasMany;
-use Laravel\Nova\Fields\Date;
+use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\BelongsToMany;
 use Manmohanjit\BelongsToDependency\BelongsToDependency;
 use Laravel\Nova\Http\Requests\NovaRequest;
@@ -62,28 +62,36 @@ class Vehicle extends Resource
                 ->rules('required', 'max:255'),
             Text::make('Plate','no_plate')
                 ->sortable()
-                ->rules('required', 'max:255'),
+                ->rules('required', 'max:255')
+                ->creationRules('unique:vehicles,no_plate')
+                ->updateRules('unique:vehicles,no_plate,{{resourceId}}'),
                 BelongsTo::make('Color','car_color', \App\Nova\Color::class),
             Text::make('Passengers','passengers')
                 ->sortable()
                 ->rules('required', 'max:255'),
             Select::make('Tracker','tracker')->options([
-            '1' => 'Yes',
-            '0' => 'No',
+            'Yes' => 'Yes',
+            'No' => 'No',
              ]),
              Select::make('Status','status')->options([
-             '1' => 'Yes',
-             '0' => 'No',
+             'Yes' => 'Yes',
+             'No' => 'No',
               ]),
             Select::make('Transmission','transimition')->options([
-            '1' => 'Manual',
-            '0' => 'Auto',
+            'Manual' => 'Manual',
+            'Auto' => 'Auto',
              ]),
+             Select::make('Fuel Type','fuel_type')->options([
+             'Petrol' => 'Petrol',
+             'Diesel' => 'Diesel',
+             'Hybrid' => 'Hybrid',
+             'Electric ' => 'Electric',
+              ]),
            Select::make('Insurance','insurance_type')->options([
            'Comprehensive' => 'Comprehensive',
            'Third party' => 'Third party',
             ]),
-            Date::make('Insurance Expiry Date','insurance_expiry')->format('DD-MM-YYYY')
+            DateTime::make('Insurance Expiry Date','insurance_expiry')->format('DD-MM-YYYY')
             ->pickerFormat('Y-m-d')->nullable(),
             Textarea::make('Description','vehicle_desc'),
             BelongsTo::make('Location','car_location', \App\Nova\Location::class),
