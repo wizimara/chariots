@@ -7,6 +7,7 @@ use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Image;
 use Laravel\Nova\Fields\BelongsTo;
+use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
 class Carimage extends Resource
@@ -44,11 +45,14 @@ class Carimage extends Resource
     {
         return [
             ID::make(__('ID'), 'id')->sortable(),
-            BelongsTo::make('Vihicle','vehicle_image', \App\Nova\Vehicle::class),
-            Text::make('Title','title')
-                ->sortable()
-                ->rules('required', 'max:255'),
+            BelongsTo::make('Vehicle','vehicle_image', \App\Nova\Vehicle::class),
+            Text::make('Caption','title')
+                ->sortable()->nullable(),
             Image::make('Image','url')->path('vehicles'),
+            Select::make('Featured','featured')->options([
+            'YES' => 'Yes',
+            'NO' => 'No',
+             ])->default('NO'),
         ];
     }
 
