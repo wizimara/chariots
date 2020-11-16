@@ -42,7 +42,7 @@ class Feature extends Resource
     public function fields(Request $request)
     {
         return [
-            ID::make(__('ID'), 'id')->sortable(),
+            ID::make(__('ID'), 'id')->sortable()->hideFromIndex(),
             Text::make('Name','feature_name')
                 ->sortable()
                 ->rules('required', 'max:255'),

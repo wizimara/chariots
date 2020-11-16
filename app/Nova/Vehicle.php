@@ -14,6 +14,7 @@ use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\BelongsToMany;
 use Manmohanjit\BelongsToDependency\BelongsToDependency;
 use Laravel\Nova\Http\Requests\NovaRequest;
+use Laravel\Nova\Fields\HasOne;
 
 class Vehicle extends Resource
 {
@@ -41,7 +42,7 @@ class Vehicle extends Resource
      * @var array
      */
     public static $search = [
-        'id',
+        'status','year_model','no_plate','color',
     ];
 
     /**
@@ -53,7 +54,10 @@ class Vehicle extends Resource
     public function fields(Request $request)
     {
         return [
-            ID::make(__('ID'), 'id')->sortable(),
+            ID::make(__('ID'), 'id')->sortable()->hideFromIndex(),
+            Boolean::make('Status','status')
+       ->trueValue('Yes')
+       ->falseValue('No'),
             BelongsTo::make('Make','car_make',\App\Nova\Make::class),
            BelongsToDependency::make('Model','car_model',\App\Nova\Model::class)
       ->dependsOn('car_make', 'make_id'),
@@ -69,30 +73,25 @@ class Vehicle extends Resource
             Text::make('Passengers','passengers')
                 ->sortable()
                 ->rules('required', 'max:255'),
-            Select::make('Tracker','tracker')->options([
-            'Yes' => 'Yes',
-            'No' => 'No',
-             ]),
-             Select::make('Status','status')->options([
-             'Yes' => 'Yes',
-             'No' => 'No',
-              ]),
+                Boolean::make('Tracker','tracker')
+           ->trueValue('Yes')
+           ->falseValue('No')->hideFromIndex(),
             Select::make('Transmission','transimition')->options([
             'Manual' => 'Manual',
             'Auto' => 'Auto',
-             ]),
+             ])->hideFromIndex(),
              Select::make('Fuel Type','fuel_type')->options([
              'Petrol' => 'Petrol',
              'Diesel' => 'Diesel',
              'Hybrid' => 'Hybrid',
              'Electric ' => 'Electric',
-              ]),
+              ])->hideFromIndex(),
            Select::make('Insurance','insurance_type')->options([
            'Comprehensive' => 'Comprehensive',
            'Third party' => 'Third party',
-            ]),
+            ])->hideFromIndex(),
             DateTime::make('Insurance Expiry Date','insurance_expiry')->format('DD-MM-YYYY')
-            ->pickerFormat('Y-m-d')->nullable(),
+            ->pickerFormat('Y-m-d')->nullable()->hideFromIndex(),
             Textarea::make('Description','vehicle_desc'),
             BelongsTo::make('Location','car_location', \App\Nova\Location::class),
             HasMany::make('Carimages','vehicle_images',\App\Nova\Carimage::class),
@@ -102,6 +101,7 @@ class Vehicle extends Resource
             new Actions\MarkAsActive,
         ];
     }),
+      HasOne::make('PRICING','pricing',\App\Nova\Pricing::class)
 
         ];
     }

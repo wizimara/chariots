@@ -48,10 +48,10 @@ class Pricing extends Resource
     public function fields(Request $request)
     {
         return [
-            ID::make(__('ID'), 'id')->sortable(),
+            ID::make(__('ID'), 'id')->sortable()->hideFromIndex(),
             BelongsTo::make('Vehicle','car', \App\Nova\Vehicle::class),
             Text::make('Name', function () {
-         return $this->first_name.' '.$this->last_name;
+         return $this->car->car_model->model_name.' '.$this->last_name;
                  }),
             Number::make('Daily Rate','dailyrate'),
             Number::make('Daily Driver Rate','dailydriverrate'),

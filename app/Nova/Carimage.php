@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Nova;
-
+use Laravel\Nova\Fields\Boolean;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
@@ -44,15 +44,14 @@ class Carimage extends Resource
     public function fields(Request $request)
     {
         return [
-            ID::make(__('ID'), 'id')->sortable(),
+            ID::make(__('ID'), 'id')->sortable()->hideFromIndex(),
             BelongsTo::make('Vehicle','vehicle_image', \App\Nova\Vehicle::class),
             Text::make('Caption','title')
-                ->sortable()->nullable(),
+                ->sortable()->nullable()->hideFromIndex(),
             Image::make('Image','url')->path('vehicles'),
-            Select::make('Featured','featured')->options([
-            'YES' => 'Yes',
-            'NO' => 'No',
-             ])->default('NO'),
+            Boolean::make('Featured','featured')
+       ->trueValue('YES')
+       ->falseValue('NO')->default('NO'),
         ];
     }
 

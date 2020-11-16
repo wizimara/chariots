@@ -43,7 +43,7 @@ class CarSchedule extends Resource
     public function fields(Request $request)
     {
         return [
-            ID::make(__('ID'), 'id')->sortable(),
+            ID::make(__('ID'), 'id')->sortable()->hideFromIndex(),
             BelongsTo::make('Vihicle','pricing', \App\Nova\Pricing::class),
             DateTime::make('Start Date','start_date')->format('DD-MM-YYYY')
             ->pickerFormat('Y-m-d')
