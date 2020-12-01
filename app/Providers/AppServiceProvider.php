@@ -7,10 +7,12 @@ use App\Modules\Renting\Models\Booking;
 use App\Modules\Vehicles\Models\Vehicle;
 use App\Modules\Vehicles\Models\Carimage;
 use App\Modules\Renting\Models\CarSchedule;
+use App\Modules\Renting\Models\GiftVoucher;
 use App\Observers\BookingObserver;
 use App\Observers\CarscheduleObserver;
 use App\Observers\VehicleObserver;
 use App\Observers\CarimageObserver;
+use App\Observers\GiftVoucherObserver;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -26,6 +28,7 @@ class AppServiceProvider extends ServiceProvider
         CarSchedule::observe(CarscheduleObserver::class);
         Vehicle::observe(VehicleObserver::class);
         Carimage::observe(CarimageObserver::class);
+        GiftVoucher::observe(GiftVoucherObserver::class);
     }
 
     /**

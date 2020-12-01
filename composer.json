@@ -10,6 +10,7 @@
         "caffeinated/modules": "^6.1.0",
         "doctrine/dbal": "^2.6",
         "doctrine/instantiator": "^1.2",
+        "epartment/nova-dependency-container": "^1.2",
         "facade/ignition": "^2.0",
         "fideloper/proxy": "^4.4",
         "intervention/image": "^2.4",

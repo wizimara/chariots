@@ -4,31 +4,23 @@ namespace App\Nova;
 
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\ID;
-use Laravel\Nova\Fields\BelongsTo;
-use Laravel\Nova\Fields\HasMany;
-use Laravel\Nova\Fields\Text;
-use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Http\Requests\NovaRequest;
-
-class Pricing extends Resource
+use Laravel\Nova\Fields\Text;
+class VoucherCategory extends Resource
 {
     /**
      * The model the resource corresponds to.
      *
      * @var string
      */
-    public static $model = \App\Modules\Renting\Models\Pricing::class;
-    public static $group = 'Renting';
-
+    public static $model = \App\Modules\Renting\Models\VoucherCategory::class;
+      public static $group = 'Renting';
     /**
      * The single value that should be used to represent the resource when being displayed.
      *
      * @var string
      */
-     public function title()
- {
-     return $this->car->car_model->model_name.' - '.$this->car->no_plate;
- }
+    public static $title = 'name';
 
     /**
      * The columns that should be searched.
@@ -48,19 +40,9 @@ class Pricing extends Resource
     public function fields(Request $request)
     {
         return [
-            ID::make(__('ID'), 'id')->sortable()->hideFromIndex(),
-            BelongsTo::make('Vehicle','car', \App\Nova\Vehicle::class),
-            Text::make('Name', function () {
-         return $this->car->car_model->model_name.' '.$this->last_name;
-       })->creationRules('unique:pricings,vehicle_id')
-                 ->updateRules('unique:pricings,vehicle_id,{{resourceId}}'),
-            Number::make('Daily Rate','dailyrate'),
-            Number::make('Daily Driver Rate','dailydriverrate'),
-            Number::make('Self Drive Rate','selfdrive'),
-            Number::make('Discount','discount'),
-            Number::make('Cost of Delivery','costofdelivery'),
-            HasMany::make('Discounts','discounts',\App\Nova\Discount::class),
-            HasMany::make('Car schedules','schedules',\App\Nova\CarSchedule::class),
+            ID::make(__('ID'), 'id')->sortable(),
+            Text::make('Name', 'name'),
+
         ];
     }
 
