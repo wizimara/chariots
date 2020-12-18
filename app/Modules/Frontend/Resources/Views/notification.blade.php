@@ -6,22 +6,22 @@
 
         <!-- Start page content -->
         <section id="page-content" class="page-wrapper">
-            
+
             <!-- FEATURED FLAT AREA START -->
             <div class="featured-flat-area pt-115 pb-60">
                 <div class="container">
                     <h2>Booking processing</h2>
                     <div class="featured-flat">
                         <div class="row">
-                            
-                            
-                            
+
+
+
                         </div>
                     </div>
                 </div>
             </div>
             <!-- FEATURED FLAT AREA END -->
-            
+
             <!-- SUBSCRIBE AREA START -->
             <div class="subscribe-area bg-blue call-to-bg plr-140 ptb-50">
                 <div class="container-fluid">
