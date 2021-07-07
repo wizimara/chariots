@@ -32,3 +32,5 @@ Route::get('vehicle-categories/{category_id}','PublicController@view_vehicles_in
 Route::get('vehicle/{vehicle_id}/{start?}/{end?}','PublicController@vehicle_detail')->name('vehicle.detail');
 Route::post('vehicle/{vehicle_id}/{start?}/{end?}','PublicController@book_vehicle')->name('booking.save');
 Route::get('result','PublicController@show_notification')->name('frontend.notification');
+Route::get('cart','PublicController@cart')->name('frontend.cart');
+Route::get('add-to-cart','PublicController@addToCart')->name('frontend.addToCart');

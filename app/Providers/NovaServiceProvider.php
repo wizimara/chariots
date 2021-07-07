@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Gate;
 use Laravel\Nova\Cards\Help;
 use Laravel\Nova\Nova;
 use Laravel\Nova\NovaApplicationServiceProvider;
+use Anaseqal\NovaImport\NovaImport;
 
 class NovaServiceProvider extends NovaApplicationServiceProvider
 {
@@ -79,10 +80,11 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     {
         return [
         (\Vyuldashev\NovaPermission\NovaPermissionTool::make())->canSee(function ($request) {
-            
+
             //return $request->user()->getAllPermissions()->contains('name','ManagePermissions');
             return true;
           }),
+           new NovaImport,
         ];
     }
 

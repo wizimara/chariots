@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Vehicle extends Model
 {
      protected $guarded = array('id');
+     protected $casts = [ 'insurance_expiry' => 'datetime'];
   protected $fillable = array('vehicle_name','model_id','category_id','year_model','no_plate','color','passengers','tracker','status','transimition','insurance_type','insurance_expiry','vehicle_desc','user_id','location');
 
    public static $rules = array(
@@ -48,9 +49,9 @@ class Vehicle extends Model
     {
         return $this->belongsTo(Location::class,'location');
     }
-    public function car_category()
+    public function car_make()
     {
-        return $this->belongsTo(Category::class,'category_id');
+        return $this->belongsTo(Make::class,'make_id');
     }
     public function vehicle_images()
     {
@@ -59,5 +60,9 @@ class Vehicle extends Model
     public function pricing()
     {
         return $this->hasOne('App\Modules\Renting\Models\Pricing','vehicle_id');
+    }
+    public function car_color()
+    {
+        return $this->belongsTo(Color::class,'color');
     }
 }

@@ -25,7 +25,7 @@ class PublicController extends Controller
 {
 	public function __construct()
 	{
-		$this->middleware('auth')->only('book_vehicle');
+		//$this->middleware('auth')->only('book_vehicle');
 	}
     public function showHomepage()
 	{
@@ -34,8 +34,10 @@ class PublicController extends Controller
 		return view('frontend::index',compact('vehicle_categories','vehicles_count'));
 	}
 	public function view_vehicles_in_category(Request $request,$category_id)
-	{		
-		$vehicles = Vehicle::where('category_id',$category_id)->paginate(10);
+	{
+		$Category =Category::find($category_id);
+		$models =$Category->category_models()->pluck('model_id');
+		$vehicles = Vehicle::WhereIn('model_id',$models)->paginate(10);
 
 		return view('frontend::cars_in_category',compact('vehicles'));
 	}
@@ -66,17 +68,17 @@ class PublicController extends Controller
 			"end_date" => "required|date|after:yesterday",
 		]);
 
-		//search in the car_schedules 
+		//search in the car_schedules
 		$start_date = Carbon::createFromFormat('d M Y H:i',$request->start_date)->toDateString();
 		$end_date = Carbon::createFromFormat('d M Y H:i',$request->end_date)->toDateString();
-		
-		
-		
+
+
+
 		$available_schedules = CarSchedule::where([
 			['start_date','<=',$start_date],
 			['end_date','>=',$end_date],
 		])->paginate(10);
-		
+
 		// remove the ones that are booked
 		foreach($available_schedules as $key=> $schedule)
 		{
@@ -100,8 +102,8 @@ class PublicController extends Controller
 		$validator = Validator::make($request->all(), [
             'start_date' => 'required',
             'end_date' => 'required',
-		]);	
-		
+		]);
+
 		if ($validator->fails()) {
 			$alerts = [
 				'bustravel-flash'         => true,
@@ -109,15 +111,17 @@ class PublicController extends Controller
 				'bustravel-flash-title'   => 'Booking Saving',
 				'bustravel-flash-message' => 'There are errors in your form',
 				];
-				
+
             	return back()
                         ->withErrors($validator)
 						->withInput()
 						->with($alerts);
         }
 //verify that this period is not booked
-		$start_date = Carbon::createFromFormat('d M Y H:i',$request->start_date)->toDateString();
-		$end_date = Carbon::createFromFormat('d M Y H:i',$request->end_date)->toDateString();
+$start_date = new \Carbon\Carbon($request->start_date);
+$end_date = new \Carbon\Carbon($request->end_date);
+		//$start_date = Carbon::createFromFormat('d M Y H:i',$request->start_date)->toDateString();
+	//	$end_date = Carbon::createFromFormat('d M Y H:i',$request->end_date)->toDateString();
 		$already_booked = Booking::where([
 			['starting_date_of_use','<=',$start_date],
 			['end_date_of_use','>=',$end_date],
@@ -136,7 +140,7 @@ class PublicController extends Controller
 				'bustravel-flash-title'   => 'Booking Saving',
 				'bustravel-flash-message' => 'There are errors in your form',
 				];
-				
+
             	return back()
                         ->withErrors($validator)
 						->withInput()
@@ -155,56 +159,78 @@ class PublicController extends Controller
 		$days =$interval->format('%a')+1;
 
 		}
-		
+
 		$setting=Setting::where('key_name','trip_fee_percentage')->first();
-		$price=  Pricing::find($request->vehicle_id);
+		$price=  Pricing::where('vehicle_id',$request->vehicle_id)->first();
 		$totalcost=0;
 		if($request->driver_option==1){
 		$totalcost= (($price->dailyrate*$days)+($price->selfdrive*$days)+$price->costofdelivery) - ($price->discount);
 		$tripfee =$totalcost*$setting->key_value;
 		$totalamount=$totalcost+$tripfee;
+		$selfdrive =$price->selfdrive*$days;
 		}else{
 		$totalcost= (($price->dailyrate*$days)+($price->dailydriverrate*$days)+$price->costofdelivery) - ($price->discount);
 		$tripfee =$totalcost*$setting->key_value;
 		$totalamount=$totalcost+$tripfee;
+		$driverrate =$price->dailydriverrate*$days;
 		}
-		$booking = New Booking;
-		$booking->vehicle_id = $request->vehicle_id;
-		$booking->user_id = Auth::user()->id;
-		$booking->booking_status = 'Booked';
-		$booking->date_of_booking = date('Y-m-d');
-		$booking->starting_date_of_use = $start_date;
-		$booking->end_date_of_use = $end_date;
-		$booking->driver_option = 0;
-		$booking->totalcost = $totalamount;
-		$booking->booked_by = Auth::user()->id;
-		$booking->save();
-
-
-		$booking_price = New BookingPrice;
-		$booking_price->booking_id=$booking->id;
-		$booking_price->cost1=$price->dailyrate;
-		$booking_price->cost2=$price->dailydriverrate ;
-		$booking_price->cost3=$price->selfdrive;
-		$booking_price->cost4=$price->discount;
-		$booking_price->cost5=$price->costofdelivery ;
-		$booking_price->cost6=$request->booking_discount ?? 0;
-		$booking_price->save();
+		$cart = [
+			      "vehicle_id" =>$request->vehicle_id,
+						"dailyrate" =>$price->dailyrate,
+						"selfdriverate" =>$price->selfdrive,
+						"dailydriverrate" =>$price->dailydriverrate,
+						"driver_option" =>$request->driver_option,
+						"selfdrive" =>$selfdrive??0,
+						"driverrate" =>$driverrate??0,
+						"days" =>$days,
+						"totalcost" => $totalcost,
+						"tripfee" => $tripfee,
+						"start_date" => $start_date,
+						"end_date" => $end_date,
+						"totalamount" => $totalamount
+];
+       session()->put('cart', $cart);
+		// $booking = New Booking;
+		// $booking->vehicle_id = $request->vehicle_id;
+		// $booking->user_id = Auth::user()->id;
+		// $booking->booking_status = 'Booked';
+		// $booking->date_of_booking = date('Y-m-d');
+		// $booking->starting_date_of_use = $start_date;
+		// $booking->end_date_of_use = $end_date;
+		// $booking->driver_option = 0;
+		// $booking->totalcost = $totalamount;
+		// $booking->booked_by = Auth::user()->id;
+		// $booking->save();
+		//
+		//
+		// $booking_price = New BookingPrice;
+		// $booking_price->booking_id=$booking->id;
+		// $booking_price->cost1=$price->dailyrate;
+		// $booking_price->cost2=$price->dailydriverrate ;
+		// $booking_price->cost3=$price->selfdrive;
+		// $booking_price->cost4=$price->discount;
+		// $booking_price->cost5=$price->costofdelivery ;
+		// $booking_price->cost6=$request->booking_discount ?? 0;
+		// $booking_price->save();
 
 		$alerts = [
 			'bustravel-flash'         => true,
 			'bustravel-flash-type'    => 'success',
 			'bustravel-flash-title'   => 'Booking Saving',
-			'bustravel-flash-message' => $booking->id .' has successfully been saved',
+			'bustravel-flash-message' => ' has successfully been saved',
 			];
-			
-			return redirect()->route('frontend.notification')->with($alerts);
-			
-		
+
+			return redirect()->route('frontend.cart')->with($alerts);
+
+
 	}
 
 	public function show_notification()
 	{
 		return view('frontend::notification');
+	}
+	public function cart()
+	{
+		return view('frontend::cart');
 	}
 }

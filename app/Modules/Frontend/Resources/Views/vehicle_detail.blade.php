@@ -18,22 +18,22 @@
                             <div class="tab-content">
                                 @foreach($vehicle_images as $vehicle_image)
                                     <div role="tabpanel" class="tab-pane fade in active" id="pro-1">
-                                        <a href="{{url('/'.$vehicle_image->url) }}" data-lightbox="image-1" data-title="Sheltek Properties - 1">
-                                            <img src="{{url('/'.$vehicle_image->url) }}" alt="">
+                                        <a href="{{asset('storage/'.$vehicle_image->url) }}" data-lightbox="image-1" data-title="Sheltek Properties - 1">
+                                            <img src="{{asset('storage/'.$vehicle_image->url) }}" alt="">
                                         </a>
                                     </div>
                                 @endforeach
-                                
+
                             </div>
                         </div>
                         <div class="pro-details-carousel">
                             @foreach($vehicle_images as $index=> $vehicle_image)
                                 <div class="pro-details-item">
-                                <a href="#pro-{{$index}}" data-toggle="tab"><img src="{{url('/'.$vehicle_image->url) }}" alt=""></a>
+                                <a href="#pro-{{$index}}" data-toggle="tab"><img src="{{asset('storage/'.$vehicle_image->url )}}" alt=""></a>
                                 </div>
                             @endforeach
-                            
-                        </div>                           
+
+                        </div>
                     </div>
                     <!-- pro-details-short-info -->
                     <div class="pro-details-short-info mb-60">
@@ -47,8 +47,8 @@
                                             <li><img src="images/icons/6.png" alt="">{{$vehicle->car_model->model_name}}</li>
                                             <li><img src="images/icons/7.png" alt="">{{$vehicle->year_model}}</li>
                                             <li><img src="images/icons/13.png" alt="">Insurance: {{$vehicle->insurance_type}}</li>
-                                            
-                                            <li>daily rate: UGX {{$vehicle->pricing->dailyrate}}</li>
+
+                                            <li>daily rate: UGX {{$vehicle->pricing->dailyrate??0}}</li>
                                         </ul>
                                         <p><img src="images/icons/location.png" alt="">{{$vehicle->location->location_name ?? ''}}</p>
                                     </div>
@@ -61,7 +61,7 @@
                                         <ul class="amenities-list">
                                             @foreach($vehicle_features as $vfeature)
                                             <li>{{$vfeature->feature_name}}</li>
-                                            
+
                                             @endforeach
                                         </ul>
                                     </div>
@@ -75,9 +75,10 @@
                                 <form method="post">
                                 <input type="hidden" name="vehicle_id" value="{{$vehicle->id}}">
                                     @csrf
-                                    <div class="col-md-3 col-sm-12 col-xs-12">
-                                        <div class="input-append date form_datetime">
-                                            <input class="form-control {{ $errors->has('start_date') ? 'is-invalid' : '' }}" value="{{ $formatted_start_date ?? old('start_date') }}" name="start_date" size="16" type="text" value="" placeholder="From: Date / Time" >
+                                    <div class="form-group col-md-3 col-sm-12 col-xs-12">
+                                         <label for="exampleInputEmail1">Start Date</label>
+                                        <div class="input-append ">
+                                            <input class="form-control {{ $errors->has('start_date') ? 'is-invalid' : '' }}" value="{{ $formatted_start_date ?? old('start_date') }}" name="start_date" size="16" type="date" value="" placeholder="From: Date / Time" >
                                             <span class="add-on"><i class="icon-th"></i></span>
                                         </div>
                                         @if ($errors->has('start_date'))
@@ -86,9 +87,10 @@
                                         </div>
                                         @endif
                                     </div>
-                                    <div class="col-md-3 col-sm-12 col-xs-12">
-                                        <div class="input-append date form_datetime">
-                                            <input class="form-control {{ $errors->has('end_date') ? 'is-invalid' : '' }}" value="{{ $formatted_end_date ?? old('end_date') }}" name="end_date" size="16" type="text" value="" placeholder="Until: Date / Time" >
+                                    <div class=" form-group col-md-3 col-sm-12 col-xs-12">
+                                       <label for="exampleInputEmail1">End Date</label>
+                                        <div class="input-append  date">
+                                            <input class="form-control {{ $errors->has('end_date') ? 'is-invalid' : '' }}" value="{{ $formatted_end_date ?? old('end_date') }}" name="end_date" size="16" type="date" value="" placeholder="Until: Date / Time" >
                                             <span class="add-on"><i class="icon-th"></i></span>
                                         </div>
                                         @if ($errors->has('end_date'))
@@ -97,10 +99,15 @@
                                         </div>
                                         @endif
                                     </div>
+                                    <div class=" form-group col-md-3 col-sm-12 col-xs-12">
+                                      <label for="exampleInputEmail1">Drive Option</label><br>
+              												<label class="radio-inline"><input type="radio"  name="driver_option" value="0" checked> Driver</label>
+              												<label class="radio-inline"><input type="radio"  name="driver_option" value="1"> Self Drive</label>
+                                    </div>
                                     <button class="button-1 btn-block btn-hover-1">Book this vehicle</button>
                                 </form>
                         </div>
-                        
+
                         <p><span data-placement="top" data-toggle="tooltip" data-original-title="The name you can trust" class="tooltip-content">Sheltek</span> is  ipsum dolor sit amet, </p>
                     </div>
                     <!-- pro-details-feedback -->
@@ -196,26 +203,26 @@
                         <form method="post" action="{{route('vehicles.search')}}">
                                 @csrf
                             <div class="col-md-6 col-sm-3 col-xs-12">
-                                <div class="find-home-item custom-select">                  
+                                <div class="find-home-item custom-select">
                                     <select class="selectpicker" title="Make" data-hide-disabled="true" data-live-search="true">
                                         <optgroup disabled="disabled" label="disabled">
                                             <option>Hidden</option>
                                         </optgroup>
-                                        @foreach($vehicle_makes as $make )                                      
-                                        
+                                        @foreach($vehicle_makes as $make )
+
                                             <option value="{{$make->id}}">{{$make->make_name}}</option>
-                                        
+
                                         @endforeach
                                     </select>
                                 </div>
                             </div>
                             <div class="col-md-6 col-sm-3 col-xs-12">
-                                <div class="find-home-item custom-select">                  
+                                <div class="find-home-item custom-select">
                                     <select class="selectpicker" title="Model" data-hide-disabled="true" data-live-search="true">
-                                        
-                                        
+
+
                                     </select>
-                                </div> 
+                                </div>
                             </div>
                             <div class="col-md-6 col-sm-3 col-xs-12">
                                 <div class="find-home-item">
@@ -228,18 +235,18 @@
                                 </div>
                             </div>
                             <div class="col-md-6 col-sm-3 col-xs-12">
-                                <div class="find-home-item  custom-select">                  
+                                <div class="find-home-item  custom-select">
                                     <select name="location" class="selectpicker" title="Location" data-hide-disabled="true">
                                         @foreach($locations as $location)
                                         <option value="{{$location->id}}">{{$location->location_name}}</option>
                                         @endforeach
                                     </select>
-                                </div> 
+                                </div>
                             </div>
                             <div class="col-md-6 col-sm-3 col-xs-12">
-                                <div class="find-home-item custom-select">                  
+                                <div class="find-home-item custom-select">
                                     <select multiple class="selectpicker" title="Features" data-hide-disabled="true">
-                                       
+
                                         @foreach($features as $feature)
                                             <option value="{{$feature->id}}">{{$feature->feature_name}}</option>
                                         @endforeach
@@ -254,8 +261,8 @@
                                             <div class="shop-filter">
                                                 <div class="price_filter">
                                                     <div class="price_slider_amount">
-                                                        <input type="submit"  value="Your range :"/> 
-                                                        <input type="text" id="amount" name="price"  placeholder="Add Your Price" /> 
+                                                        <input type="submit"  value="Your range :"/>
+                                                        <input type="text" id="amount" name="price"  placeholder="Add Your Price" />
                                                     </div>
                                                     <div id="slider-range"></div>
                                                 </div>
@@ -272,8 +279,8 @@
                         </form>
                         </div>
                     </aside>
-                    
-                    
+
+
                 </div>
             </div>
         </div>

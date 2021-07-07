@@ -83,7 +83,8 @@
 																			$image2 = $record->vehicle_images()->first();
 
 																			?>
-                                    <td>@if($record->status==1)
+                                    <td>
+                                      @if($record->status==1)
                                       <span class="badge badge-success"><i class="fas fa-check"></i></span>
                                     @else
                                     <span class="badge badge-danger"><i class="fas fa-times"></i></span>

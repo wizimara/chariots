@@ -44,4 +44,8 @@ public function car_booked_dates()
 {
     return $this->hasMany(BookedDate::class,'pricing_id');
 }
+public function discounts()
+{
+    return $this->hasMany(Discount::class,'pricing_id');
+}
 }

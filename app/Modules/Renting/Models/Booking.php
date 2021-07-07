@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Booking extends Model
 {
   protected $guarded = array('id');
+  protected $casts = [ 'date_of_booking' => 'datetime','starting_date_of_use' => 'datetime','end_date_of_use' => 'datetime'];
 protected $fillable = array('vehicle_id','user_id','booking_status','date_of_booking'
 ,'starting_date_of_use','end_date_of_use','driver_option','totalcost','booked_by'
 );
@@ -40,6 +41,10 @@ public static $messages = array(
  public function client()
  {
      return $this->belongsTo('App\Modules\Users\Models\User','user_id');
+ }
+ public function booked_by_user()
+ {
+     return $this->belongsTo('App\Modules\Users\Models\User','booked_by');
  }
  public function car_booked_dates()
  {
